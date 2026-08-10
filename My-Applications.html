@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications | Unicorn Innovation Hill Limited</title>
+    <meta name="description" content="View and manage your job applications with Unicorn Innovation Hill Limited.">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="My-Applications.css">
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         MOBILE MENU BUTTON
+    ========================================== -->
+
+    <button class="menu-toggle" id="menuToggle">
+
+        <i class="fa-solid fa-bars"></i>
+
+    </button>
+
+
+    <!-- ==========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <div class="logo-circle">
+                UI
+            </div>
+
+            <div class="logo-text">
+
+                <h2>Unicorn Innovation</h2>
+
+                <p>Hill Limited</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENU -->
+
+        <ul class="sidebar-menu">
+
+            <li>
+
+                <a href="Applicant-dashboard.html">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="Applicant-Profile.html">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    My Profile
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="Jobs.html">
+
+                    <i class="fa-solid fa-briefcase"></i>
+
+                    Available Jobs
+
+                </a>
+
+            </li>
+
+
+            <li class="active">
+
+                <a href="My-Applications.html">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    My Applications
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="Upload Cv.html">
+
+                    <i class="fa-solid fa-upload"></i>
+
+                    Upload CV
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="Settings.html">
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    Settings
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="Applicant-login.html">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    Logout
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-content">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <div>
+
+                <span>APPLICATION CENTER</span>
+
+                <h1>My Applications</h1>
+
+                <p>
+                    Track and manage all your job applications
+                    from one place.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             APPLICATION STATISTICS
+        ========================================== -->
+
+        <div class="application-stats">
+
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-file-circle-check"></i>
+
+                <div>
+
+                    <h2>7</h2>
+
+                    <p>Total Applications</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-clock"></i>
+
+                <div>
+
+                    <h2>3</h2>
+
+                    <p>Pending</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <div>
+
+                    <h2>2</h2>
+
+                    <p>Accepted</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-circle-xmark"></i>
+
+                <div>
+
+                    <h2>2</h2>
+
+                    <p>Rejected</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             APPLICATIONS TABLE
+        ========================================== -->
+
+        <div class="applications-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>Application History</h2>
+
+                    <p>
+                        A complete list of your submitted applications.
+                    </p>
+
+                </div>
+
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        All Applications
+                    </option>
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="accepted">
+                        Accepted
+                    </option>
+
+                    <option value="rejected">
+                        Rejected
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="table-container">
+
+                <table class="applications-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Application ID</th>
+
+                            <th>Position</th>
+
+                            <th>Company</th>
+
+                            <th>Date Applied</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="applicationsBody">
+
+
+                        <tr data-status="pending">
+
+                            <td>
+                                #UIH-001
+                            </td>
+
+                            <td>
+
+                                <strong>
+                                    Frontend Developer
+                                </strong>
+
+                            </td>
+
+                            <td>
+                                Unicorn Innovation
+                            </td>
+
+                            <td>
+                                02 Aug 2026
+                            </td>
+
+                            <td>
+
+                                <span class="status pending">
+                                    Pending
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button class="view-btn">
+                                    View
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr data-status="accepted">
+
+                            <td>
+                                #UIH-002
+                            </td>
+
+                            <td>
+
+                                <strong>
+                                    Java Developer
+                                </strong>
+
+                            </td>
+
+                            <td>
+                                Unicorn Innovation
+                            </td>
+
+                            <td>
+                                28 Jul 2026
+                            </td>
+
+                            <td>
+
+                                <span class="status accepted">
+                                    Accepted
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button class="view-btn">
+                                    View
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr data-status="rejected">
+
+                            <td>
+                                #UIH-003
+                            </td>
+
+                            <td>
+
+                                <strong>
+                                    UI/UX Designer
+                                </strong>
+
+                            </td>
+
+                            <td>
+                                Unicorn Innovation
+                            </td>
+
+                            <td>
+                                25 Jul 2026
+                            </td>
+
+                            <td>
+
+                                <span class="status rejected">
+                                    Rejected
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button class="view-btn">
+                                    View
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr data-status="pending">
+
+                            <td>
+                                #UIH-004
+                            </td>
+
+                            <td>
+
+                                <strong>
+                                    Backend Developer
+                                </strong>
+
+                            </td>
+
+                            <td>
+                                Unicorn Innovation
+                            </td>
+
+                            <td>
+                                20 Jul 2026
+                            </td>
+
+                            <td>
+
+                                <span class="status pending">
+                                    Pending
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button class="view-btn">
+                                    View
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="dashboard-footer">
+
+            <div>
+
+                <h3>
+                    Unicorn Innovation
+                </h3>
+
+                <p>
+                    Hill Limited
+                </p>
+
+            </div>
+
+
+            <p>
+
+                &copy; 2026 Unicorn Innovation Hill Limited.
+                All Rights Reserved.
+
+            </p>
+
+
+            <div class="footer-social">
+
+                <a href="#">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+            </div>
+
+        </footer>
+
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="My-Applications.js"></script>
+
+</body>
+
+</html>

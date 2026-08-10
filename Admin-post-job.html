@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post New Job | Admin</title>
+    <meta name="description" content="Create and manage job postings efficiently with the Unicorn Innovation Hill Limited Admin Dashboard.">
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="Admin-post-job.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     MOBILE MENU BUTTON
+========================================== -->
+
+<button class="menu-toggle"
+        id="menuToggle">
+
+    <i class="fa-solid fa-bars"></i>
+
+</button>
+
+
+
+<div class="admin-page">
+
+
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<aside class="admin-sidebar"
+       id="adminSidebar">
+
+
+    <!-- LOGO -->
+
+    <div class="admin-logo">
+
+        <div class="logo-circle">
+            UI
+        </div>
+
+        <div class="logo-text">
+
+            <h2>
+                Unicorn Innovation
+            </h2>
+
+            <p>
+                Hill Limited
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MENU -->
+
+    <ul class="admin-menu">
+
+
+        <li>
+
+            <a href="Admin-dashboard.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                Dashboard
+
+            </a>
+
+        </li>
+
+
+        <li class="active">
+
+            <a href="Admin-post-job.html">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+                Post Jobs
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="Admin-dashboard.html">
+
+                <i class="fa-solid fa-list-check"></i>
+
+                Manage Jobs
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="Admin-applicants.html">
+
+                <i class="fa-solid fa-users"></i>
+
+                Applicants
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="Admin-applications.html">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                Applications
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-bell"></i>
+
+                Notifications
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="Admin-settings.html">
+
+                <i class="fa-solid fa-gear"></i>
+
+                Settings
+
+            </a>
+
+        </li>
+
+
+        <li class="logout">
+
+            <a href="Admin-login.html">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        </li>
+
+
+    </ul>
+
+</aside>
+
+
+
+<!-- ==========================================
+     MAIN CONTENT
+========================================== -->
+
+<main class="admin-main">
+
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Post New Job 💼
+            </h1>
+
+            <p>
+                Create a new job vacancy for applicants.
+            </p>
+
+        </div>
+
+
+        <a href="Admin-dashboard.html"
+           class="back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         JOB FORM
+    ========================================== -->
+
+    <div class="job-form-card">
+
+
+        <div class="form-title">
+
+            <div class="form-icon">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+            </div>
+
+            <div>
+
+                <h2>
+                    Job Information
+                </h2>
+
+                <p>
+                    Enter the details of the vacancy.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <form id="jobForm">
+
+
+            <!-- ======================================
+                 JOB TITLE
+            ======================================= -->
+
+            <div class="form-group">
+
+                <label for="jobTitle">
+
+                    Job Title
+
+                    <span>*</span>
+
+                </label>
+
+                <input
+                    type="text"
+                    id="jobTitle"
+                    placeholder="e.g. Frontend Developer"
+                    required>
+
+            </div>
+
+
+
+            <!-- ======================================
+                 JOB CATEGORY
+            ======================================= -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label for="jobCategory">
+
+                        Job Category
+
+                        <span>*</span>
+
+                    </label>
+
+                    <select
+                        id="jobCategory"
+                        required>
+
+                        <option value="">
+                            Select category
+                        </option>
+
+                        <option value="Software Development">
+                            Software Development
+                        </option>
+
+                        <option value="Design">
+                            Design
+                        </option>
+
+                        <option value="Marketing">
+                            Marketing
+                        </option>
+
+                        <option value="Finance">
+                            Finance
+                        </option>
+
+                        <option value="Human Resources">
+                            Human Resources
+                        </option>
+
+                        <option value="Administration">
+                            Administration
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- JOB TYPE -->
+
+                <div class="form-group">
+
+                    <label for="jobType">
+
+                        Employment Type
+
+                        <span>*</span>
+
+                    </label>
+
+                    <select
+                        id="jobType"
+                        required>
+
+                        <option value="">
+                            Select type
+                        </option>
+
+                        <option value="Full Time">
+                            Full Time
+                        </option>
+
+                        <option value="Part Time">
+                            Part Time
+                        </option>
+
+                        <option value="Contract">
+                            Contract
+                        </option>
+
+                        <option value="Internship">
+                            Internship
+                        </option>
+
+                        <option value="Remote">
+                            Remote
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ======================================
+                 LOCATION
+            ======================================= -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label for="jobLocation">
+
+                        Location
+
+                        <span>*</span>
+
+                    </label>
+
+                    <div class="input-with-icon">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <input
+                            type="text"
+                            id="jobLocation"
+                            placeholder="e.g. Lagos, Nigeria"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SALARY -->
+
+                <div class="form-group">
+
+                    <label for="jobSalary">
+
+                        Salary
+
+                    </label>
+
+                    <div class="input-with-icon">
+
+                        <i class="fa-solid fa-naira-sign"></i>
+
+                        <input
+                            type="text"
+                            id="jobSalary"
+                            placeholder="e.g. ₦250,000 - ₦400,000">
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ======================================
+                 DESCRIPTION
+            ======================================= -->
+
+            <div class="form-group">
+
+                <label for="jobDescription">
+
+                    Job Description
+
+                    <span>*</span>
+
+                </label>
+
+                <textarea
+                    id="jobDescription"
+                    rows="7"
+                    placeholder="Describe the job, responsibilities and expectations..."
+                    required></textarea>
+
+            </div>
+
+
+
+            <!-- ======================================
+                 REQUIREMENTS
+            ======================================= -->
+
+            <div class="form-group">
+
+                <label for="jobRequirements">
+
+                    Job Requirements
+
+                    <span>*</span>
+
+                </label>
+
+                <textarea
+                    id="jobRequirements"
+                    rows="7"
+                    placeholder="Enter the qualifications, skills and experience required..."
+                    required></textarea>
+
+            </div>
+
+
+
+            <!-- ======================================
+                 DEADLINE
+            ======================================= -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label for="applicationDeadline">
+
+                        Application Deadline
+
+                    </label>
+
+                    <input
+                        type="date"
+                        id="applicationDeadline">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="numberOfOpenings">
+
+                        Number of Openings
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="numberOfOpenings"
+                        min="1"
+                        placeholder="e.g. 3">
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ======================================
+                 BUTTONS
+            ======================================= -->
+
+            <div class="form-actions">
+
+                <button
+                    type="reset"
+                    class="cancel-btn">
+
+                    <i class="fa-solid fa-rotate-left"></i>
+
+                    Clear Form
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="post-job-btn">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Post Job
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="admin-footer">
+
+        <div>
+
+            <h3>
+                Unicorn Innovation
+            </h3>
+
+            <p>
+                Hill Limited
+            </p>
+
+        </div>
+
+
+        <p>
+
+            &copy; 2026 Unicorn Innovation Hill Limited.
+            All Rights Reserved.
+
+        </p>
+
+    </footer>
+
+
+</main>
+
+</div>
+
+
+
+<!-- JAVASCRIPT -->
+
+<script src="Admin-post-job.js"></script>
+
+
+</body>
+
+</html>

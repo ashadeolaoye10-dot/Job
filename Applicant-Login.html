@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Login | Unicorn Innovation Hill Limited</title>
+    <meta name="description" content="Login to your applicant account to manage your profile, upload your CV, and apply for jobs with Unicorn Innovation Hill Limited.">
+
+    <!-- Google Font -->
+    <!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="css/navbar.css">
+
+    <link rel="stylesheet" href="Applicant-Login.css">
+
+</head>
+
+<body>
+
+<!-- ==========================================
+     NAVBAR
+========================================== -->
+
+<header>
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-circle">
+
+                UI
+
+            </div>
+
+            <div class="logo-text">
+
+                <h2>Unicorn Innovation</h2>
+
+                <p>Hill Limited</p>
+
+            </div>
+
+        </a>
+
+        <ul class="nav-links">
+
+            <li><a href="index.html">Home</a></li>
+
+            <li><a href="About.html">About</a></li>
+
+            <li><a href="Applicant-dashboard.html">Dashboard</a></li>
+
+            <li><a href="Contact.html">Contact</a></li>
+
+            <li><a href="Applicant-register.html">Register</a></li>
+
+            <li><a href="Applicant-login.html" class="active">Login</a></li>
+
+        </ul>
+
+        <div class="hamburger">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    </nav>
+
+</header>
+
+<!-- ===========================
+     LOGIN HERO
+=========================== -->
+
+<section class="login-hero">
+
+    <div class="login-content">
+
+        <span>APPLICANT LOGIN</span>
+
+        <h1>Welcome Back</h1>
+
+        <p>
+            Sign in to your applicant account to manage your profile,
+            upload your CV, apply for jobs and track your applications
+            from one secure dashboard.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+     LOGIN SECTION
+========================================== -->
+
+<section class="login-section">
+
+    <div class="login-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="login-info">
+
+            <span>WELCOME BACK</span>
+
+            <h2>Access Your Career Dashboard</h2>
+
+            <p>
+
+                Log in to apply for jobs, manage your applications,
+                update your profile, upload your CV and receive job
+                alerts from Unicorn Innovation Hill Limited.
+
+            </p>
+
+            <ul>
+
+                <li>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Apply for unlimited jobs
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Track application status
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Update your profile anytime
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Receive instant job alerts
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="login-card">
+
+            <h2>Applicant Login</h2>
+
+            <form class="login-form">
+
+                <!-- Email -->
+
+                <div class="input-box">
+
+                    <label>Email Address</label>
+
+                    <input
+                        type="email"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+                <!-- Password -->
+
+                <div class="input-box password-box">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required>
+
+                    <i class="fa-solid fa-eye toggle-password"></i>
+
+                </div>
+
+                <!-- Remember -->
+
+                <div class="remember">
+
+                    <label>
+
+                        <input type="checkbox">
+
+                        Remember Me
+
+                    </label>
+
+                    <a href="Forgot-password.html">
+
+                        Forgot Password?
+
+                    </a>
+
+                </div>
+
+                <a href="Applicant-dashboard.html"
+   class="login-btn"
+   id="loginBtn"
+   onclick="return checkLogin();">
+
+    Login
+
+</a>
+
+                <!-- Divider -->
+
+                <div class="divider">
+
+                    OR
+
+                </div>
+
+                <!-- Social -->
+
+                <div class="social-login">
+
+                    <button type="button">
+
+                        <i class="fab fa-google"></i>
+
+                        Google
+
+                    </button>
+
+                    <button type="button">
+
+                        <i class="fab fa-linkedin-in"></i>
+
+                        LinkedIn
+
+                    </button>
+
+                </div>
+
+                <!-- Register -->
+
+                <div class="register-link">
+
+                    Don't have an account?
+
+                    <a href="Applicant-register.html">
+
+                        Register Here
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="Applicant-Login.js"></script>
+<script>
+function checkLogin() {
+
+    const email = document.querySelector(
+        '.login-form input[type="email"]'
+    );
+
+    const password = document.getElementById("password");
+
+
+    /* Check email */
+
+    if (email.value.trim() === "") {
+
+        alert("Please enter your email address.");
+
+        email.focus();
+
+        return false;
+    }
+
+
+    /* Check password */
+
+    if (password.value.trim() === "") {
+
+        alert("Please enter your password.");
+
+        password.focus();
+
+        return false;
+    }
+
+
+    /* Save the email temporarily */
+
+    localStorage.setItem(
+        "loggedInEmail",
+        email.value.trim()
+    );
+
+
+    /* Both fields are filled */
+
+    window.location.href = "Applicant-dashboard.html";
+
+
+    /* Stop the href from doing anything else */
+
+    return false;
+}
+</script>
+
+</body>
+</html>

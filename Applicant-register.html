@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Registration | Unicorn Innovation Hill Limited</title>
+    <meta name="description" content="Register as an applicant with Unicorn Innovation Hill Limited to access job opportunities and manage your applications.">
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="Applicant-register.css">
+<body>
+    <!-- ==========================================
+     HEADER
+========================================== -->
+
+<header>
+
+    <nav class="navbar">
+
+        <!-- Logo -->
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-circle">
+
+                UI
+
+            </div>
+
+            <div class="logo-text">
+
+                <h2>Unicorn Innovation</h2>
+
+                <p>Hill Limited</p>
+
+            </div>
+
+        </a>
+
+        <!-- Navigation -->
+
+        <ul class="nav-links">
+
+            <li><a href="index.html">Home</a></li>
+
+            <li><a href="About.html">About</a></li>
+
+            <li><a href="Applicant-dashboard.html">Dashboard</a></li>
+
+            <li><a href="Contact.html">Contact</a></li>
+
+            <li><a href="Applicant-register.html" class="active">
+
+                Register
+
+            </a></li>
+
+            <li><a href="Applicant-login.html">
+
+                Login
+
+            </a></li>
+
+        </ul>
+
+        <div class="hamburger">
+
+            <span></span>
+
+            <span></span>
+
+            <span></span>
+
+        </div>
+
+    </nav>
+
+</header>
+
+<!-- ==========================================
+     REGISTER HERO
+========================================== -->
+
+<section class="register-hero">
+
+    <div class="register-overlay"></div>
+
+    <div class="register-content">
+
+        <span>
+
+            APPLICANT PORTAL
+
+        </span>
+
+        <h1>
+
+            Create Your Applicant Account
+
+        </h1>
+
+        <p>
+
+            Join Unicorn Innovation Hill Limited and unlock access to
+            verified job opportunities, career growth, and a secure
+            applicant dashboard where you can manage your applications.
+
+        </p>
+
+    </div>
+
+</section>
+<!-- ==========================================
+     REGISTRATION FORM
+========================================== -->
+
+<section class="register-section">
+
+    <div class="register-container">
+
+        <!-- Left Side -->
+
+        <div class="register-info">
+
+            <span>JOIN OUR COMMUNITY</span>
+
+            <h2>Start Your Career Journey Today</h2>
+
+            <p>
+
+                Create your applicant account to apply for jobs,
+                upload your CV, monitor your applications,
+                and receive career opportunities from trusted employers.
+
+            </p>
+
+            <ul>
+
+                <li>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Apply for unlimited jobs
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Upload and manage your CV
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Track every application
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Receive instant notifications
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="register-form-card">
+
+            <h2>Create Account</h2>
+
+            <form class="register-form">
+
+                <!-- Profile Photo -->
+
+                <div class="profile-upload">
+
+                    <img src="images/default-user.png"
+                         id="profilePreview"
+                         alt="Profile">
+
+                    <label for="profileImage">
+
+                        <i class="fa-solid fa-camera"></i>
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="profileImage"
+                        accept="image/*">
+
+                </div>
+
+                <!-- Name -->
+
+                <div class="form-grid">
+
+                    <div class="input-box">
+
+                        <label>First Name</label>
+
+                        <input
+                            type="text"
+                            placeholder="John"
+                            required>
+
+                    </div>
+
+                    <div class="input-box">
+
+                        <label>Last Name</label>
+
+                        <input
+                            type="text"
+                            placeholder="Doe"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <!-- Email -->
+
+                <div class="input-box">
+
+                    <label>Email Address</label>
+
+                    <input
+                        type="email"
+                        placeholder="example@email.com"
+                        required>
+
+                </div>
+
+                <!-- Phone -->
+
+                <div class="input-box">
+
+                    <label>Phone Number</label>
+
+                    <input
+                        type="tel"
+                        placeholder="+234..."
+                        required>
+
+                </div>
+
+                <!-- Gender -->
+
+                <div class="form-grid">
+
+                    <div class="input-box">
+
+                        <label>Gender</label>
+
+                        <select required>
+
+                            <option>Select Gender</option>
+
+                            <option>Male</option>
+
+                            <option>Female</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-box">
+
+                        <label>Date of Birth</label>
+
+                        <input
+                            type="date"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <!-- Address -->
+
+                <div class="input-box">
+
+                    <label>Home Address</label>
+
+                    <input
+                        type="text"
+                        placeholder="Your Address">
+
+                </div>
+
+                <!-- Qualification -->
+
+                <div class="form-grid">
+
+                    <div class="input-box">
+
+                        <label>Qualification</label>
+
+                        <select>
+
+                            <option>Select Qualification</option>
+
+                            <option>OND</option>
+
+                            <option>HND</option>
+
+                            <option>B.Sc</option>
+
+                            <option>M.Sc</option>
+
+                            <option>PhD</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-box">
+
+                        <label>Experience</label>
+
+                        <input
+                            type="number"
+                            placeholder="Years">
+
+                    </div>
+
+                </div>
+
+                <!-- Password -->
+
+                <div class="input-box password-box">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Password">
+
+                    <i class="fa-solid fa-eye toggle-password"></i>
+
+                </div>
+
+                <div class="strength">
+
+                    <div class="strength-bar"></div>
+
+                </div>
+
+                <!-- Confirm -->
+
+                <div class="input-box password-box">
+
+                    <label>Confirm Password</label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm Password">
+
+                    <i class="fa-solid fa-eye toggle-confirm"></i>
+
+                </div>
+
+                <!-- Terms -->
+
+                <div class="terms">
+
+                    <input
+                        type="checkbox"
+                        required>
+
+                    <label>
+
+                        I agree to the Terms &
+                        Conditions
+
+                    </label>
+
+                </div>
+
+                <!-- Button -->
+
+                <button class="register-btn">
+
+                Create Account
+
+                </button>
+
+                <p class="login-link">
+
+                    Already have an account?
+
+                    <a href="Applicant-login.html">
+
+                        Login
+
+                    </a>
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+     FOOTER
+========================================== -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-box">
+
+            <div class="footer-logo">
+
+                <div class="footer-logo-circle">
+
+                    UI
+
+                </div>
+
+                <div>
+
+                    <h2>Unicorn Innovation</h2>
+
+                    <p>Hill Limited</p>
+
+                </div>
+
+            </div>
+
+            <p>
+
+                Connecting exceptional talent with leading organizations through innovation, professionalism and excellence.
+
+            </p>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>Quick Links</h3>
+
+            <ul>
+
+                <li><a href="index.html">Home</a></li>
+
+                <li><a href="About.html">About</a></li>
+
+                <li><a href="Jobs.html">Jobs</a></li>
+
+                <li><a href="Contact.html">Contact</a></li>
+
+            </ul>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>Applicant</h3>
+
+            <ul>
+
+                <li><a href="Applicant-register.html">Register</a></li>
+
+                <li><a href="Applicant-login.html">Login</a></li>
+
+                <li><a href="Jobs.html">Browse Jobs</a></li>
+
+            </ul>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>Contact</h3>
+
+            <p><i class="fa-solid fa-location-dot"></i> Lagos, Nigeria</p>
+
+            <p><i class="fa-solid fa-phone"></i> +234 XXX XXX XXXX</p>
+
+            <p><i class="fa-solid fa-envelope"></i> info@unicorninnovationhill.com</p>
+
+            <div class="footer-social">
+
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+
+                <a href="#"><i class="fab fa-instagram"></i></a>
+
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+
+                <a href="#"><i class="fab fa-x-twitter"></i></a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="footer-bottom">
+
+        <p>
+
+            © 2026 Unicorn Innovation Hill Limited. All Rights Reserved.
+
+        </p>
+
+    </div>
+
+</footer>
+
+<script src="Applicant-register.js"></script>
+</body>
+</html>

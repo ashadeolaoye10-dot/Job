@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Dashboard | Unicorn Innovation Hill Limited</title>
+    <meta name="description" content="Manage your profile, applications, and job opportunities efficiently with the Unicorn Innovation Hill Limited Applicant Dashboard.">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="Applicant-dashboard.css">
+
+</head>
+
+<body>
+
+    <button class="menu-toggle">
+
+    <i class="fa-solid fa-bars"></i>
+
+</button>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-circle">
+
+                UI
+
+            </div>
+
+            <div class="logo-text">
+
+                <h2>
+
+                    Unicorn Innovation
+
+                </h2>
+
+                <p>
+
+                    Hill Limited
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li class="active">
+
+                <a href="#">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="Applicant-Profile.html">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    My Profile
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="Jobs.html">
+
+                    <i class="fa-solid fa-briefcase"></i>
+
+                    Available Jobs
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="My-applications.html">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    My Applications
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="Upload Cv.html">
+
+                    <i class="fa-solid fa-upload"></i>
+
+                    Upload CV
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                    Notifications
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="Settings.html">
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    Settings
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+        <!-- ==========================================
+     DASHBOARD HEADER
+========================================== -->
+
+<div class="dashboard-header">
+
+    <div>
+
+        <h1>Welcome Back 👋</h1>
+
+        <p>Manage your profile, applications and job opportunities.</p>
+
+    </div>
+
+    <div class="profile-box">
+
+        <img src="" alt="Applicant">
+
+        <div>
+
+            <h3>User</h3>
+
+            <span>Applicant</span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     STATISTICS
+========================================== -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-briefcase"></i>
+
+        <h2>25</h2>
+
+        <p>Available Jobs</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-file-lines"></i>
+
+        <h2>7</h2>
+
+        <p>Applications</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-heart"></i>
+
+        <h2>10</h2>
+
+        <p>Saved Jobs</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-bell"></i>
+
+        <h2>5</h2>
+
+        <p>Notifications</p>
+
+    </div>
+
+</div>
+    </main>
+
+</div>
+<!-- ==========================================
+     DASHBOARD CONTENT
+========================================== -->
+
+<div class="dashboard-grid">
+
+    <!-- Recent Jobs -->
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <h2>Recent Job Openings</h2>
+
+            <a href="#">View All</a>
+
+        </div>
+
+        <div class="job-list">
+
+            <div class="job-item">
+
+                <div>
+
+                    <h3>Frontend Developer</h3>
+
+                    <p>Lagos • Full Time</p>
+
+                </div>
+
+                <button>Apply</button>
+
+            </div>
+
+            <div class="job-item">
+
+                <div>
+
+                    <h3>Backend Java Developer</h3>
+
+                    <p>Remote • Full Time</p>
+
+                </div>
+
+                <button>Apply</button>
+
+            </div>
+
+            <div class="job-item">
+
+                <div>
+
+                    <h3>UI/UX Designer</h3>
+
+                    <p>Abuja • Hybrid</p>
+
+                </div>
+
+                <button>Apply</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Applications -->
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <h2>Recent Applications</h2>
+
+            <a href="#">View All</a>
+
+        </div>
+
+        <table class="application-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Position</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>Software Engineer</td>
+
+                    <td><span class="status pending">Pending</span></td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Java Developer</td>
+
+                    <td><span class="status accepted">Accepted</span></td>
+
+                </tr>
+
+                <tr>
+
+                    <td>UI Designer</td>
+
+                    <td><span class="status rejected">Rejected</span></td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     BOTTOM WIDGETS
+========================================== -->
+
+<div class="bottom-grid">
+
+    <!-- Notifications -->
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <h2>Notifications</h2>
+
+        </div>
+
+        <div class="notification">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <div>
+
+                <h4>Application Received</h4>
+
+                <p>Your application for Frontend Developer has been received.</p>
+
+            </div>
+
+        </div>
+
+        <div class="notification">
+
+            <i class="fa-solid fa-calendar-check"></i>
+
+            <div>
+
+                <h4>Interview Scheduled</h4>
+
+                <p>Your interview is scheduled for Monday at 10:00 AM.</p>
+
+            </div>
+
+        </div>
+
+        <div class="notification">
+
+            <i class="fa-solid fa-bell"></i>
+
+            <div>
+
+                <h4>New Job Posted</h4>
+
+                <p>A new Java Developer position matches your profile.</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Profile Completion -->
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <h2>Profile Completion</h2>
+
+        </div>
+
+        <h3>85% Complete</h3>
+
+        <div class="progress">
+
+            <div class="progress-bar"></div>
+
+        </div>
+
+        <p style="margin-top:20px;color:#bbb;">
+            Complete your profile to increase your chances of getting hired.
+        </p>
+
+        <button class="complete-btn">
+
+            Complete Profile
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     DASHBOARD FOOTER
+========================================== -->
+
+<footer class="dashboard-footer">
+
+    <div class="footer-left">
+
+        <h3>Unicorn Innovation</h3>
+
+        <p>Hill Limited</p>
+
+    </div>
+
+    <div class="footer-center">
+
+        <p>
+            &copy; 2026 Unicorn Innovation Hill Limited.
+            All Rights Reserved.
+        </p>
+
+    </div>
+
+    <div class="footer-right">
+
+        <a href="#">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+
+        <a href="#">
+            <i class="fa-brands fa-x-twitter"></i>
+        </a>
+
+        <a href="#">
+            <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+
+        <a href="#">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+
+    </div>
+
+</footer>
+
+<script src="Applicant-dashboard.js"></script>
+
+</body>
+</html>

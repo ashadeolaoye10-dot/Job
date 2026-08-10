@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload CV | Unicorn Innovation Hill Limited</title>
+    <meta name="description" content="Upload your CV to the Unicorn Innovation Hill Limited portal and enhance your job application process.">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="Upload-CV.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     MOBILE MENU BUTTON
+========================================== -->
+
+<button class="menu-toggle" id="menuToggle">
+
+    <i class="fa-solid fa-bars"></i>
+
+</button>
+
+
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-circle">
+            UI
+        </div>
+
+        <div class="logo-text">
+
+            <h2>Unicorn Innovation</h2>
+
+            <p>Hill Limited</p>
+
+        </div>
+
+    </div>
+
+
+    <ul class="sidebar-menu">
+
+        <li>
+            <a href="Applicant-dashboard.html">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="Applicant-Profile.html">
+                <i class="fa-solid fa-user"></i>
+                My Profile
+            </a>
+        </li>
+
+        <li>
+            <a href="Jobs.html">
+                <i class="fa-solid fa-briefcase"></i>
+                Available Jobs
+            </a>
+        </li>
+
+        <li>
+            <a href="My-Applications.html">
+                <i class="fa-solid fa-file-lines"></i>
+                My Applications
+            </a>
+        </li>
+
+        <li class="active">
+            <a href="Upload-CV.html">
+                <i class="fa-solid fa-upload"></i>
+                Upload CV
+            </a>
+        </li>
+
+        <li>
+            <a href="Settings.html">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+        </li>
+
+        <li>
+            <a href="Applicant-login.html">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+
+<!-- ==========================================
+     MAIN CONTENT
+========================================== -->
+
+<main class="main-content">
+
+
+    <!-- PAGE HEADER -->
+
+    <section class="page-header">
+
+        <span>📄 CV MANAGEMENT</span>
+
+        <h1>Upload Your CV</h1>
+
+        <p>
+            Upload your latest CV so employers can review
+            your qualifications and experience.
+        </p>
+
+    </section>
+
+
+    <!-- ==========================================
+         UPLOAD CARD
+    ========================================== -->
+
+    <section class="upload-card">
+
+
+        <!-- APPLICANT -->
+
+        <div class="applicant-info">
+
+            <div class="applicant-icon">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <div>
+
+                <p>Applicant</p>
+
+                <h2 id="applicantName">
+                    Applicant
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <!-- UPLOAD AREA -->
+
+        <div class="upload-area" id="uploadArea">
+
+            <div class="upload-icon">
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+            </div>
+
+            <h2>Upload your CV</h2>
+
+            <p>
+                Drag and drop your CV here
+                or choose a file
+            </p>
+
+            <label for="cvFile"
+                   class="choose-btn">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                Choose CV
+
+            </label>
+
+            <input
+                type="file"
+                id="cvFile"
+                accept=".pdf,.doc,.docx"
+                hidden>
+
+            <small>
+                Accepted formats: PDF, DOC, DOCX
+                <br>
+                Maximum size: 5MB
+            </small>
+
+        </div>
+
+
+        <!-- FILE PREVIEW -->
+
+        <div class="file-preview"
+             id="filePreview">
+
+            <div class="file-icon">
+
+                <i class="fa-solid fa-file-pdf"></i>
+
+            </div>
+
+            <div class="file-details">
+
+                <h3 id="fileName">
+                    No file selected
+                </h3>
+
+                <p id="fileSize">
+                    —
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                id="removeFile"
+                class="remove-btn">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- UPLOAD BUTTON -->
+
+        <button
+            type="button"
+            id="uploadBtn"
+            class="upload-btn">
+
+            <i class="fa-solid fa-upload"></i>
+
+            Upload CV
+
+        </button>
+
+
+        <!-- MESSAGE -->
+
+        <div id="uploadMessage"
+             class="upload-message">
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ==========================================
+         CV TIPS
+    ========================================== -->
+
+    <section class="cv-tips">
+
+        <h2>
+            <i class="fa-solid fa-lightbulb"></i>
+            CV Tips
+        </h2>
+
+        <div class="tips-grid">
+
+            <div class="tip">
+
+                <i class="fa-solid fa-check"></i>
+
+                <p>
+                    Keep your CV clear and easy to read.
+                </p>
+
+            </div>
+
+            <div class="tip">
+
+                <i class="fa-solid fa-check"></i>
+
+                <p>
+                    Use your most recent qualifications.
+                </p>
+
+            </div>
+
+            <div class="tip">
+
+                <i class="fa-solid fa-check"></i>
+
+                <p>
+                    Make sure your contact information is correct.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script src="Upload-CV.js"></script>
+
+</body>
+
+</html>

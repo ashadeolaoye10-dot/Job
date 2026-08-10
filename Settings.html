@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Unicorn Innovation Hill Limited</title>
+    <meta name="description" content="Manage your account settings, privacy preferences, and notification settings with Unicorn Innovation Hill Limited.">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="Settings.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     MOBILE MENU BUTTON
+========================================== -->
+
+<button class="menu-toggle"
+        id="menuToggle">
+
+    <i class="fa-solid fa-bars"></i>
+
+</button>
+
+
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<aside class="sidebar"
+       id="sidebar">
+
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+        <div class="logo-circle">
+            UI
+        </div>
+
+        <div class="logo-text">
+
+            <h2>
+                Unicorn Innovation
+            </h2>
+
+            <p>
+                Hill Limited
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- MENU -->
+
+    <ul class="sidebar-menu">
+
+
+        <li>
+
+            <a href="Applicant-dashboard.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                Dashboard
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="My-Applications.html">
+
+                <i class="fa-solid fa-user"></i>
+
+                My Profile
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="Jobs.html">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+                Available Jobs
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="My-Applications.html">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                My Applications
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="Upload CV.html">
+
+                <i class="fa-solid fa-upload"></i>
+
+                Upload CV
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-bell"></i>
+
+                Notifications
+
+            </a>
+
+        </li>
+
+
+        <li class="active">
+
+            <a href="Settings.html">
+
+                <i class="fa-solid fa-gear"></i>
+
+                Settings
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="Applicant-login.html">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        </li>
+
+
+    </ul>
+
+</aside>
+
+
+<!-- ==========================================
+     MAIN CONTENT
+========================================== -->
+
+<main class="main-content">
+
+
+    <!-- PAGE HEADER -->
+
+    <section class="settings-header">
+
+        <span>
+            ⚙️ ACCOUNT SETTINGS
+        </span>
+
+        <h1>
+            Settings
+        </h1>
+
+        <p>
+            Manage your account, profile, password
+            and notification preferences.
+        </p>
+
+    </section>
+
+
+    <!-- ==========================================
+         SETTINGS CONTAINER
+    ========================================== -->
+
+    <section class="settings-container">
+
+
+        <!-- ======================================
+             PROFILE SETTINGS
+        ======================================= -->
+
+        <div class="settings-card">
+
+
+            <div class="settings-card-header">
+
+                <div class="settings-icon">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+                <div>
+
+                    <h2>
+                        Profile Information
+                    </h2>
+
+                    <p>
+                        Update your basic account information.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROFILE PHOTO -->
+
+            <div class="profile-photo-section">
+
+                <div class="profile-photo">
+
+                    <img
+                        id="profilePreview"
+                        src="images/default-profile.png"
+                        alt="Profile Photo">
+
+                </div>
+
+
+                <div class="photo-info">
+
+                    <h3>
+                        Profile Photo
+                    </h3>
+
+                    <p>
+                        Upload a new profile picture.
+                    </p>
+
+                    <label
+                        for="profilePhoto"
+                        class="photo-btn">
+
+                        <i class="fa-solid fa-camera"></i>
+
+                        Change Photo
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="profilePhoto"
+                        accept="image/*"
+                        hidden>
+
+                </div>
+
+            </div>
+
+
+            <!-- FULL NAME -->
+
+            <div class="form-group">
+
+                <label for="fullName">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="fullName"
+                    placeholder="Enter your full name">
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email">
+
+            </div>
+
+
+            <button
+                type="button"
+                class="save-btn"
+                id="saveProfile">
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Save Profile
+
+            </button>
+
+
+        </div>
+
+
+        <!-- ======================================
+             PASSWORD SETTINGS
+        ======================================= -->
+
+        <div class="settings-card">
+
+
+            <div class="settings-card-header">
+
+                <div class="settings-icon">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                </div>
+
+                <div>
+
+                    <h2>
+                        Change Password
+                    </h2>
+
+                    <p>
+                        Keep your account secure.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CURRENT PASSWORD -->
+
+            <div class="form-group password-group">
+
+                <label for="currentPassword">
+                    Current Password
+                </label>
+
+                <div class="password-input">
+
+                    <input
+                        type="password"
+                        id="currentPassword"
+                        placeholder="Enter current password">
+
+                    <i
+                        class="fa-solid fa-eye toggle-password"
+                        data-target="currentPassword">
+                    </i>
+
+                </div>
+
+            </div>
+
+
+            <!-- NEW PASSWORD -->
+
+            <div class="form-group password-group">
+
+                <label for="newPassword">
+                    New Password
+                </label>
+
+                <div class="password-input">
+
+                    <input
+                        type="password"
+                        id="newPassword"
+                        placeholder="Enter new password">
+
+                    <i
+                        class="fa-solid fa-eye toggle-password"
+                        data-target="newPassword">
+                    </i>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="form-group password-group">
+
+                <label for="confirmPassword">
+                    Confirm New Password
+                </label>
+
+                <div class="password-input">
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm new password">
+
+                    <i
+                        class="fa-solid fa-eye toggle-password"
+                        data-target="confirmPassword">
+                    </i>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="save-btn"
+                id="changePassword">
+
+                <i class="fa-solid fa-key"></i>
+
+                Change Password
+
+            </button>
+
+
+        </div>
+
+
+        <!-- ======================================
+             NOTIFICATION SETTINGS
+        ======================================= -->
+
+        <div class="settings-card">
+
+
+            <div class="settings-card-header">
+
+                <div class="settings-icon">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                </div>
+
+                <div>
+
+                    <h2>
+                        Notifications
+                    </h2>
+
+                    <p>
+                        Choose which notifications you receive.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- JOB ALERTS -->
+
+            <div class="setting-option">
+
+                <div>
+
+                    <h3>
+                        Job Alerts
+                    </h3>
+
+                    <p>
+                        Receive notifications about new jobs.
+                    </p>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="jobAlerts"
+                        checked>
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <!-- APPLICATION UPDATES -->
+
+            <div class="setting-option">
+
+                <div>
+
+                    <h3>
+                        Application Updates
+                    </h3>
+
+                    <p>
+                        Get updates about your applications.
+                    </p>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="applicationUpdates"
+                        checked>
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <!-- EMAIL NOTIFICATIONS -->
+
+            <div class="setting-option">
+
+                <div>
+
+                    <h3>
+                        Email Notifications
+                    </h3>
+
+                    <p>
+                        Receive important account emails.
+                    </p>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="emailNotifications"
+                        checked>
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="save-btn"
+                id="saveNotifications">
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Save Preferences
+
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ==========================================
+         DANGER ZONE
+    =========================================== -->
+
+    <section class="danger-zone">
+
+
+        <div>
+
+            <h2>
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                Account
+            </h2>
+
+            <p>
+                Log out of your applicant account.
+            </p>
+
+        </div>
+
+
+        <a
+            href="Applicant-login.html"
+            class="logout-btn">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </a>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="Settings.js"></script>
+
+</body>
+
+</html>

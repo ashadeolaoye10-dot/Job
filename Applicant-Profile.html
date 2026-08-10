@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Unicorn Innovation Hill Limited</title>
+    <meta name="description" content="View and manage your profile details, CV, and job applications with Unicorn Innovation Hill Limited.">
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Profile CSS -->
+
+    <link rel="stylesheet"
+          href="Applicant-Profile.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     MOBILE MENU BUTTON
+========================================== -->
+
+<button class="menu-toggle" id="menuToggle">
+
+    <i class="fa-solid fa-bars"></i>
+
+</button>
+
+
+
+<div class="dashboard">
+
+
+    <!-- ==========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <div class="logo-circle">
+                UI
+            </div>
+
+            <div class="logo-text">
+
+                <h2>
+                    Unicorn Innovation
+                </h2>
+
+                <p>
+                    Hill Limited
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENU -->
+
+        <ul class="sidebar-menu">
+
+
+            <li>
+
+                <a href="Applicant-dashboard.html">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+
+
+            <li class="active">
+
+                <a href="Applicant-Profile.html">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    My Profile
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="Jobs.html">
+
+                    <i class="fa-solid fa-briefcase"></i>
+
+                    Available Jobs
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="My-Applications.html">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    My Applications
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="Upload Cv.html">
+
+                    <i class="fa-solid fa-upload"></i>
+
+                    Upload CV
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    Settings
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="Applicant-login.html">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    Logout
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </aside>
+
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-content">
+
+
+        <!-- ==========================================
+             PAGE HEADER
+        ========================================== -->
+
+        <div class="page-header">
+
+            <div>
+
+                <span>
+                    APPLICANT PROFILE
+                </span>
+
+                <h1>
+                    My Profile
+                </h1>
+
+                <p>
+                    Manage your personal information,
+                    profile picture and CV.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="edit-profile-btn"
+                id="editProfileBtn">
+
+                <i class="fa-solid fa-pen"></i>
+
+                Edit Profile
+
+            </button>
+
+        </div>
+
+
+
+        <!-- ==========================================
+             PROFILE TOP CARD
+        ========================================== -->
+
+        <div class="profile-top-card">
+
+
+            <!-- PROFILE PHOTO -->
+
+            <div class="profile-image-section">
+
+                <div class="profile-image">
+
+                    <img
+                        id="profilePreview"
+                        src="images/default-profile.png"
+                        alt="Applicant Profile Picture">
+
+                </div>
+
+
+                <!-- Hidden file input -->
+
+                <input
+                    type="file"
+                    id="profileImage"
+                    accept="image/png,image/jpeg,image/jpg,image/webp"
+                    hidden>
+
+
+                <!-- Change Photo -->
+
+                <button
+                    type="button"
+                    class="change-photo-btn"
+                    id="changePhotoBtn">
+
+                    <i class="fa-solid fa-camera"></i>
+
+                    Change Photo
+
+                </button>
+
+            </div>
+
+
+
+            <!-- PROFILE INFORMATION -->
+
+            <div class="profile-summary">
+
+                <h2 id="profileName">
+                    Applicant
+                </h2>
+
+                <p>
+                    Job Applicant
+                </p>
+
+                <span class="profile-status">
+
+                    <i class="fa-solid fa-circle"></i>
+
+                    Profile Active
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ==========================================
+             PERSONAL INFORMATION
+        ========================================== -->
+
+        <div class="profile-card">
+
+
+            <div class="card-title">
+
+                <div>
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <h2>
+                        Personal Information
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="profile-grid">
+
+
+                <div class="profile-field">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <p id="fullNameDisplay">
+                        Applicant
+                    </p>
+
+                </div>
+
+
+                <div class="profile-field">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <p id="emailDisplay">
+                        Not provided
+                    </p>
+
+                </div>
+
+
+                <div class="profile-field">
+
+                    <label>
+                        Phone Number
+                    </label>
+
+                    <p>
+                        Not provided
+                    </p>
+
+                </div>
+
+
+                <div class="profile-field">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <p>
+                        Nigeria
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================================
+             PROFESSIONAL INFORMATION
+        ========================================== -->
+
+        <div class="profile-card">
+
+
+            <div class="card-title">
+
+                <div>
+
+                    <i class="fa-solid fa-briefcase"></i>
+
+                    <h2>
+                        Professional Information
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="profile-grid">
+
+
+                <div class="profile-field">
+
+                    <label>
+                        Job Title
+                    </label>
+
+                    <p>
+                        Not provided
+                    </p>
+
+                </div>
+
+
+                <div class="profile-field">
+
+                    <label>
+                        Experience
+                    </label>
+
+                    <p>
+                        Not provided
+                    </p>
+
+                </div>
+
+
+                <div class="profile-field">
+
+                    <label>
+                        Education
+                    </label>
+
+                    <p>
+                        Not provided
+                    </p>
+
+                </div>
+
+
+                <div class="profile-field">
+
+                    <label>
+                        Preferred Job Type
+                    </label>
+
+                    <p>
+                        Full Time
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================================
+             SKILLS
+        ========================================== -->
+
+        <div class="profile-card">
+
+
+            <div class="card-title">
+
+                <div>
+
+                    <i class="fa-solid fa-code"></i>
+
+                    <h2>
+                        Skills
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="skills-container">
+
+                <span>
+                    Java
+                </span>
+
+                <span>
+                    JavaScript
+                </span>
+
+                <span>
+                    HTML
+                </span>
+
+                <span>
+                    CSS
+                </span>
+
+                <span>
+                    React
+                </span>
+
+                <span>
+                    Git
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================================
+             CV SECTION
+        ========================================== -->
+
+        <div class="profile-card">
+
+
+            <div class="card-title">
+
+                <div>
+
+                    <i class="fa-solid fa-file-pdf"></i>
+
+                    <h2>
+                        My CV
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="cv-card">
+
+
+                <div class="cv-icon">
+
+                    <i class="fa-solid fa-file-pdf"></i>
+
+                </div>
+
+
+
+                <div class="cv-info">
+
+                    <h2 id="cvFileName">
+                        No CV uploaded
+                    </h2>
+
+                    <p id="cvStatus">
+                        Upload your CV to apply for jobs.
+                    </p>
+
+                </div>
+
+
+
+                <!-- Hidden CV input -->
+
+                <input
+                    type="file"
+                    id="cvInput"
+                    accept=".pdf,.doc,.docx"
+                    hidden>
+
+
+
+                <!-- Upload Button -->
+
+                <button
+                    type="button"
+                    class="upload-cv-btn"
+                    id="uploadCvBtn">
+
+                    <i class="fa-solid fa-upload"></i>
+
+                    Upload CV
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="dashboard-footer">
+
+
+            <div class="footer-left">
+
+                <h3>
+                    Unicorn Innovation
+                </h3>
+
+                <p>
+                    Hill Limited
+                </p>
+
+            </div>
+
+
+            <div class="footer-center">
+
+                <p>
+                    &copy; 2026 Unicorn Innovation Hill Limited.
+                    All Rights Reserved.
+                </p>
+
+            </div>
+
+
+            <div class="footer-social">
+
+                <a href="#">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+            </div>
+
+
+        </footer>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
+
+<script src="Applicant-Profile.js"></script>
+
+
+</body>
+
+</html>

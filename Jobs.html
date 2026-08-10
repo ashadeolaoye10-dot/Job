@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Jobs | Unicorn Innovation Hill Limited</title>
+    <meta name="description" content="Explore available job opportunities at Unicorn Innovation Hill Limited and take the next step in your career.">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="Jobs.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         MOBILE MENU BUTTON
+    ========================================== -->
+
+    <button class="menu-toggle" id="menuToggle">
+
+        <i class="fa-solid fa-bars"></i>
+
+    </button>
+
+
+
+    <!-- ==========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <div class="logo-circle">
+                UI
+            </div>
+
+            <div class="logo-text">
+
+                <h2>
+                    Unicorn Innovation
+                </h2>
+
+                <p>
+                    Hill Limited
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIDEBAR MENU -->
+
+        <ul class="sidebar-menu">
+
+
+            <li>
+
+                <a href="Applicant-dashboard.html">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    My Profile
+
+                </a>
+
+            </li>
+
+
+            <li class="active">
+
+                <a href="Jobs.html">
+
+                    <i class="fa-solid fa-briefcase"></i>
+
+                    Available Jobs
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="My-Applications.html">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    My Applications
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="Upload Cv.html">
+
+                    <i class="fa-solid fa-upload"></i>
+
+                    Upload CV
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    Settings
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="Applicant-login.html">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    Logout
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </aside>
+
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-content">
+
+
+        <!-- ==========================================
+             PAGE HEADER
+        ========================================== -->
+
+        <section class="jobs-header">
+
+            <span>
+                💼 CAREER OPPORTUNITIES
+            </span>
+
+            <h1>
+                Find Your Next Opportunity 🚀
+            </h1>
+
+            <p>
+
+                Explore available positions and find a role
+                that matches your skills and career goals.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             SEARCH AND FILTER
+        ========================================== -->
+
+        <section class="jobs-search">
+
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="jobSearch"
+                    placeholder="Search for a job...">
+
+            </div>
+
+
+            <select id="locationFilter">
+
+                <option value="all">
+                    📍 All Locations
+                </option>
+
+                <option value="lagos">
+                    📍 Lagos
+                </option>
+
+                <option value="abuja">
+                    📍 Abuja
+                </option>
+
+                <option value="remote">
+                    🌍 Remote
+                </option>
+
+            </select>
+
+
+            <select id="jobTypeFilter">
+
+                <option value="all">
+                    💼 All Job Types
+                </option>
+
+                <option value="full-time">
+                    🕐 Full Time
+                </option>
+
+                <option value="part-time">
+                    🕐 Part Time
+                </option>
+
+                <option value="hybrid">
+                    🔄 Hybrid
+                </option>
+
+            </select>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             JOB COUNT
+        ========================================== -->
+
+        <div class="job-result">
+
+            <p>
+
+                Showing
+
+                <strong id="jobCount">
+                    6
+                </strong>
+
+                available jobs
+
+            </p>
+
+        </div>
+
+
+
+        <!-- ==========================================
+             JOB LIST
+        ========================================== -->
+
+        <section class="jobs-grid"
+                 id="jobsGrid">
+
+
+
+            <!-- ======================================
+                 JOB 1
+            ======================================= -->
+
+            <article class="job-card"
+                     data-location="lagos"
+                     data-type="full-time">
+
+                <div class="job-icon">
+
+                    <i class="fa-solid fa-code"></i>
+
+                </div>
+
+
+                <div class="job-content">
+
+                    <span class="job-type">
+                        🕐 Full Time
+                    </span>
+
+                    <h2>
+                        Frontend Developer
+                    </h2>
+
+                    <p class="company">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        Unicorn Innovation Hill Limited
+
+                    </p>
+
+
+                    <div class="job-details">
+
+                        <span>
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            Lagos
+
+                        </span>
+
+                        <span>
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Full Time
+
+                        </span>
+
+                    </div>
+
+
+                    <p class="job-description">
+
+                        Build responsive and modern web interfaces
+                        using HTML, CSS, JavaScript and React.
+
+                    </p>
+
+
+                    <div class="job-actions">
+
+                        <button
+                            class="view-job-btn"
+                            data-job="Frontend Developer">
+
+                            👁️ View Details
+
+                        </button>
+
+
+                        <button
+                            class="apply-btn"
+                            data-job="Frontend Developer">
+
+                            📝 Apply Now
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- ======================================
+                 JOB 2
+            ======================================= -->
+
+            <article class="job-card"
+                     data-location="remote"
+                     data-type="full-time">
+
+                <div class="job-icon">
+
+                    <i class="fa-brands fa-java"></i>
+
+                </div>
+
+
+                <div class="job-content">
+
+                    <span class="job-type">
+                        🕐 Full Time
+                    </span>
+
+                    <h2>
+                        Backend Java Developer
+                    </h2>
+
+                    <p class="company">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        Unicorn Innovation Hill Limited
+
+                    </p>
+
+
+                    <div class="job-details">
+
+                        <span>
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            Remote
+
+                        </span>
+
+                        <span>
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Full Time
+
+                        </span>
+
+                    </div>
+
+
+                    <p class="job-description">
+
+                        Develop reliable backend applications
+                        and APIs using Java and database technologies.
+
+                    </p>
+
+
+                    <div class="job-actions">
+
+                        <button
+                            class="view-job-btn"
+                            data-job="Backend Java Developer">
+
+                            👁️ View Details
+
+                        </button>
+
+
+                        <button
+                            class="apply-btn"
+                            data-job="Backend Java Developer">
+
+                            📝 Apply Now
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- ======================================
+                 JOB 3
+            ======================================= -->
+
+            <article class="job-card"
+                     data-location="abuja"
+                     data-type="hybrid">
+
+                <div class="job-icon">
+
+                    <i class="fa-solid fa-pen-ruler"></i>
+
+                </div>
+
+
+                <div class="job-content">
+
+                    <span class="job-type">
+                        🔄 Hybrid
+                    </span>
+
+                    <h2>
+                        UI/UX Designer
+                    </h2>
+
+                    <p class="company">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        Unicorn Innovation Hill Limited
+
+                    </p>
+
+
+                    <div class="job-details">
+
+                        <span>
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            Abuja
+
+                        </span>
+
+                        <span>
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Hybrid
+
+                        </span>
+
+                    </div>
+
+
+                    <p class="job-description">
+
+                        Design intuitive and engaging digital
+                        experiences for web and mobile applications.
+
+                    </p>
+
+
+                    <div class="job-actions">
+
+                        <button
+                            class="view-job-btn"
+                            data-job="UI/UX Designer">
+
+                            👁️ View Details
+
+                        </button>
+
+
+                        <button
+                            class="apply-btn"
+                            data-job="UI/UX Designer">
+
+                            📝 Apply Now
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- ======================================
+                 JOB 4
+            ======================================= -->
+
+            <article class="job-card"
+                     data-location="lagos"
+                     data-type="full-time">
+
+                <div class="job-icon">
+
+                    <i class="fa-solid fa-database"></i>
+
+                </div>
+
+
+                <div class="job-content">
+
+                    <span class="job-type">
+                        🕐 Full Time
+                    </span>
+
+                    <h2>
+                        Database Developer
+                    </h2>
+
+                    <p class="company">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        Unicorn Innovation Hill Limited
+
+                    </p>
+
+
+                    <div class="job-details">
+
+                        <span>
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            Lagos
+
+                        </span>
+
+                        <span>
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Full Time
+
+                        </span>
+
+                    </div>
+
+
+                    <p class="job-description">
+
+                        Design, maintain and optimize databases
+                        for company applications and services.
+
+                    </p>
+
+
+                    <div class="job-actions">
+
+                        <button
+                            class="view-job-btn"
+                            data-job="Database Developer">
+
+                            👁️ View Details
+
+                        </button>
+
+
+                        <button
+                            class="apply-btn"
+                            data-job="Database Developer">
+
+                            📝 Apply Now
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- ======================================
+                 JOB 5
+            ======================================= -->
+
+            <article class="job-card"
+                     data-location="remote"
+                     data-type="part-time">
+
+                <div class="job-icon">
+
+                    <i class="fa-solid fa-laptop-code"></i>
+
+                </div>
+
+
+                <div class="job-content">
+
+                    <span class="job-type">
+                        🕐 Part Time
+                    </span>
+
+                    <h2>
+                        Junior Web Developer
+                    </h2>
+
+                    <p class="company">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        Unicorn Innovation Hill Limited
+
+                    </p>
+
+
+                    <div class="job-details">
+
+                        <span>
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            Remote
+
+                        </span>
+
+                        <span>
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Part Time
+
+                        </span>
+
+                    </div>
+
+
+                    <p class="job-description">
+
+                        Assist the development team with websites,
+                        testing and frontend improvements.
+
+                    </p>
+
+
+                    <div class="job-actions">
+
+                        <button
+                            class="view-job-btn"
+                            data-job="Junior Web Developer">
+
+                            👁️ View Details
+
+                        </button>
+
+
+                        <button
+                            class="apply-btn"
+                            data-job="Junior Web Developer">
+
+                            📝 Apply Now
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- ======================================
+                 JOB 6
+            ======================================= -->
+
+            <article class="job-card"
+                     data-location="lagos"
+                     data-type="hybrid">
+
+                <div class="job-icon">
+
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+
+                </div>
+
+
+                <div class="job-content">
+
+                    <span class="job-type">
+                        🔄 Hybrid
+                    </span>
+
+                    <h2>
+                        Mobile App Developer
+                    </h2>
+
+                    <p class="company">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        Unicorn Innovation Hill Limited
+
+                    </p>
+
+
+                    <div class="job-details">
+
+                        <span>
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            Lagos
+
+                        </span>
+
+                        <span>
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Hybrid
+
+                        </span>
+
+                    </div>
+
+
+                    <p class="job-description">
+
+                        Create and maintain mobile applications
+                        with a focus on performance and usability.
+
+                    </p>
+
+
+                    <div class="job-actions">
+
+                        <button
+                            class="view-job-btn"
+                            data-job="Mobile App Developer">
+
+                            👁️ View Details
+
+                        </button>
+
+
+                        <button
+                            class="apply-btn"
+                            data-job="Mobile App Developer">
+
+                            📝 Apply Now
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             NO RESULTS
+        ========================================== -->
+
+        <div class="no-results"
+             id="noResults">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <h2>
+                No Jobs Found
+            </h2>
+
+            <p>
+                Try changing your search or filter.
+            </p>
+
+        </div>
+
+
+
+        <!-- ==========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="dashboard-footer">
+
+            <div>
+
+                <h3>
+                    Unicorn Innovation
+                </h3>
+
+                <p>
+                    Hill Limited
+                </p>
+
+            </div>
+
+
+            <p>
+
+                &copy; 2026 Unicorn Innovation Hill Limited.
+                All Rights Reserved.
+
+            </p>
+
+
+            <div class="footer-social">
+
+                <a href="#">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+            </div>
+
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="Jobs.js"></script>
+
+</body>
+
+</html>

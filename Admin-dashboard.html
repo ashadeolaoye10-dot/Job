@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Unicorn Innovation Hill Limited</title>
+    <meta name="description" content="Manage job postings, applicants, and notifications efficiently with the Unicorn Innovation Hill Limited Admin Dashboard.">
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Admin Dashboard CSS -->
+
+    <link rel="stylesheet"
+          href="Admin-dashboard.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     MOBILE MENU BUTTON
+========================================== -->
+
+<button class="menu-toggle"
+        id="menuToggle">
+
+    <i class="fa-solid fa-bars"></i>
+
+</button>
+
+
+
+<div class="admin-dashboard">
+
+
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<aside class="admin-sidebar"
+       id="adminSidebar">
+
+
+    <!-- LOGO -->
+
+    <div class="admin-logo">
+
+        <div class="logo-circle">
+
+            UI
+
+        </div>
+
+        <div class="logo-text">
+
+            <h2>
+                Unicorn Innovation
+            </h2>
+
+            <p>
+                Hill Limited
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ADMIN PROFILE -->
+
+    <div class="admin-profile">
+
+        <div class="admin-profile-icon">
+
+            <i class="fa-solid fa-user-shield"></i>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Administrator
+            </h3>
+
+            <p>
+                Admin
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SIDEBAR MENU -->
+
+    <ul class="admin-menu">
+
+
+        <li class="active">
+
+            <a href="#">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+                <span>
+                    Post Jobs
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-list-check"></i>
+
+                <span>
+                    Manage Jobs
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    Applicants
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                <span>
+                    Applications
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <span>
+                    Notifications
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li class="logout">
+
+            <a href="Admin-login.html">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </li>
+
+
+    </ul>
+
+
+</aside>
+
+
+
+<!-- ==========================================
+     MAIN CONTENT
+========================================== -->
+
+<main class="admin-main">
+
+
+    <!-- ==========================================
+         TOP HEADER
+    ========================================== -->
+
+    <header class="admin-header">
+
+
+        <div>
+
+            <h1>
+                Admin Dashboard 👋
+            </h1>
+
+            <p>
+                Manage your jobs, applicants and applications.
+            </p>
+
+        </div>
+
+
+        <div class="admin-header-profile">
+
+            <div class="header-admin-icon">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    Administrator
+                </h3>
+
+                <p>
+                    Admin
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- ==========================================
+         STATISTICS
+    ========================================== -->
+
+    <section class="admin-stats">
+
+
+        <!-- TOTAL JOBS -->
+
+        <div class="admin-stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+            </div>
+
+            <div>
+
+                <!-- Total Jobs -->
+            <h2 id="totalJobs">0</h2>
+
+                <p>
+                    Total Jobs
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- APPLICANTS -->
+
+        <div class="admin-stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-users"></i>
+
+            </div>
+
+            <div>
+
+                <!-- Applicants -->
+            <h2 id="totalApplicants">0</h2>
+
+                <p>
+                    Applicants
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- APPLICATIONS -->
+
+        <div class="admin-stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+            </div>
+
+            <div>
+
+                <!-- Applications -->
+            <h2 id="totalApplications">0</h2>
+
+                <p>
+                    Applications
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PENDING -->
+
+        <div class="admin-stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-clock"></i>
+
+            </div>
+
+            <div>
+
+                <!-- Pending -->
+            <h2 id="pendingApplications">0</h2>
+
+                <p>
+                    Pending
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         DASHBOARD GRID
+    ========================================== -->
+
+    <section class="admin-content-grid">
+
+
+        <!-- ======================================
+             RECENT APPLICATIONS
+        ======================================= -->
+
+        <div class="admin-card">
+
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Recent Applications
+                    </h2>
+
+                    <p>
+                        Latest applicant activity
+                    </p>
+
+                </div>
+
+                <a href="#">
+                    View All
+                </a>
+
+            </div>
+
+
+
+            <div class="application-list">
+
+
+                <!-- APPLICATION 1 -->
+
+                <div class="application-item">
+
+                    <div class="applicant-icon">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <div class="application-info">
+
+                        <h3>
+                            Applicant
+                        </h3>
+
+                        <p>
+                            Frontend Developer
+                        </p>
+
+                    </div>
+
+                    <span class="status pending">
+                        Pending
+                    </span>
+
+                </div>
+
+
+
+                <!-- APPLICATION 2 -->
+
+                <div class="application-item">
+
+                    <div class="applicant-icon">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <div class="application-info">
+
+                        <h3>
+                            Applicant
+                        </h3>
+
+                        <p>
+                            Java Developer
+                        </p>
+
+                    </div>
+
+                    <span class="status accepted">
+                        Accepted
+                    </span>
+
+                </div>
+
+
+
+                <!-- APPLICATION 3 -->
+
+                <div class="application-item">
+
+                    <div class="applicant-icon">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <div class="application-info">
+
+                        <h3>
+                            Applicant
+                        </h3>
+
+                        <p>
+                            UI/UX Designer
+                        </p>
+
+                    </div>
+
+                    <span class="status rejected">
+                        Rejected
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ======================================
+             RECENT JOBS
+        ======================================= -->
+
+        <!-- ======================================
+     RECENT JOBS
+======================================= -->
+
+<div class="admin-card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>
+                Recent Jobs
+            </h2>
+
+            <p>
+                Recently posted vacancies
+            </p>
+
+        </div>
+
+        <a href="Admin-post-job.html">
+            Post New Job
+        </a>
+
+    </div>
+
+
+    <div class="job-list" id="adminJobList">
+
+        <!-- Jobs posted by the admin will appear here automatically -->
+
+    </div>
+
+</div>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         QUICK ACTIONS
+    ========================================== -->
+    <section class="quick-actions">
+
+    <div class="admin-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>Quick Actions</h2>
+
+                <p>
+                    Frequently used admin tools
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="action-grid">
+
+            <!-- POST JOB -->
+
+            <a href="Admin-post-job.html"
+               class="action-btn">
+
+                <i class="fa-solid fa-plus"></i>
+
+                <span>
+                    Post New Job
+                </span>
+
+            </a>
+
+
+            <!-- VIEW APPLICANTS -->
+
+            <a href="Admin-applicants.html"
+               class="action-btn">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    View Applicants
+                </span>
+
+            </a>
+
+
+            <!-- REVIEW APPLICATIONS -->
+
+            <a href="Admin-applications.html"
+               class="action-btn">
+
+                <i class="fa-solid fa-file-circle-check"></i>
+
+                <span>
+                    Review Applications
+                </span>
+
+            </a>
+
+
+            <!-- SETTINGS -->
+
+            <a href="Admin-settings.html"
+               class="action-btn">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Admin Settings
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- ==========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="admin-footer">
+
+
+        <div>
+
+            <h3>
+                Unicorn Innovation
+            </h3>
+
+            <p>
+                Hill Limited
+            </p>
+
+        </div>
+
+
+        <p>
+
+            &copy; 2026 Unicorn Innovation Hill Limited.
+            All Rights Reserved.
+
+        </p>
+
+
+        <div class="footer-social">
+
+            <a href="#">
+
+                <i class="fa-brands fa-facebook-f"></i>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-brands fa-x-twitter"></i>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-brands fa-linkedin-in"></i>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-brands fa-instagram"></i>
+
+            </a>
+
+        </div>
+
+
+    </footer>
+
+
+</main>
+
+
+</div>
+
+
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
+
+<script src="Admin-dashboard.js"></script>
+
+
+</body>
+
+</html>
