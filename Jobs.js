@@ -1,113 +1,18 @@
-/* =========================================================
-   JOBS PAGE - COMPLETE JAVASCRIPT
-========================================================= */
-
 
 /* =========================================================
-   MOBILE SIDEBAR
+   JOBS PAGE
+   Unicorn Innovation Hill Limited
+
+   MongoDB
+      ↓
+   Java Backend
+      ↓
+   /api/jobs
+      ↓
+   This page
 ========================================================= */
 
-const menuToggle = document.getElementById("menuToggle");
-const sidebar = document.getElementById("sidebar");
-
-if (menuToggle && sidebar) {
-
-    menuToggle.addEventListener("click", function () {
-
-        sidebar.classList.toggle("active");
-
-        const icon = menuToggle.querySelector("i");
-
-        if (icon) {
-
-            if (sidebar.classList.contains("active")) {
-
-                icon.classList.remove("fa-bars");
-                icon.classList.add("fa-xmark");
-
-            } else {
-
-                icon.classList.remove("fa-xmark");
-                icon.classList.add("fa-bars");
-
-            }
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   CLOSE SIDEBAR WHEN LINK IS CLICKED
-========================================================= */
-
-document.querySelectorAll(".sidebar-menu a").forEach(function (link) {
-
-    link.addEventListener("click", function () {
-
-        if (sidebar) {
-
-            sidebar.classList.remove("active");
-
-        }
-
-        if (menuToggle) {
-
-            const icon = menuToggle.querySelector("i");
-
-            if (icon) {
-
-                icon.classList.remove("fa-xmark");
-                icon.classList.add("fa-bars");
-
-            }
-
-        }
-
-    });
-
-});
-
-
-/* =========================================================
-   GET JOBS FROM LOCAL STORAGE
-========================================================= */
-
-function getJobs() {
-
-    try {
-
-        const savedJobs =
-            localStorage.getItem("jobs");
-
-        if (!savedJobs) {
-
-            return [];
-
-        }
-
-        const jobs =
-            JSON.parse(savedJobs);
-
-        if (!Array.isArray(jobs)) {
-
-            return [];
-
-        }
-
-        return jobs;
-
-    } catch (error) {
-
-        console.error("Error reading jobs:", error);
-
-        return [];
-
-    }
-
-}
+const API_URL = "http://localhost:8080";
 
 
 /* =========================================================
@@ -123,7 +28,7 @@ const jobCount =
 const noResults =
     document.getElementById("noResults");
 
-const searchInput =
+const jobSearch =
     document.getElementById("jobSearch");
 
 const locationFilter =
@@ -132,274 +37,287 @@ const locationFilter =
 const jobTypeFilter =
     document.getElementById("jobTypeFilter");
 
+const menuToggle =
+    document.getElementById("menuToggle");
+
+const sidebar =
+    document.getElementById("sidebar");
+
+
+let allJobs = [];
+
 
 /* =========================================================
-   ESCAPE HTML
+   MOBILE SIDEBAR
 ========================================================= */
 
-function escapeHTML(value) {
+if (menuToggle && sidebar) {
 
-    if (value === null || value === undefined) {
+    menuToggle.addEventListener("click", function () {
 
-        return "";
+        sidebar.classList.toggle("active");
 
-    }
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    });
 
 }
 
 
 /* =========================================================
-   CREATE JOB CARD
+   LOAD JOBS FROM JAVA BACKEND
 ========================================================= */
 
-function createJobCard(job) {
+async function loadJobs() {
 
-    const card =
-        document.createElement("article");
+    try {
 
-    card.className = "job-card";
-
-    card.dataset.jobId =
-        String(job.id);
-
-    card.dataset.location =
-        String(job.location || "")
-            .toLowerCase();
-
-    card.dataset.type =
-        String(job.type || "")
-            .toLowerCase()
-            .replace(/\s+/g, "-");
+        jobsGrid.innerHTML = `
+            <div class="loading-jobs">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading available jobs...</p>
+            </div>
+        `;
 
 
-    card.innerHTML = `
-
-        <div class="job-icon">
-
-            <i class="fa-solid fa-briefcase"></i>
-
-        </div>
+        const response =
+            await fetch(
+                API_URL + "/api/jobs"
+            );
 
 
-        <div class="job-content">
+        if (!response.ok) {
 
-            <span class="job-type">
+            throw new Error(
+                "Could not load jobs from the server."
+            );
 
-                💼 ${escapeHTML(job.type || "Job")}
-
-            </span>
-
-
-            <h2>
-
-                ${escapeHTML(job.title)}
-
-            </h2>
+        }
 
 
-            <p class="company">
-
-                <i class="fa-solid fa-building"></i>
-
-                Unicorn Innovation Hill Limited
-
-            </p>
+        const data =
+            await response.json();
 
 
-            <div class="job-details">
-
-                <span>
-
-                    <i class="fa-solid fa-location-dot"></i>
-
-                    ${escapeHTML(job.location || "Not specified")}
-
-                </span>
+        console.log(
+            "Jobs received from backend:",
+            data
+        );
 
 
-                <span>
+        /*
+         * Accept either:
+         *
+         * [ {...}, {...} ]
+         *
+         * OR
+         *
+         * { jobs: [...] }
+         */
 
-                    <i class="fa-solid fa-layer-group"></i>
+        if (Array.isArray(data)) {
 
-                    ${escapeHTML(job.category || "General")}
+            allJobs = data;
 
-                </span>
+        } else if (Array.isArray(data.jobs)) {
+
+            allJobs = data.jobs;
+
+        } else {
+
+            allJobs = [];
+
+        }
+
+
+        renderJobs(allJobs);
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading jobs:",
+            error
+        );
+
+
+        jobsGrid.innerHTML = `
+
+            <div class="no-results">
+
+                <i class="fa-solid fa-server"></i>
+
+                <h2>
+                    Unable to Load Jobs
+                </h2>
+
+                <p>
+                    Make sure the Java backend is running.
+                </p>
 
             </div>
 
+        `;
 
-            <p class="job-description">
+        jobCount.textContent = "0";
 
-                ${escapeHTML(job.description || "")}
-
-            </p>
-
-
-            ${
-                job.salary
-                    ? `
-                        <p class="job-salary">
-
-                            <i class="fa-solid fa-naira-sign"></i>
-
-                            ${escapeHTML(job.salary)}
-
-                        </p>
-                      `
-                    : ""
-            }
-
-
-            <div class="job-actions">
-
-                <button
-                    type="button"
-                    class="view-job-btn"
-                    data-job-id="${escapeHTML(job.id)}">
-
-                    👁️ View Details
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="apply-btn"
-                    data-job-id="${escapeHTML(job.id)}">
-
-                    📝 Apply Now
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </button>
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    return card;
+    }
 
 }
 
 
 /* =========================================================
-   DISPLAY JOBS
+   RENDER JOBS
 ========================================================= */
 
-function displayJobs() {
-
-    if (!jobsGrid) {
-
-        return;
-
-    }
-
-
-    const jobs = getJobs();
-
+function renderJobs(jobs) {
 
     jobsGrid.innerHTML = "";
 
 
-    if (jobs.length === 0) {
+    if (!jobs || jobs.length === 0) {
 
-        if (jobCount) {
+        noResults.style.display = "block";
 
-            jobCount.textContent = "0";
-
-        }
-
-        if (noResults) {
-
-            noResults.style.display = "block";
-
-            const heading =
-                noResults.querySelector("h2");
-
-            const paragraph =
-                noResults.querySelector("p");
-
-            if (heading) {
-
-                heading.textContent =
-                    "No Jobs Available";
-
-            }
-
-            if (paragraph) {
-
-                paragraph.textContent =
-                    "There are currently no jobs posted.";
-
-            }
-
-        }
+        jobCount.textContent = "0";
 
         return;
 
     }
 
 
-    if (noResults) {
-
-        noResults.style.display = "none";
-
-    }
+    noResults.style.display = "none";
 
 
     jobs.forEach(function (job) {
 
         const card =
-            createJobCard(job);
+            document.createElement("article");
+
+
+        card.className =
+            "job-card";
+
+
+        card.setAttribute(
+            "data-location",
+            String(job.location || "").toLowerCase()
+        );
+
+
+        card.setAttribute(
+            "data-type",
+            String(job.type || "").toLowerCase()
+        );
+
+
+        card.setAttribute(
+            "data-job-id",
+            String(job.id)
+        );
+
+
+        card.innerHTML = `
+
+            <div class="job-icon">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+            </div>
+
+
+            <div class="job-content">
+
+                <span class="job-type">
+
+                    💼 ${escapeHTML(job.type || "Job")}
+
+                </span>
+
+
+                <h2>
+
+                    ${escapeHTML(job.title || "Untitled Job")}
+
+                </h2>
+
+
+                <p class="company">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    Unicorn Innovation Hill Limited
+
+                </p>
+
+
+                <div class="job-details">
+
+                    <span>
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        ${escapeHTML(job.location || "Not specified")}
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        ${escapeHTML(job.type || "Not specified")}
+
+                    </span>
+
+                </div>
+
+
+                <p class="job-description">
+
+                    ${escapeHTML(
+                        job.description ||
+                        "No job description provided."
+                    )}
+
+                </p>
+
+
+                <div class="job-actions">
+
+                    <button
+                        type="button"
+                        class="view-job-btn"
+                        data-job-id="${escapeHTML(String(job.id))}">
+
+                        👁️ View Details
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="apply-btn"
+                        data-job-id="${escapeHTML(String(job.id))}">
+
+                        📝 Apply Now
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
 
         jobsGrid.appendChild(card);
 
     });
 
 
-    if (jobCount) {
-
-        jobCount.textContent =
-            jobs.length;
-
-    }
-
-}
-
-
-/* =========================================================
-   FIND JOB BY ID
-========================================================= */
-
-function findJobById(jobId) {
-
-    const jobs =
-        getJobs();
-
-
-    if (!jobId) {
-
-        return null;
-
-    }
-
-
-    return jobs.find(function (job) {
-
-        return String(job.id) ===
-            String(jobId);
-
-    }) || null;
+    jobCount.textContent =
+        jobs.length;
 
 }
 
@@ -408,170 +326,128 @@ function findJobById(jobId) {
    VIEW JOB DETAILS
 ========================================================= */
 
-document.addEventListener("click", function (event) {
+document.addEventListener(
+    "click",
+    function (event) {
 
-    const button =
-        event.target.closest(".view-job-btn");
-
-
-    if (!button) {
-
-        return;
-
-    }
+        const button =
+            event.target.closest(".view-job-btn");
 
 
-    const jobId =
-        button.getAttribute("data-job-id");
+        if (!button) {
+
+            return;
+
+        }
 
 
-    const job =
-        findJobById(jobId);
+        const jobId =
+            button.getAttribute("data-job-id");
 
 
-    if (!job) {
+        const job =
+            allJobs.find(function (item) {
+
+                return String(item.id) ===
+                    String(jobId);
+
+            });
+
+
+        if (!job) {
+
+            alert(
+                "❌ Job details could not be found."
+            );
+
+            return;
+
+        }
+
 
         alert(
-            "❌ Job information could not be found."
+
+            "💼 JOB DETAILS\n\n" +
+
+            "Job: " +
+            (job.title || "N/A") +
+
+            "\n\nLocation: " +
+            (job.location || "N/A") +
+
+            "\n\nType: " +
+            (job.type || "N/A") +
+
+            "\n\nDescription:\n" +
+            (job.description || "No description available.") +
+
+            "\n\nClick Apply Now to apply."
+
         );
 
-        return;
-
     }
-
-
-    const details =
-
-        "💼 " + job.title + "\n\n" +
-
-        "🏢 Unicorn Innovation Hill Limited\n\n" +
-
-        "📂 Category: " +
-        (job.category || "Not specified") +
-
-        "\n\n" +
-
-        "📍 Location: " +
-        (job.location || "Not specified") +
-
-        "\n\n" +
-
-        "🕐 Employment Type: " +
-        (job.type || "Not specified") +
-
-        "\n\n" +
-
-        "💰 Salary: " +
-        (job.salary || "Not specified") +
-
-        "\n\n" +
-
-        "📝 Description:\n" +
-        (job.description || "Not specified") +
-
-        "\n\n" +
-
-        "📋 Requirements:\n" +
-        (job.requirements || "Not specified") +
-
-        "\n\n" +
-
-        "📅 Application Deadline: " +
-        (job.deadline || "Not specified") +
-
-        "\n\n" +
-
-        "👥 Openings: " +
-        (job.openings || "Not specified");
-
-
-    alert(details);
-
-});
+);
 
 
 /* =========================================================
    APPLY NOW
 ========================================================= */
 
-document.addEventListener("click", function (event) {
+document.addEventListener(
+    "click",
+    async function (event) {
 
-    const button =
-        event.target.closest(".apply-btn");
-
-
-    if (!button) {
-
-        return;
-
-    }
+        const button =
+            event.target.closest(".apply-btn");
 
 
-    const jobId =
-        button.getAttribute("data-job-id");
+        if (!button) {
+
+            return;
+
+        }
 
 
-    const job =
-        findJobById(jobId);
+        const jobId =
+            button.getAttribute("data-job-id");
 
 
-    if (!job) {
+        const job =
+            allJobs.find(function (item) {
 
-        alert(
-            "❌ Job information could not be found."
-        );
+                return String(item.id) ===
+                    String(jobId);
 
-        return;
-
-    }
+            });
 
 
-    /* =====================================================
-       CHECK CV UPLOAD
-       
-       IMPORTANT:
-       Your Upload CV page saves:
-       
-       cvUploaded = "true"
-       applicantCVName = CV filename
-       
-       So we MUST check those exact keys.
-    ===================================================== */
+        if (!job) {
 
-    const cvUploaded =
-        localStorage.getItem("cvUploaded");
+            alert(
+                "❌ Job information could not be found."
+            );
 
-    const applicantCVName =
-        localStorage.getItem("applicantCVName");
+            return;
+
+        }
 
 
-    const hasCV =
-        cvUploaded === "true" &&
-        applicantCVName;
+        /* ==============================================
+           CHECK LOGIN
+        ============================================== */
 
-
-    /* =====================================================
-       CV NOT UPLOADED
-    ===================================================== */
-
-    if (!hasCV) {
-
-        const goToCV =
-            confirm(
-
-                "📄 CV Required\n\n" +
-
-                "You need to upload your CV before " +
-                "applying for this job.\n\n" +
-
-                "Click OK to go to the Upload CV page."
-
+        const loggedIn =
+            localStorage.getItem(
+                "isApplicantLoggedIn"
             );
 
 
-        if (goToCV) {
+        if (loggedIn !== "true") {
 
-            /* Save the job the applicant wants to apply for */
+            alert(
+                "Please login to your applicant account before applying."
+            );
+
 
             localStorage.setItem(
                 "pendingJobId",
@@ -580,325 +456,433 @@ document.addEventListener("click", function (event) {
 
 
             window.location.href =
-                "Upload Cv.html";
+                "Applicant-login.html";
+
+
+            return;
 
         }
 
 
-        return;
+        /* ==============================================
+           CHECK CV
+        ============================================== */
 
-    }
-
-
-    /* =====================================================
-       CV EXISTS
-    ===================================================== */
-
-    console.log(
-        "CV found:",
-        applicantCVName
-    );
-
-
-    /* =====================================================
-       GET EXISTING APPLICATIONS
-    ===================================================== */
-
-    let applications = [];
-
-
-    try {
-
-        applications =
-            JSON.parse(
-                localStorage.getItem("applications")
-            ) || [];
-
-    } catch (error) {
-
-        console.error(
-            "Error reading applications:",
-            error
-        );
-
-        applications = [];
-
-    }
-
-
-    if (!Array.isArray(applications)) {
-
-        applications = [];
-
-    }
-
-
-    /* =====================================================
-       CHECK IF ALREADY APPLIED
-    ===================================================== */
-
-    const alreadyApplied =
-        applications.some(function (application) {
-
-            return (
-
-                String(application.jobId) ===
-                String(job.id)
-
+        const cvUploaded =
+            localStorage.getItem(
+                "cvUploaded"
             );
 
-        });
+
+        const applicantCVName =
+            localStorage.getItem(
+                "applicantCVName"
+            );
 
 
-    if (alreadyApplied) {
-
-        alert(
-            "ℹ️ You have already applied for this job."
-        );
-
-        return;
-
-    }
+        const applicantCVSavedName =
+            localStorage.getItem(
+                "applicantCVSavedName"
+            );
 
 
-    /* =====================================================
-       CREATE APPLICATION
-    ===================================================== */
-
-    const application = {
-
-        id:
-            Date.now().toString(),
-
-        jobId:
-            String(job.id),
-
-        jobTitle:
-            job.title,
-
-        company:
-            "Unicorn Innovation Hill Limited",
-
-        applicantEmail:
-            localStorage.getItem("loggedInEmail") ||
-            "Applicant",
-
-        cv:
-            applicantCVName,
-
-        dateApplied:
-            new Date().toLocaleDateString(),
-
-        status:
-            "Pending"
-
-    };
+        const hasCV =
+            cvUploaded === "true" &&
+            applicantCVName &&
+            applicantCVSavedName;
 
 
-    /* =====================================================
-       SAVE APPLICATION
-    ===================================================== */
+        if (!hasCV) {
 
-    applications.push(application);
+            const goToCV =
+                confirm(
 
+                    "📄 CV Required\n\n" +
 
-    localStorage.setItem(
-        "applications",
-        JSON.stringify(applications)
-    );
+                    "You must upload your CV before applying.\n\n" +
 
+                    "Click OK to upload your CV."
 
-    /* =====================================================
-       UPDATE JOB APPLICATION COUNT
-    ===================================================== */
-
-    let jobs =
-        getJobs();
+                );
 
 
-    jobs =
-        jobs.map(function (savedJob) {
+            if (goToCV) {
 
-            if (
-                String(savedJob.id) ===
-                String(job.id)
-            ) {
+                localStorage.setItem(
+                    "pendingJobId",
+                    String(job.id)
+                );
 
-                savedJob.applications =
-                    Number(
-                        savedJob.applications || 0
-                    ) + 1;
+
+                window.location.href =
+                    "Upload Cv.html";
 
             }
 
 
-            return savedJob;
-
-        });
-
-
-    localStorage.setItem(
-        "jobs",
-        JSON.stringify(jobs)
-    );
-
-
-    /* =====================================================
-       REMOVE PENDING JOB
-    ===================================================== */
-
-    localStorage.removeItem(
-        "pendingJobId"
-    );
-
-
-    /* =====================================================
-       SUCCESS MESSAGE
-    ===================================================== */
-
-    alert(
-
-        "✅ Application Successful!\n\n" +
-
-        "You have successfully applied for:\n\n" +
-
-        job.title +
-
-        "\n\nYour application is now pending review."
-
-    );
-
-
-    /* Refresh */
-
-    displayJobs();
-
-});
-
-
-/* =========================================================
-   SEARCH AND FILTER
-========================================================= */
-
-function filterJobs() {
-
-    if (!jobsGrid) {
-
-        return;
-
-    }
-
-
-    const search =
-        searchInput
-            ? searchInput.value
-                .trim()
-                .toLowerCase()
-            : "";
-
-
-    const selectedLocation =
-        locationFilter
-            ? locationFilter.value.toLowerCase()
-            : "all";
-
-
-    const selectedType =
-        jobTypeFilter
-            ? jobTypeFilter.value.toLowerCase()
-            : "all";
-
-
-    const cards =
-        jobsGrid.querySelectorAll(".job-card");
-
-
-    let visibleCount = 0;
-
-
-    cards.forEach(function (card) {
-
-        const title =
-            card.querySelector("h2")
-                ?.textContent
-                .toLowerCase() || "";
-
-
-        const description =
-            card.querySelector(".job-description")
-                ?.textContent
-                .toLowerCase() || "";
-
-
-        const location =
-            card.dataset.location || "";
-
-
-        const type =
-            card.dataset.type || "";
-
-
-        const matchesSearch =
-            title.includes(search) ||
-            description.includes(search);
-
-
-        const matchesLocation =
-            selectedLocation === "all" ||
-            location.includes(selectedLocation);
-
-
-        const matchesType =
-            selectedType === "all" ||
-            type.includes(selectedType);
-
-
-        if (
-            matchesSearch &&
-            matchesLocation &&
-            matchesType
-        ) {
-
-            card.style.display = "";
-
-            visibleCount++;
-
-        } else {
-
-            card.style.display = "none";
+            return;
 
         }
 
-    });
+
+        /* ==============================================
+           APPLICANT INFORMATION
+        ============================================== */
+
+        const applicantName =
+            localStorage.getItem(
+                "applicantName"
+            ) ||
+            localStorage.getItem(
+                "loggedInName"
+            ) ||
+            "";
 
 
-    if (jobCount) {
+        const applicantEmail =
+            localStorage.getItem(
+                "loggedInEmail"
+            ) ||
+            localStorage.getItem(
+                "applicantEmail"
+            ) ||
+            "";
 
-        jobCount.textContent =
-            visibleCount;
+
+        if (!applicantName || !applicantEmail) {
+
+            alert(
+                "Your login information could not be found. Please login again."
+            );
+
+
+            window.location.href =
+                "Applicant-login.html";
+
+
+            return;
+
+        }
+
+
+        /* ==============================================
+           CONFIRM APPLICATION
+        ============================================== */
+
+        const confirmed =
+            confirm(
+
+                "📝 Apply for this job?\n\n" +
+
+                "Job: " +
+                job.title +
+
+                "\n\nApplicant: " +
+                applicantName +
+
+                "\nEmail: " +
+                applicantEmail +
+
+                "\n\nYour CV will be submitted."
+
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        /* ==============================================
+           DISABLE BUTTON
+        ============================================== */
+
+        button.disabled = true;
+
+        button.innerHTML =
+            "⏳ Applying...";
+
+
+        /* ==============================================
+           APPLICATION DATA
+        ============================================== */
+
+        const applicationData = {
+
+            jobId:
+                String(job.id),
+
+            jobTitle:
+                job.title,
+
+            applicantName:
+                applicantName,
+
+            applicantEmail:
+                applicantEmail,
+
+            cvFileName:
+                applicantCVName,
+
+            cvSavedName:
+                applicantCVSavedName
+
+        };
+
+
+        /* ==============================================
+           SEND TO JAVA
+        ============================================== */
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL +
+                    "/api/applications",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify(
+                                applicationData
+                            )
+
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            console.log(
+                "Application response:",
+                result
+            );
+
+
+            if (response.status === 409) {
+
+                alert(
+                    "ℹ️ You have already applied for this job."
+                );
+
+
+                resetApplyButton(button);
+
+                return;
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.message ||
+                    "Application submission failed."
+                );
+
+            }
+
+
+            if (
+                result.success === true &&
+                result.emailSent === true
+            ) {
+
+                alert(
+
+                    "✅ Application Submitted Successfully!\n\n" +
+
+                    "Your application has been sent to the administrator."
+
+                );
+
+
+                button.innerHTML =
+                    "✅ Applied";
+
+
+                button.disabled =
+                    true;
+
+
+                button.style.opacity =
+                    "0.7";
+
+
+                localStorage.removeItem(
+                    "pendingJobId"
+                );
+
+
+                return;
+
+            }
+
+
+            if (
+                result.applicationSaved === true
+            ) {
+
+                alert(
+                    "✅ Application saved successfully."
+                );
+
+
+                button.innerHTML =
+                    "✅ Applied";
+
+
+                button.disabled =
+                    true;
+
+
+                return;
+
+            }
+
+
+            throw new Error(
+                result.message ||
+                "Unexpected server response."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Application error:",
+                error
+            );
+
+
+            alert(
+
+                "❌ Application could not be submitted.\n\n" +
+
+                error.message
+
+            );
+
+
+            resetApplyButton(button);
+
+        }
 
     }
+);
 
 
-    if (noResults) {
+/* =========================================================
+   RESET APPLY BUTTON
+========================================================= */
 
-        noResults.style.display =
-            visibleCount === 0
-                ? "block"
-                : "none";
+function resetApplyButton(button) {
 
-    }
+    button.disabled =
+        false;
+
+
+    button.innerHTML =
+        `📝 Apply Now
+         <i class="fa-solid fa-arrow-right"></i>`;
 
 }
 
 
 /* =========================================================
-   SEARCH EVENTS
+   SEARCH + FILTER
 ========================================================= */
 
-if (searchInput) {
+function filterJobs() {
 
-    searchInput.addEventListener(
+    const search =
+        (jobSearch.value || "")
+            .trim()
+            .toLowerCase();
+
+
+    const location =
+        locationFilter.value
+            .toLowerCase();
+
+
+    const type =
+        jobTypeFilter.value
+            .toLowerCase();
+
+
+    const filtered =
+        allJobs.filter(function (job) {
+
+            const title =
+                String(
+                    job.title || ""
+                ).toLowerCase();
+
+
+            const description =
+                String(
+                    job.description || ""
+                ).toLowerCase();
+
+
+            const jobLocation =
+                String(
+                    job.location || ""
+                ).toLowerCase();
+
+
+            const jobType =
+                String(
+                    job.type || ""
+                ).toLowerCase();
+
+
+            const matchesSearch =
+                title.includes(search) ||
+                description.includes(search);
+
+
+            const matchesLocation =
+                location === "all" ||
+                jobLocation === location;
+
+
+            const matchesType =
+                type === "all" ||
+                jobType === type;
+
+
+            return (
+                matchesSearch &&
+                matchesLocation &&
+                matchesType
+            );
+
+        });
+
+
+    renderJobs(filtered);
+
+}
+
+
+if (jobSearch) {
+
+    jobSearch.addEventListener(
         "input",
         filterJobs
     );
@@ -923,11 +907,28 @@ if (jobTypeFilter) {
         filterJobs
     );
 
+
 }
 
 
 /* =========================================================
-   LOAD JOBS
+   HTML SAFETY
 ========================================================= */
 
-displayJobs();
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadJobs();

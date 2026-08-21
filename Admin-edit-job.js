@@ -1,67 +1,25 @@
 /* =========================================================
-   ADMIN EDIT JOB - COMPLETE JAVASCRIPT
+   ADMIN EDIT JOB
+   MONGODB + JAVA BACKEND VERSION
 ========================================================= */
 
-
-/* =========================================================
-   GET JOBS FROM LOCAL STORAGE
-========================================================= */
-
-function getJobs() {
-
-    try {
-
-        const savedJobs =
-            localStorage.getItem("jobs");
-
-        if (!savedJobs) {
-
-            return [];
-
-        }
-
-        const jobs =
-            JSON.parse(savedJobs);
-
-        if (!Array.isArray(jobs)) {
-
-            return [];
-
-        }
-
-        return jobs;
-
-    } catch (error) {
-
-        console.error(
-            "Error reading jobs:",
-            error
-        );
-
-        return [];
-
-    }
-
-}
+const API_URL = "http://localhost:8080/api/jobs";
 
 
 /* =========================================================
    GET JOB ID FROM URL
 ========================================================= */
 
-const urlParams =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const jobId =
-    urlParams.get("id");
-
-
-console.log(
-    "EDITING JOB ID:",
-    jobId
+const urlParams = new URLSearchParams(
+    window.location.search
 );
+
+const jobId = urlParams.get("id");
+
+console.log("========================================");
+console.log("ADMIN EDIT JOB");
+console.log("Job ID received:", jobId);
+console.log("========================================");
 
 
 /* =========================================================
@@ -70,6 +28,9 @@ console.log(
 
 const editJobForm =
     document.getElementById("editJobForm");
+
+const jobIdInput =
+    document.getElementById("jobId");
 
 const jobTitle =
     document.getElementById("jobTitle");
@@ -106,7 +67,9 @@ const numberOfOpenings =
 if (!jobId) {
 
     alert(
-        "❌ No Job ID was provided."
+        "❌ Job ID was not found.\n\n" +
+        "Please return to the Admin Dashboard " +
+        "and click Edit again."
     );
 
     window.location.href =
@@ -116,73 +79,201 @@ if (!jobId) {
 
 
 /* =========================================================
-   LOAD ALL JOBS
+   GET JOB FROM MONGODB
 ========================================================= */
 
-let jobs =
-    getJobs();
+async function getJobFromDatabase() {
+
+    try {
+
+        console.log(
+            "Loading job from MongoDB..."
+        );
+
+        console.log(
+            "Request URL:",
+            API_URL + "/" + encodeURIComponent(jobId)
+        );
 
 
-console.log(
-    "ALL JOBS:",
-    jobs
-);
+        const response =
+            await fetch(
+                API_URL +
+                "/" +
+                encodeURIComponent(jobId)
+            );
 
 
-/* =========================================================
-   FIND THE JOB
-========================================================= */
-
-const jobIndex =
-    jobs.findIndex(function (item) {
-
-        return String(item.id) ===
-            String(jobId);
-
-    });
+        console.log(
+            "Backend response status:",
+            response.status
+        );
 
 
-console.log(
-    "JOB INDEX:",
-    jobIndex
-);
+        if (!response.ok) {
+
+            /*
+             * If the individual GET endpoint doesn't exist,
+             * try loading all jobs and find the correct one.
+             */
+
+            console.log(
+                "Individual job endpoint failed."
+            );
+
+            console.log(
+                "Trying GET /api/jobs instead..."
+            );
 
 
-/* =========================================================
-   JOB NOT FOUND
-========================================================= */
+            const allJobsResponse =
+                await fetch(API_URL);
 
-if (jobIndex === -1) {
 
-    alert(
-        "❌ Job information could not be found."
-    );
+            if (!allJobsResponse.ok) {
 
-    window.location.href =
-        "Admin-dashboard.html";
+                throw new Error(
+                    "Could not load jobs from backend."
+                );
+
+            }
+
+
+            const allJobs =
+                await allJobsResponse.json();
+
+
+            console.log(
+                "All jobs from MongoDB:",
+                allJobs
+            );
+
+
+            const jobs =
+                Array.isArray(allJobs)
+                    ? allJobs
+                    : (
+                        Array.isArray(allJobs.jobs)
+                            ? allJobs.jobs
+                            : []
+                    );
+
+
+            const foundJob =
+                jobs.find(function (job) {
+
+                    return (
+
+                        String(job.id) ===
+                        String(jobId)
+
+                    ) || (
+
+                        String(job._id) ===
+                        String(jobId)
+
+                    ) || (
+
+                        String(job.jobId) ===
+                        String(jobId)
+
+                    );
+
+                });
+
+
+            if (!foundJob) {
+
+                throw new Error(
+                    "Job was not found in MongoDB."
+                );
+
+            }
+
+
+            console.log(
+                "Job found in MongoDB:",
+                foundJob
+            );
+
+
+            return foundJob;
+
+        }
+
+
+        const job =
+            await response.json();
+
+
+        console.log(
+            "Job loaded from MongoDB:",
+            job
+        );
+
+
+        return job;
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading job:",
+            error
+        );
+
+
+        alert(
+            "❌ Could not load this job.\n\n" +
+            "Make sure your Java backend is running " +
+            "on port 8080."
+        );
+
+
+        return null;
+
+    }
 
 }
 
 
 /* =========================================================
-   GET THE JOB
+   LOAD JOB INTO FORM
 ========================================================= */
 
-const job =
-    jobs[jobIndex];
+function loadJobIntoForm(job) {
+
+    if (!job) {
+
+        return;
+
+    }
 
 
-console.log(
-    "JOB BEING EDITED:",
-    job
-);
+    console.log(
+        "Putting job information into form:",
+        job
+    );
 
 
-/* =========================================================
-   PUT EXISTING JOB DATA INTO FORM
-========================================================= */
+    /* ==========================================
+       JOB ID
+    ========================================== */
 
-if (job) {
+    if (jobIdInput) {
+
+        jobIdInput.value =
+            job.id ||
+            job._id ||
+            job.jobId ||
+            jobId;
+
+    }
+
+
+    /* ==========================================
+       TITLE
+    ========================================== */
 
     if (jobTitle) {
 
@@ -192,6 +283,10 @@ if (job) {
     }
 
 
+    /* ==========================================
+       CATEGORY
+    ========================================== */
+
     if (jobCategory) {
 
         jobCategory.value =
@@ -199,6 +294,10 @@ if (job) {
 
     }
 
+
+    /* ==========================================
+       TYPE
+    ========================================== */
 
     if (jobType) {
 
@@ -208,6 +307,10 @@ if (job) {
     }
 
 
+    /* ==========================================
+       LOCATION
+    ========================================== */
+
     if (jobLocation) {
 
         jobLocation.value =
@@ -215,6 +318,10 @@ if (job) {
 
     }
 
+
+    /* ==========================================
+       SALARY
+    ========================================== */
 
     if (jobSalary) {
 
@@ -224,6 +331,10 @@ if (job) {
     }
 
 
+    /* ==========================================
+       DESCRIPTION
+    ========================================== */
+
     if (jobDescription) {
 
         jobDescription.value =
@@ -232,21 +343,80 @@ if (job) {
     }
 
 
+    /* ==========================================
+       REQUIREMENTS
+    ========================================== */
+
     if (jobRequirements) {
 
-        jobRequirements.value =
-            job.requirements || "";
+        /*
+         * If requirements is an array,
+         * convert it to readable text.
+         */
+
+        if (Array.isArray(job.requirements)) {
+
+            jobRequirements.value =
+                job.requirements.join("\n");
+
+        } else {
+
+            jobRequirements.value =
+                job.requirements || "";
+
+        }
 
     }
 
+
+    /* ==========================================
+       DEADLINE
+    ========================================== */
 
     if (applicationDeadline) {
 
-        applicationDeadline.value =
+        let deadline =
             job.deadline || "";
+
+
+        /*
+         * Convert ISO date to YYYY-MM-DD
+         * for the HTML date input.
+         */
+
+        if (deadline) {
+
+            try {
+
+                if (
+                    deadline.includes("T")
+                ) {
+
+                    deadline =
+                        deadline.split("T")[0];
+
+                }
+
+            } catch (error) {
+
+                console.log(
+                    "Could not format deadline."
+                );
+
+            }
+
+        }
+
+
+        applicationDeadline.value =
+            deadline;
 
     }
 
+
+    /* ==========================================
+       OPENINGS
+    ========================================== */
 
     if (numberOfOpenings) {
 
@@ -255,87 +425,207 @@ if (job) {
 
     }
 
+
+    console.log(
+        "✅ Job successfully loaded into form."
+    );
+
 }
 
 
 /* =========================================================
-   SAVE EDITED JOB
+   UPDATE JOB IN MONGODB
+========================================================= */
+
+async function updateJobInDatabase(updatedJob) {
+
+    try {
+
+        console.log(
+            "Updating MongoDB job:",
+            updatedJob
+        );
+
+
+        const response =
+            await fetch(
+                API_URL +
+                "/" +
+                encodeURIComponent(jobId),
+                {
+
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(updatedJob)
+
+                }
+            );
+
+
+        console.log(
+            "Update response status:",
+            response.status
+        );
+
+
+        if (!response.ok) {
+
+            let errorMessage =
+                "Failed to update job.";
+
+            try {
+
+                const errorData =
+                    await response.json();
+
+                console.error(
+                    "Backend error:",
+                    errorData
+                );
+
+                errorMessage =
+                    errorData.message ||
+                    errorData.error ||
+                    errorMessage;
+
+            } catch (error) {
+
+                console.error(
+                    "Backend returned no JSON error."
+                );
+
+            }
+
+
+            throw new Error(
+                errorMessage
+            );
+
+        }
+
+
+        let result = null;
+
+
+        try {
+
+            result =
+                await response.json();
+
+        } catch (error) {
+
+            console.log(
+                "Backend returned no JSON body."
+            );
+
+        }
+
+
+        console.log(
+            "✅ Job updated successfully:",
+            result
+        );
+
+
+        return true;
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Update failed:",
+            error
+        );
+
+
+        alert(
+            "❌ Could not update the job.\n\n" +
+            error.message
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================================================
+   FORM SUBMISSION
 ========================================================= */
 
 if (editJobForm) {
 
     editJobForm.addEventListener(
         "submit",
-        function (event) {
+        async function (event) {
 
             event.preventDefault();
 
 
-            /* =========================================
-               GET NEW VALUES
-            ========================================= */
+            console.log(
+                "Save Changes clicked."
+            );
+
+
+            /* ==========================================
+               GET FORM VALUES
+            ========================================== */
 
             const title =
-                jobTitle
-                    ? jobTitle.value.trim()
-                    : "";
+                jobTitle.value.trim();
+
 
             const category =
-                jobCategory
-                    ? jobCategory.value
-                    : "";
+                jobCategory.value;
+
 
             const type =
-                jobType
-                    ? jobType.value
-                    : "";
+                jobType.value;
+
 
             const location =
-                jobLocation
-                    ? jobLocation.value.trim()
-                    : "";
+                jobLocation.value.trim();
+
 
             const salary =
-                jobSalary
-                    ? jobSalary.value.trim()
-                    : "";
+                jobSalary.value.trim();
+
 
             const description =
-                jobDescription
-                    ? jobDescription.value.trim()
-                    : "";
+                jobDescription.value.trim();
+
 
             const requirements =
-                jobRequirements
-                    ? jobRequirements.value.trim()
-                    : "";
+                jobRequirements.value.trim();
+
 
             const deadline =
-                applicationDeadline
-                    ? applicationDeadline.value
-                    : "";
+                applicationDeadline.value;
+
 
             const openings =
-                numberOfOpenings
-                    ? numberOfOpenings.value
-                    : "";
+                numberOfOpenings.value;
 
 
-            /* =========================================
+            /* ==========================================
                VALIDATION
-            ========================================= */
+            ========================================== */
 
             if (!title) {
 
                 alert(
-                    "⚠️ Please enter the job title."
+                    "Please enter the job title."
                 );
 
-                if (jobTitle) {
-
-                    jobTitle.focus();
-
-                }
+                jobTitle.focus();
 
                 return;
 
@@ -345,14 +635,10 @@ if (editJobForm) {
             if (!category) {
 
                 alert(
-                    "⚠️ Please select a job category."
+                    "Please select a category."
                 );
 
-                if (jobCategory) {
-
-                    jobCategory.focus();
-
-                }
+                jobCategory.focus();
 
                 return;
 
@@ -362,14 +648,10 @@ if (editJobForm) {
             if (!type) {
 
                 alert(
-                    "⚠️ Please select the employment type."
+                    "Please select the employment type."
                 );
 
-                if (jobType) {
-
-                    jobType.focus();
-
-                }
+                jobType.focus();
 
                 return;
 
@@ -379,14 +661,10 @@ if (editJobForm) {
             if (!location) {
 
                 alert(
-                    "⚠️ Please enter the job location."
+                    "Please enter the job location."
                 );
 
-                if (jobLocation) {
-
-                    jobLocation.focus();
-
-                }
+                jobLocation.focus();
 
                 return;
 
@@ -396,14 +674,10 @@ if (editJobForm) {
             if (!description) {
 
                 alert(
-                    "⚠️ Please enter the job description."
+                    "Please enter the job description."
                 );
 
-                if (jobDescription) {
-
-                    jobDescription.focus();
-
-                }
+                jobDescription.focus();
 
                 return;
 
@@ -413,30 +687,24 @@ if (editJobForm) {
             if (!requirements) {
 
                 alert(
-                    "⚠️ Please enter the job requirements."
+                    "Please enter the job requirements."
                 );
 
-                if (jobRequirements) {
-
-                    jobRequirements.focus();
-
-                }
+                jobRequirements.focus();
 
                 return;
 
             }
 
 
-            /* =========================================
-               UPDATE EXISTING JOB
-            ========================================= */
+            /* ==========================================
+               CREATE UPDATED JOB
+            ========================================== */
 
-            jobs[jobIndex] = {
-
-                ...jobs[jobIndex],
+            const updatedJob = {
 
                 id:
-                    jobs[jobIndex].id,
+                    jobId,
 
                 title:
                     title,
@@ -468,50 +736,79 @@ if (editJobForm) {
             };
 
 
-            /* =========================================
-               SAVE UPDATED JOBS
-            ========================================= */
-
-            localStorage.setItem(
-                "jobs",
-                JSON.stringify(jobs)
+            console.log(
+                "Updated job to send:",
+                updatedJob
             );
 
 
-            /* =========================================
-               VERIFY SAVE
-            ========================================= */
+            /* ==========================================
+               DISABLE BUTTON
+            ========================================== */
 
-            const verifyJobs =
-                JSON.parse(
-                    localStorage.getItem("jobs")
+            const saveButton =
+                editJobForm.querySelector(
+                    ".save-btn"
                 );
 
 
-            console.log(
-                "UPDATED JOBS SAVED:",
-                verifyJobs
-            );
+            if (saveButton) {
+
+                saveButton.disabled = true;
+
+                saveButton.innerHTML = `
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    Saving...
+                `;
+
+            }
 
 
-            console.log(
-                "UPDATED JOB:",
-                verifyJobs[jobIndex]
-            );
+            /* ==========================================
+               UPDATE DATABASE
+            ========================================== */
+
+            const success =
+                await updateJobInDatabase(
+                    updatedJob
+                );
 
 
-            /* =========================================
-               SUCCESS MESSAGE
-            ========================================= */
+            /* ==========================================
+               RE-ENABLE BUTTON
+            ========================================== */
+
+            if (saveButton) {
+
+                saveButton.disabled = false;
+
+                saveButton.innerHTML = `
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save Changes
+                `;
+
+            }
+
+
+            if (!success) {
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               SUCCESS
+            ========================================== */
 
             alert(
                 "✅ Job updated successfully!"
             );
 
 
-            /* =========================================
+            /* ==========================================
                RETURN TO DASHBOARD
-            ========================================= */
+            ========================================== */
 
             window.location.href =
                 "Admin-dashboard.html";
@@ -519,4 +816,55 @@ if (editJobForm) {
         }
     );
 
+} else {
+
+    console.error(
+        "❌ editJobForm was not found."
+    );
+
 }
+
+
+/* =========================================================
+   LOAD JOB WHEN PAGE OPENS
+========================================================= */
+
+async function initializeEditPage() {
+
+    console.log(
+        "Initializing Edit Job page..."
+    );
+
+
+    const job =
+        await getJobFromDatabase();
+
+
+    if (!job) {
+
+        alert(
+            "❌ Job could not be found in MongoDB.\n\n" +
+            "Job ID:\n" +
+            jobId
+        );
+
+
+        window.location.href =
+            "Admin-dashboard.html";
+
+
+        return;
+
+    }
+
+
+    loadJobIntoForm(job);
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+initializeEditPage();

@@ -1,6 +1,8 @@
-/* ==========================================
+const API_URL = "http://localhost:8080";
+
+/* =========================================================
    NAVBAR
-========================================== */
+========================================================= */
 
 const hamburger = document.querySelector(".hamburger");
 const navLinks = document.querySelector(".nav-links");
@@ -14,8 +16,6 @@ if (hamburger && navLinks) {
 
     });
 
-    // Close menu when a navigation link is clicked
-
     document.querySelectorAll(".nav-links a").forEach(link => {
 
         link.addEventListener("click", () => {
@@ -26,8 +26,6 @@ if (hamburger && navLinks) {
         });
 
     });
-
-    // Close menu when clicking outside
 
     document.addEventListener("click", (e) => {
 
@@ -43,8 +41,6 @@ if (hamburger && navLinks) {
 
     });
 
-    // Close menu when window is resized to desktop
-
     window.addEventListener("resize", () => {
 
         if (window.innerWidth > 992) {
@@ -55,15 +51,18 @@ if (hamburger && navLinks) {
         }
 
     });
-
 }
 
-/* ==========================================
-   PROFILE IMAGE PREVIEW
-========================================== */
 
-const profileImage = document.getElementById("profileImage");
-const profilePreview = document.getElementById("profilePreview");
+/* =========================================================
+   PROFILE IMAGE PREVIEW
+========================================================= */
+
+const profileImage =
+    document.getElementById("profileImage");
+
+const profilePreview =
+    document.getElementById("profilePreview");
 
 if (profileImage && profilePreview) {
 
@@ -73,20 +72,24 @@ if (profileImage && profilePreview) {
 
         if (file) {
 
-            profilePreview.src = URL.createObjectURL(file);
+            profilePreview.src =
+                URL.createObjectURL(file);
 
         }
 
     });
-
 }
 
-/* ==========================================
-   SHOW / HIDE PASSWORD
-========================================== */
 
-const password = document.getElementById("password");
-const togglePassword = document.querySelector(".toggle-password");
+/* =========================================================
+   PASSWORD TOGGLE
+========================================================= */
+
+const password =
+    document.getElementById("password");
+
+const togglePassword =
+    document.querySelector(".toggle-password");
 
 if (togglePassword && password) {
 
@@ -109,15 +112,18 @@ if (togglePassword && password) {
         }
 
     });
-
 }
 
-/* ==========================================
-   SHOW / HIDE CONFIRM PASSWORD
-========================================== */
 
-const confirmPassword = document.getElementById("confirmPassword");
-const toggleConfirm = document.querySelector(".toggle-confirm");
+/* =========================================================
+   CONFIRM PASSWORD TOGGLE
+========================================================= */
+
+const confirmPassword =
+    document.getElementById("confirmPassword");
+
+const toggleConfirm =
+    document.querySelector(".toggle-confirm");
 
 if (toggleConfirm && confirmPassword) {
 
@@ -140,14 +146,15 @@ if (toggleConfirm && confirmPassword) {
         }
 
     });
-
 }
 
-/* ==========================================
-   PASSWORD STRENGTH
-========================================== */
 
-const strengthBar = document.querySelector(".strength-bar");
+/* =========================================================
+   PASSWORD STRENGTH
+========================================================= */
+
+const strengthBar =
+    document.querySelector(".strength-bar");
 
 if (password && strengthBar) {
 
@@ -198,128 +205,287 @@ if (password && strengthBar) {
             default:
 
                 strengthBar.style.width = "0";
-
         }
 
     });
-
 }
 
-/* ==========================================
-   FORM VALIDATION
-========================================== */
 
-const registerForm = document.querySelector(".register-form");
+/* =========================================================
+   APPLICANT REGISTRATION
+========================================================= */
+
+const registerForm =
+    document.getElementById("registerForm");
 
 if (registerForm) {
 
-    registerForm.addEventListener("submit", function (e) {
+    registerForm.addEventListener("submit", async function (event) {
 
-        e.preventDefault();
+        event.preventDefault();
 
-        if (password.value !== confirmPassword.value) {
+
+        /* -------------------------------------------------
+           GET FORM VALUES
+        ------------------------------------------------- */
+
+        const firstName =
+            document.getElementById("firstName")
+                .value.trim();
+
+        const lastName =
+            document.getElementById("lastName")
+                .value.trim();
+
+        const email =
+            document.getElementById("email")
+                .value.trim();
+
+        const phone =
+            document.getElementById("phone")
+                .value.trim();
+
+        const gender =
+            document.getElementById("gender")
+                .value;
+
+        const dateOfBirth =
+            document.getElementById("dateOfBirth")
+                .value;
+
+        const address =
+            document.getElementById("address")
+                .value.trim();
+
+        const qualification =
+            document.getElementById("qualification")
+                .value;
+
+        const experience =
+            document.getElementById("experience")
+                .value;
+
+        const passwordValue =
+            password.value;
+
+        const confirmPasswordValue =
+            confirmPassword.value;
+
+
+        /* -------------------------------------------------
+           VALIDATION
+        ------------------------------------------------- */
+
+        if (passwordValue !== confirmPasswordValue) {
 
             alert("Passwords do not match.");
 
             return;
-
         }
 
-        alert("Registration successful! Backend integration will be added later.");
 
-        registerForm.reset();
+        if (passwordValue.length < 8) {
 
-        strengthBar.style.width = "0";
-
-        profilePreview.src = "images/default-user.png";
-
-    });
-
-}
-
-/* ==========================================
-   NEWSLETTER
-========================================== */
-
-const newsletterForm = document.querySelector(".newsletter-form");
-
-if(newsletterForm){
-
-    newsletterForm.addEventListener("submit",function(e){
-
-        e.preventDefault();
-
-        const email = this.querySelector("input").value.trim();
-
-        if(email === ""){
-
-            alert("Please enter your email address.");
-
-            return;
-
-        }
-
-        alert("Thank you for subscribing!");
-
-        this.reset();
-
-    });
-
-}
-const registerBtn =
-    document.getElementById("registerBtn");
-
-registerBtn.addEventListener("click", function () {
-
-    const fullName =
-        document.getElementById("fullName").value.trim();
-
-    const profileImage =
-        document.getElementById("profileImage").files[0];
-
-
-    if (!fullName) {
-
-        alert("Please enter your full name.");
-
-        return;
-
-    }
-
-
-    /* Save the applicant's name */
-
-    localStorage.setItem(
-        "applicantName",
-        fullName
-    );
-
-
-    /* Save profile picture */
-
-    if (profileImage) {
-
-        const reader = new FileReader();
-
-        reader.onload = function (event) {
-
-            localStorage.setItem(
-                "applicantProfileImage",
-                event.target.result
+            alert(
+                "Password must be at least 8 characters long."
             );
 
-            window.location.href =
-                "Applicant-login.html";
+            return;
+        }
 
-        };
 
-        reader.readAsDataURL(profileImage);
+        if (!email.includes("@")) {
 
-    } else {
+            alert(
+                "Please enter a valid email address."
+            );
 
-        window.location.href =
-            "Applicant-login.html";
+            return;
+        }
 
-    }
 
-});
+        /* -------------------------------------------------
+           CREATE FULL NAME
+        ------------------------------------------------- */
+
+        const fullName =
+            firstName + " " + lastName;
+
+
+        /* -------------------------------------------------
+           SEND TO JAVA BACKEND
+        ------------------------------------------------- */
+
+        const registerBtn =
+            document.getElementById("registerBtn");
+
+        registerBtn.disabled = true;
+
+        registerBtn.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL +
+                    "/api/applicants/register",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            name: fullName,
+
+                            email: email,
+
+                            phone: phone,
+
+                            gender: gender,
+
+                            dateOfBirth: dateOfBirth,
+
+                            address: address,
+
+                            qualification: qualification,
+
+                            experience: experience,
+
+                            password: passwordValue
+
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Registration response:",
+                data
+            );
+
+
+            /* -------------------------------------------------
+               BACKEND ERROR
+            ------------------------------------------------- */
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Registration failed."
+                );
+            }
+
+
+            /* -------------------------------------------------
+               REGISTRATION SUCCESS
+            ------------------------------------------------- */
+
+            if (data.success === true) {
+
+                /*
+                 * Save only non-sensitive information
+                 * locally for the dashboard.
+                 *
+                 * The password is NOT stored here.
+                 */
+
+                localStorage.setItem(
+                    "applicantName",
+                    fullName
+                );
+
+                localStorage.setItem(
+                    "applicantEmail",
+                    email
+                );
+
+
+                /* Profile image preview only */
+
+                const imageFile =
+                    profileImage.files[0];
+
+
+                if (imageFile) {
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function (event) {
+
+                            localStorage.setItem(
+                                "applicantProfileImage",
+                                event.target.result
+                            );
+
+                            window.location.href =
+                                "Applicant-login.html";
+                        };
+
+
+                    reader.readAsDataURL(
+                        imageFile
+                    );
+
+                } else {
+
+                    window.location.href =
+                        "Applicant-login.html";
+                }
+
+
+            } else {
+
+                throw new Error(
+                    data.message ||
+                    "Registration failed."
+                );
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Registration error:",
+                error
+            );
+
+
+            let message =
+                error.message ||
+                "Unable to create account.";
+
+
+            if (
+                error instanceof TypeError
+            ) {
+
+                message =
+                    "Cannot connect to the Java server. Make sure Main.java is running on http://localhost:8080.";
+            }
+
+
+            alert(message);
+
+
+            registerBtn.disabled = false;
+
+            registerBtn.innerHTML =
+                "Create Account";
+        }
+
+    });
+}

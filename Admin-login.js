@@ -23,8 +23,8 @@ const adminTogglePassword =
    ADMIN CREDENTIALS
 ========================================== */
 
-const ADMIN_EMAIL = "Timi@gmail.com";
-const ADMIN_PASSWORD = "199621";
+const ADMIN_EMAIL = "timiashade19@gmail.com";
+const ADMIN_PASSWORD = "Fellow1996@";
 
 
 /* ==========================================

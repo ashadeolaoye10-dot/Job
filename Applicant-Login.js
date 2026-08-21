@@ -95,46 +95,42 @@ if (header) {
 
 }
 
+/* =========================================================
+   APPLICANT LOGIN
+   Connects to Java backend
+========================================================= */
 
-/* ==========================================
-   LOGIN ELEMENTS
-========================================== */
+document.addEventListener("DOMContentLoaded", function () {
 
-const loginBtn =
-    document.getElementById("loginBtn");
+    const loginForm =
+        document.querySelector(".login-form");
 
-const loginForm =
-    document.querySelector(".login-form");
+    const emailInput =
+        loginForm.querySelector('input[type="email"]');
 
-const emailInput =
-    document.querySelector(
-        ".login-form input[type='email']"
-    );
+    const passwordInput =
+        document.getElementById("password");
 
-const passwordInput =
-    document.getElementById("password");
-
-const togglePassword =
-    document.querySelector(".toggle-password");
+    const loginButton =
+        document.getElementById("loginBtn");
 
 
-/* ==========================================
-   SHOW / HIDE PASSWORD
-========================================== */
+    /* =====================================================
+       SHOW / HIDE PASSWORD
+    ===================================================== */
 
-if (passwordInput && togglePassword) {
+    const togglePassword =
+        document.querySelector(".toggle-password");
 
-    togglePassword.addEventListener(
-        "click",
-        function () {
+    if (togglePassword) {
+
+        togglePassword.addEventListener("click", function () {
 
             if (passwordInput.type === "password") {
 
                 passwordInput.type = "text";
 
-                togglePassword.classList.remove(
-                    "fa-eye"
-                );
+                togglePassword.classList.remove("fa-eye");
 
                 togglePassword.classList.add(
                     "fa-eye-slash"
@@ -151,121 +147,261 @@ if (passwordInput && togglePassword) {
                 togglePassword.classList.add(
                     "fa-eye"
                 );
-
             }
 
+        });
+    }
+
+
+    /* =====================================================
+       LOGIN FORM
+    ===================================================== */
+
+    loginForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+
+        const email =
+            emailInput.value.trim();
+
+        const password =
+            passwordInput.value;
+
+
+        /* =================================================
+           VALIDATION
+        ================================================= */
+
+        if (!email) {
+
+            alert(
+                "Please enter your email address."
+            );
+
+            emailInput.focus();
+
+            return;
         }
-    );
-
-}
 
 
-/* ==========================================
-   LOGIN BUTTON
-========================================== */
+        if (!password) {
 
-if (
-    loginBtn &&
-    emailInput &&
-    passwordInput
-) {
+            alert(
+                "Please enter your password."
+            );
 
-    loginBtn.addEventListener(
-        "click",
-        function (event) {
+            passwordInput.focus();
 
-            /*
-                STOP THE HREF FIRST.
-
-                This prevents the user from
-                going to the dashboard before
-                validation is completed.
-            */
-
-            event.preventDefault();
+            return;
+        }
 
 
-            /* Get entered information */
+        /* =================================================
+           DISABLE BUTTON
+        ================================================= */
 
-            const email =
-                emailInput.value.trim();
+        loginButton.disabled = true;
 
-            const password =
-                passwordInput.value.trim();
+        loginButton.innerHTML =
+            "⏳ Logging in...";
 
 
-            /* ==================================
-               CHECK EMAIL
-            ================================== */
+        /* =================================================
+           SEND LOGIN REQUEST TO JAVA
+        ================================================= */
 
-            if (email === "") {
+        try {
 
-                alert(
-                    "Please enter your email address."
+            const response =
+                await fetch(
+                    "http://localhost:8080/api/applicants/login",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                email: email,
+
+                                password: password
+
+                            })
+
+                    }
                 );
 
-                emailInput.focus();
 
-                return;
-
-            }
+            const result =
+                await response.json();
 
 
-            /* ==================================
-               CHECK PASSWORD
-            ================================== */
+            console.log(
+                "Login response:",
+                result
+            );
 
-            if (password === "") {
+
+            /* =================================================
+               INCORRECT EMAIL OR PASSWORD
+            ================================================= */
+
+            if (response.status === 401) {
 
                 alert(
-                    "Please enter your password."
+                    "❌ Incorrect email or password."
                 );
+
+                loginButton.disabled = false;
+
+                loginButton.innerHTML =
+                    "Login";
+
+                passwordInput.value = "";
 
                 passwordInput.focus();
 
                 return;
+            }
+
+
+            /* =================================================
+               OTHER BACKEND ERROR
+            ================================================= */
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.message ||
+                    "Login failed."
+                );
 
             }
 
 
-            /* ==================================
-               BOTH ARE FILLED
-            ================================== */
+            /* =================================================
+               LOGIN SUCCESSFUL
+            ================================================= */
 
-            /*
-                Save the email temporarily.
-                We will use the database later.
-            */
+            if (result.success === true) {
 
-            localStorage.setItem(
-                "loggedInEmail",
-                email
-            );
+                /*
+                 * Save applicant information.
+                 *
+                 * EMAIL IS NOT HASHED.
+                 */
 
-
-            /*
-                Get dashboard location
-                from the HTML.
-            */
-
-            const dashboard =
-                loginBtn.getAttribute(
-                    "data-dashboard"
+                localStorage.setItem(
+                    "loggedInEmail",
+                    result.email
                 );
 
 
-            /* ==================================
-               GO TO DASHBOARD
-            ================================== */
+                localStorage.setItem(
+                    "applicantEmail",
+                    result.email
+                );
 
-            if (dashboard) {
+
+                localStorage.setItem(
+                    "applicantName",
+                    result.name
+                );
+
+
+                localStorage.setItem(
+                    "loggedInName",
+                    result.name
+                );
+
+
+                /* =============================================
+                   PROFILE IMAGE
+                ============================================= */
+
+                if (result.profileImage) {
+
+                    localStorage.setItem(
+                        "applicantProfileImage",
+                        result.profileImage
+                    );
+
+                }
+
+
+                /* =============================================
+                   LOGIN STATUS
+                ============================================= */
+
+                localStorage.setItem(
+                    "isApplicantLoggedIn",
+                    "true"
+                );
+
+
+                /* =============================================
+                   GO TO DASHBOARD
+                ============================================= */
+
+                alert(
+                    "✅ Login successful!"
+                );
+
 
                 window.location.href =
-                    dashboard;
+                    "Applicant-dashboard.html";
 
+                return;
             }
 
-        }
-    );
 
-}
+            /* =================================================
+               UNKNOWN RESPONSE
+            ================================================= */
+
+            alert(
+                "Login failed. Please try again."
+            );
+
+
+            loginButton.disabled = false;
+
+            loginButton.innerHTML =
+                "Login";
+
+
+        } catch (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+
+            alert(
+
+                "❌ Unable to connect to the server.\n\n" +
+
+                "Make sure your Java backend is running."
+
+            );
+
+
+            loginButton.disabled = false;
+
+            loginButton.innerHTML =
+                "Login";
+
+        }
+
+    });
+
+});
