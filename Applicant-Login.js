@@ -1,21 +1,20 @@
 /* ==========================================
    APPLICANT LOGIN JAVASCRIPT
    Unicorn Innovation Hill Limited
-   PRODUCTION / RENDER VERSION
 ========================================== */
 
 
-/* ==========================================
-   JAVA BACKEND API
-========================================== */
+/* =========================================================
+   PRODUCTION BACKEND
+========================================================= */
 
 const API_BASE_URL =
     "https://unicorninnovationsjobbackend-1.onrender.com";
 
 
-/* ==========================================
+/* =========================================================
    MOBILE NAVIGATION
-========================================== */
+========================================================= */
 
 const hamburger =
     document.querySelector(".hamburger");
@@ -35,6 +34,8 @@ if (hamburger && navLinks) {
     });
 
 
+    /* Close menu when link is clicked */
+
     document
         .querySelectorAll(".nav-links a")
         .forEach(function (link) {
@@ -49,6 +50,8 @@ if (hamburger && navLinks) {
 
         });
 
+
+    /* Close menu when clicking outside */
 
     document.addEventListener("click", function (event) {
 
@@ -68,9 +71,9 @@ if (hamburger && navLinks) {
 }
 
 
-/* ==========================================
+/* =========================================================
    NAVBAR ON SCROLL
-========================================== */
+========================================================= */
 
 const header =
     document.querySelector("header");
@@ -82,14 +85,10 @@ if (header) {
 
         if (window.scrollY > 50) {
 
-            header.style.background = "#0849A8";
-
             header.style.boxShadow =
                 "0 8px 25px rgba(0,0,0,.4)";
 
         } else {
-
-            header.style.background = "#0B5ED7";
 
             header.style.boxShadow =
                 "0 5px 20px rgba(0,0,0,.25)";
@@ -101,9 +100,9 @@ if (header) {
 }
 
 
-/* ==========================================
+/* =========================================================
    APPLICANT LOGIN
-========================================== */
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -112,19 +111,11 @@ document.addEventListener(
         const loginForm =
             document.querySelector(".login-form");
 
-
-        /* ==========================================
-           MAKE SURE FORM EXISTS
-        ========================================== */
-
         if (!loginForm) {
-
             console.error(
-                "❌ Login form was not found."
+                "Login form was not found."
             );
-
             return;
-
         }
 
 
@@ -142,9 +133,9 @@ document.addEventListener(
             document.getElementById("loginBtn");
 
 
-        /* ==========================================
+        /* =====================================================
            SHOW / HIDE PASSWORD
-        ========================================== */
+        ===================================================== */
 
         const togglePassword =
             document.querySelector(
@@ -169,10 +160,8 @@ document.addEventListener(
                         passwordInput.type =
                             "text";
 
-
                         togglePassword.classList
                             .remove("fa-eye");
-
 
                         togglePassword.classList
                             .add("fa-eye-slash");
@@ -182,25 +171,23 @@ document.addEventListener(
                         passwordInput.type =
                             "password";
 
-
                         togglePassword.classList
-                            .remove("fa-eye-slash");
-
+                            .remove(
+                                "fa-eye-slash"
+                            );
 
                         togglePassword.classList
                             .add("fa-eye");
-
                     }
 
                 }
             );
-
         }
 
 
-        /* ==========================================
+        /* =====================================================
            LOGIN FORM
-        ========================================== */
+        ===================================================== */
 
         loginForm.addEventListener(
             "submit",
@@ -209,21 +196,18 @@ document.addEventListener(
                 event.preventDefault();
 
 
-                /* ==========================================
-                   GET VALUES
-                ========================================== */
-
                 const email =
-                    emailInput.value.trim();
+                    emailInput.value.trim()
+                        .toLowerCase();
 
 
                 const password =
                     passwordInput.value;
 
 
-                /* ==========================================
+                /* =============================================
                    VALIDATION
-                ========================================== */
+                ============================================= */
 
                 if (!email) {
 
@@ -234,7 +218,6 @@ document.addEventListener(
                     emailInput.focus();
 
                     return;
-
                 }
 
 
@@ -247,38 +230,29 @@ document.addEventListener(
                     passwordInput.focus();
 
                     return;
-
                 }
 
 
-                /* ==========================================
-                   DISABLE LOGIN BUTTON
-                ========================================== */
+                /* =============================================
+                   DISABLE BUTTON
+                ============================================= */
 
-                if (loginButton) {
+                loginButton.disabled = true;
 
-                    loginButton.disabled =
-                        true;
+                loginButton.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Logging in...';
 
-
-                    loginButton.innerHTML =
-                        "⏳ Logging in...";
-
-                }
-
-
-                /* ==========================================
-                   SEND LOGIN TO DEPLOYED JAVA BACKEND
-                ========================================== */
 
                 try {
 
+                    /* =========================================
+                       SEND LOGIN REQUEST TO RENDER
+                    ========================================= */
+
                     const response =
                         await fetch(
-
                             API_BASE_URL +
                             "/api/applicants/login",
-
                             {
 
                                 method: "POST",
@@ -293,130 +267,145 @@ document.addEventListener(
                                 body:
                                     JSON.stringify({
 
-                                        email:
-                                            email,
+                                        email: email,
 
-                                        password:
-                                            password
+                                        password: password
 
                                     })
 
                             }
-
                         );
 
 
-                    /* ==========================================
-                       READ SERVER RESPONSE
-                    ========================================== */
+                    console.log(
+                        "Login HTTP status:",
+                        response.status
+                    );
 
-                    let result = {};
 
-                    try {
+                    /* =========================================
+                       READ RESPONSE
+                    ========================================= */
 
-                        result =
-                            await response.json();
-
-                    } catch (jsonError) {
-
-                        console.error(
-                            "Server did not return valid JSON."
-                        );
-
-                    }
+                    const responseText =
+                        await response.text();
 
 
                     console.log(
                         "Login response:",
-                        result
+                        responseText
                     );
 
 
-                    /* ==========================================
-                       INCORRECT LOGIN
-                    ========================================== */
+                    let result;
+
+
+                    try {
+
+                        result =
+                            JSON.parse(
+                                responseText
+                            );
+
+                    } catch (error) {
+
+                        console.error(
+                            "Invalid JSON from backend:",
+                            error
+                        );
+
+                        throw new Error(
+                            "The server returned an invalid response."
+                        );
+                    }
+
+
+                    /* =========================================
+                       INCORRECT EMAIL / PASSWORD
+                    ========================================= */
 
                     if (
-                        response.status === 401
+                        response.status ===
+                        401
                     ) {
 
                         alert(
                             "❌ Incorrect email or password."
                         );
 
+                        loginButton.disabled =
+                            false;
 
-                        resetLoginButton();
-
+                        loginButton.innerHTML =
+                            "Login";
 
                         passwordInput.value = "";
 
                         passwordInput.focus();
 
                         return;
-
                     }
 
 
-                    /* ==========================================
-                       OTHER SERVER ERROR
-                    ========================================== */
+                    /* =========================================
+                       OTHER BACKEND ERROR
+                    ========================================= */
 
                     if (!response.ok) {
 
                         throw new Error(
-
                             result.message ||
-                            "Login failed. Server returned HTTP " +
-                            response.status
-
+                            "Login failed."
                         );
-
                     }
 
 
-                    /* ==========================================
+                    /* =========================================
                        LOGIN SUCCESSFUL
-                    ========================================== */
+                    ========================================= */
 
                     if (
-                        result.success === true
+                        result.success ===
+                        true
                     ) {
 
-                        /* ======================================
-                           SAVE EMAIL
-                        ====================================== */
+                        /* =====================================
+                           SAVE APPLICANT INFORMATION
+                        ===================================== */
+
+                        localStorage.setItem(
+                            "isApplicantLoggedIn",
+                            "true"
+                        );
+
 
                         localStorage.setItem(
                             "loggedInEmail",
-                            result.email || email
+                            result.email
                         );
 
 
                         localStorage.setItem(
                             "applicantEmail",
-                            result.email || email
-                        );
-
-
-                        /* ======================================
-                           SAVE APPLICANT NAME
-                        ====================================== */
-
-                        localStorage.setItem(
-                            "applicantName",
-                            result.name || ""
+                            result.email
                         );
 
 
                         localStorage.setItem(
                             "loggedInName",
-                            result.name || ""
+                            result.name
                         );
 
 
-                        /* ======================================
-                           SAVE PROFILE IMAGE
-                        ====================================== */
+                        localStorage.setItem(
+                            "applicantName",
+                            result.name
+                        );
+
+
+                        /* =====================================
+                           PROFILE IMAGE
+                        ===================================== */
 
                         if (
                             result.profileImage
@@ -430,70 +419,36 @@ document.addEventListener(
                         }
 
 
-                        /* ======================================
-                           LOGIN STATUS
-                        ====================================== */
-
-                        localStorage.setItem(
-                            "isApplicantLoggedIn",
-                            "true"
+                        console.log(
+                            "Applicant login successful:",
+                            result.email
                         );
 
 
-                        /* ======================================
-                           SUCCESS MESSAGE
-                        ====================================== */
+                        /* =====================================
+                           REDIRECT
+                        ===================================== */
 
                         alert(
                             "✅ Login successful!"
                         );
 
 
-                        /* ======================================
-                           CHECK FOR PENDING JOB
-                        ====================================== */
-
-                        const pendingJobId =
-                            localStorage.getItem(
-                                "pendingJobId"
-                            );
-
-
-                        if (pendingJobId) {
-
-                            /*
-                             * Keep pendingJobId.
-                             * Jobs.js can use it when the
-                             * applicant returns to the Jobs page.
-                             */
-
-                            window.location.href =
-                                "Jobs.html";
-
-                        } else {
-
-                            window.location.href =
-                                "Applicant-dashboard.html";
-
-                        }
-
+                        window.location.href =
+                            "Applicant-dashboard.html";
 
                         return;
-
                     }
 
 
-                    /* ==========================================
+                    /* =========================================
                        UNKNOWN RESPONSE
-                    ========================================== */
+                    ========================================= */
 
-                    alert(
+                    throw new Error(
                         result.message ||
                         "Login failed. Please try again."
                     );
-
-
-                    resetLoginButton();
 
 
                 } catch (error) {
@@ -504,42 +459,37 @@ document.addEventListener(
                     );
 
 
-                    alert(
-
-                        "❌ Unable to connect to the server.\n\n" +
-
-                        "Please check that your deployed Java backend " +
-                        "is running on Render."
-
-                    );
+                    let message =
+                        error.message ||
+                        "Unable to login.";
 
 
-                    resetLoginButton();
+                    /* =========================================
+                       CONNECTION ERROR
+                    ========================================= */
 
-                }
+                    if (
+                        error instanceof TypeError
+                    ) {
 
-
-                /* ==========================================
-                   RESET BUTTON
-                ========================================== */
-
-                function resetLoginButton() {
-
-                    if (loginButton) {
-
-                        loginButton.disabled =
-                            false;
-
-
-                        loginButton.innerHTML =
-                            "Login";
-
+                        message =
+                            "❌ Cannot connect to the Java backend.\n\n" +
+                            "Please make sure the Render backend is running.";
                     }
 
+
+                    alert(message);
+
+
+                    loginButton.disabled =
+                        false;
+
+
+                    loginButton.innerHTML =
+                        "Login";
+
                 }
 
-            }
-        );
+            });
 
-    }
-);
+    });
