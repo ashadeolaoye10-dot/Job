@@ -1,6 +1,12 @@
 /* ==========================================
    ADMIN POST JOB
-   Sends a new job to the Java backend
+   Unicorn Innovation Hill Limited
+
+   Frontend
+       ↓
+   Render Java Backend
+       ↓
+   MongoDB Atlas
 ========================================== */
 
 
@@ -9,7 +15,7 @@
 ========================================== */
 
 const API_URL =
-    "http://localhost:8080/api/jobs";
+    "https://unicorninnovationsjobbackend-1.onrender.com";
 
 
 /* ==========================================
@@ -30,7 +36,7 @@ if (jobForm) {
         "submit",
         async function (event) {
 
-            /* Stop the page from refreshing */
+            /* Prevent page refresh */
 
             event.preventDefault();
 
@@ -113,14 +119,13 @@ if (jobForm) {
                     .focus();
 
                 return;
-
             }
 
 
             if (!category) {
 
                 alert(
-                    "Please select a job category."
+                    "Please select the job category."
                 );
 
                 document
@@ -128,7 +133,6 @@ if (jobForm) {
                     .focus();
 
                 return;
-
             }
 
 
@@ -143,7 +147,6 @@ if (jobForm) {
                     .focus();
 
                 return;
-
             }
 
 
@@ -158,7 +161,6 @@ if (jobForm) {
                     .focus();
 
                 return;
-
             }
 
 
@@ -173,7 +175,6 @@ if (jobForm) {
                     .focus();
 
                 return;
-
             }
 
 
@@ -188,7 +189,6 @@ if (jobForm) {
                     .focus();
 
                 return;
-
             }
 
 
@@ -239,44 +239,99 @@ if (jobForm) {
 
 
             /* ==========================================
-               SEND JOB TO JAVA BACKEND
+               DISABLE SUBMIT BUTTON
+            ========================================== */
+
+            const submitButton =
+                jobForm.querySelector(
+                    'button[type="submit"]'
+                );
+
+
+            if (submitButton) {
+
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    "Posting Job...";
+
+            }
+
+
+            /* ==========================================
+               SEND JOB TO RENDER JAVA BACKEND
             ========================================== */
 
             try {
 
                 const response =
                     await fetch(
-                        API_URL,
+                        API_URL + "/api/jobs",
                         {
+
                             method: "POST",
 
                             headers: {
+
                                 "Content-Type":
                                     "application/json"
+
                             },
 
                             body:
-                                JSON.stringify(newJob)
+                                JSON.stringify(
+                                    newJob
+                                )
+
                         }
                     );
 
 
                 /* ==========================================
-                   CHECK SERVER RESPONSE
+                   READ RESPONSE
+                ========================================== */
+
+                const responseText =
+                    await response.text();
+
+
+                let result = null;
+
+
+                try {
+
+                    result =
+                        responseText
+                            ? JSON.parse(
+                                responseText
+                            )
+                            : null;
+
+                } catch (jsonError) {
+
+                    console.error(
+                        "Invalid JSON response:",
+                        responseText
+                    );
+
+                }
+
+
+                /* ==========================================
+                   CHECK RESPONSE
                 ========================================== */
 
                 if (!response.ok) {
 
-                    const errorText =
-                        await response.text();
-
                     console.error(
                         "Backend error:",
-                        errorText
+                        response.status,
+                        responseText
                     );
 
 
                     throw new Error(
+                        result?.message ||
                         "Server returned status " +
                         response.status
                     );
@@ -285,31 +340,23 @@ if (jobForm) {
 
 
                 /* ==========================================
-                   GET BACKEND RESPONSE
-                ========================================== */
-
-                const savedJob =
-                    await response.json();
-
-
-                console.log(
-                    "Job saved to MongoDB:",
-                    savedJob
-                );
-
-
-                /* ==========================================
                    SUCCESS
                 ========================================== */
+
+                console.log(
+                    "Job successfully posted:",
+                    result
+                );
+
 
                 alert(
                     "✅ Job posted successfully!\n\n" +
                     "The job has been saved to MongoDB " +
-                    "and will appear on the applicant Jobs page."
+                    "and is now available on the Jobs page."
                 );
 
 
-                /* Clear the form */
+                /* Clear form */
 
                 jobForm.reset();
 
@@ -332,9 +379,21 @@ if (jobForm) {
 
                 alert(
                     "❌ Could not post the job.\n\n" +
-                    "Make sure the Java backend is running " +
-                    "and try again."
+                    error.message +
+                    "\n\nPlease try again."
                 );
+
+
+                /* Re-enable button */
+
+                if (submitButton) {
+
+                    submitButton.disabled = false;
+
+                    submitButton.textContent =
+                        "Post Job";
+
+                }
 
             }
 

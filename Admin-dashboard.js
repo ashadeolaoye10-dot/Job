@@ -9,8 +9,7 @@
 ========================================================= */
 
 const API_URL =
-    "http://localhost:8080/api/jobs";
-
+    "https://unicorninnovationsjobbackend-1.onrender.com/api/jobs";
 
 /* =========================================================
    MOBILE SIDEBAR

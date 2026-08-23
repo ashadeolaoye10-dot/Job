@@ -1,56 +1,83 @@
-const API_URL = "http://localhost:8080";
+/* =========================================================
+   APPLICANT REGISTER
+   Unicorn Innovation Hill Limited
+   PRODUCTION / RENDER VERSION
+========================================================= */
+
+
+/* =========================================================
+   JAVA BACKEND API
+========================================================= */
+
+const API_BASE_URL =
+    "https://unicorninnovationsjobbackend-1.onrender.com";
+
 
 /* =========================================================
    NAVBAR
 ========================================================= */
 
-const hamburger = document.querySelector(".hamburger");
-const navLinks = document.querySelector(".nav-links");
+const hamburger =
+    document.querySelector(".hamburger");
+
+const navLinks =
+    document.querySelector(".nav-links");
+
 
 if (hamburger && navLinks) {
 
     hamburger.addEventListener("click", () => {
 
         hamburger.classList.toggle("active");
+
         navLinks.classList.toggle("active");
 
     });
 
-    document.querySelectorAll(".nav-links a").forEach(link => {
 
-        link.addEventListener("click", () => {
+    document
+        .querySelectorAll(".nav-links a")
+        .forEach(link => {
 
-            hamburger.classList.remove("active");
-            navLinks.classList.remove("active");
+            link.addEventListener("click", () => {
+
+                hamburger.classList.remove("active");
+
+                navLinks.classList.remove("active");
+
+            });
 
         });
 
-    });
 
-    document.addEventListener("click", (e) => {
+    document.addEventListener("click", (event) => {
 
         if (
-            !hamburger.contains(e.target) &&
-            !navLinks.contains(e.target)
+            !hamburger.contains(event.target) &&
+            !navLinks.contains(event.target)
         ) {
 
             hamburger.classList.remove("active");
+
             navLinks.classList.remove("active");
 
         }
 
     });
+
 
     window.addEventListener("resize", () => {
 
         if (window.innerWidth > 992) {
 
             hamburger.classList.remove("active");
+
             navLinks.classList.remove("active");
 
         }
 
     });
+
 }
 
 
@@ -64,88 +91,153 @@ const profileImage =
 const profilePreview =
     document.getElementById("profilePreview");
 
+
 if (profileImage && profilePreview) {
 
-    profileImage.addEventListener("change", function () {
+    profileImage.addEventListener(
+        "change",
+        function () {
 
-        const file = this.files[0];
+            const file =
+                this.files[0];
 
-        if (file) {
 
-            profilePreview.src =
-                URL.createObjectURL(file);
+            if (file) {
+
+                profilePreview.src =
+                    URL.createObjectURL(file);
+
+            }
 
         }
+    );
 
-    });
 }
 
 
 /* =========================================================
-   PASSWORD TOGGLE
+   PASSWORD
 ========================================================= */
 
 const password =
     document.getElementById("password");
 
+
 const togglePassword =
-    document.querySelector(".toggle-password");
+    document.querySelector(
+        ".toggle-password"
+    );
 
-if (togglePassword && password) {
 
-    togglePassword.addEventListener("click", () => {
+if (
+    togglePassword &&
+    password
+) {
 
-        if (password.type === "password") {
+    togglePassword.addEventListener(
+        "click",
+        () => {
 
-            password.type = "text";
+            if (
+                password.type ===
+                "password"
+            ) {
 
-            togglePassword.classList.remove("fa-eye");
-            togglePassword.classList.add("fa-eye-slash");
+                password.type =
+                    "text";
 
-        } else {
 
-            password.type = "password";
+                togglePassword.classList
+                    .remove("fa-eye");
 
-            togglePassword.classList.remove("fa-eye-slash");
-            togglePassword.classList.add("fa-eye");
+
+                togglePassword.classList
+                    .add("fa-eye-slash");
+
+            } else {
+
+                password.type =
+                    "password";
+
+
+                togglePassword.classList
+                    .remove(
+                        "fa-eye-slash"
+                    );
+
+
+                togglePassword.classList
+                    .add("fa-eye");
+
+            }
 
         }
+    );
 
-    });
 }
 
 
 /* =========================================================
-   CONFIRM PASSWORD TOGGLE
+   CONFIRM PASSWORD
 ========================================================= */
 
 const confirmPassword =
-    document.getElementById("confirmPassword");
+    document.getElementById(
+        "confirmPassword"
+    );
+
 
 const toggleConfirm =
-    document.querySelector(".toggle-confirm");
+    document.querySelector(
+        ".toggle-confirm"
+    );
 
-if (toggleConfirm && confirmPassword) {
 
-    toggleConfirm.addEventListener("click", () => {
+if (
+    toggleConfirm &&
+    confirmPassword
+) {
 
-        if (confirmPassword.type === "password") {
+    toggleConfirm.addEventListener(
+        "click",
+        () => {
 
-            confirmPassword.type = "text";
+            if (
+                confirmPassword.type ===
+                "password"
+            ) {
 
-            toggleConfirm.classList.remove("fa-eye");
-            toggleConfirm.classList.add("fa-eye-slash");
+                confirmPassword.type =
+                    "text";
 
-        } else {
 
-            confirmPassword.type = "password";
+                toggleConfirm.classList
+                    .remove("fa-eye");
 
-            toggleConfirm.classList.remove("fa-eye-slash");
-            toggleConfirm.classList.add("fa-eye");
+
+                toggleConfirm.classList
+                    .add("fa-eye-slash");
+
+            } else {
+
+                confirmPassword.type =
+                    "password";
+
+
+                toggleConfirm.classList
+                    .remove(
+                        "fa-eye-slash"
+                    );
+
+
+                toggleConfirm.classList
+                    .add("fa-eye");
+
+            }
 
         }
+    );
 
-    });
 }
 
 
@@ -154,60 +246,119 @@ if (toggleConfirm && confirmPassword) {
 ========================================================= */
 
 const strengthBar =
-    document.querySelector(".strength-bar");
+    document.querySelector(
+        ".strength-bar"
+    );
 
-if (password && strengthBar) {
 
-    password.addEventListener("input", () => {
+if (
+    password &&
+    strengthBar
+) {
 
-        const value = password.value;
+    password.addEventListener(
+        "input",
+        () => {
 
-        let strength = 0;
+            const value =
+                password.value;
 
-        if (value.length >= 8) strength++;
 
-        if (/[A-Z]/.test(value)) strength++;
+            let strength = 0;
 
-        if (/[0-9]/.test(value)) strength++;
 
-        if (/[^A-Za-z0-9]/.test(value)) strength++;
+            if (
+                value.length >= 8
+            ) {
 
-        switch (strength) {
+                strength++;
 
-            case 1:
+            }
 
-                strengthBar.style.width = "25%";
-                strengthBar.style.background = "#ff3b30";
 
-                break;
+            if (
+                /[A-Z]/.test(value)
+            ) {
 
-            case 2:
+                strength++;
 
-                strengthBar.style.width = "50%";
-                strengthBar.style.background = "#ff9500";
+            }
 
-                break;
 
-            case 3:
+            if (
+                /[0-9]/.test(value)
+            ) {
 
-                strengthBar.style.width = "75%";
-                strengthBar.style.background = "#ffd60a";
+                strength++;
 
-                break;
+            }
 
-            case 4:
 
-                strengthBar.style.width = "100%";
-                strengthBar.style.background = "#34c759";
+            if (
+                /[^A-Za-z0-9]/.test(value)
+            ) {
 
-                break;
+                strength++;
 
-            default:
+            }
 
-                strengthBar.style.width = "0";
+
+            switch (strength) {
+
+                case 1:
+
+                    strengthBar.style.width =
+                        "25%";
+
+                    strengthBar.style.background =
+                        "#ff3b30";
+
+                    break;
+
+
+                case 2:
+
+                    strengthBar.style.width =
+                        "50%";
+
+                    strengthBar.style.background =
+                        "#ff9500";
+
+                    break;
+
+
+                case 3:
+
+                    strengthBar.style.width =
+                        "75%";
+
+                    strengthBar.style.background =
+                        "#ffd60a";
+
+                    break;
+
+
+                case 4:
+
+                    strengthBar.style.width =
+                        "100%";
+
+                    strengthBar.style.background =
+                        "#34c759";
+
+                    break;
+
+
+                default:
+
+                    strengthBar.style.width =
+                        "0";
+
+            }
+
         }
+    );
 
-    });
 }
 
 
@@ -216,276 +367,444 @@ if (password && strengthBar) {
 ========================================================= */
 
 const registerForm =
-    document.getElementById("registerForm");
+    document.getElementById(
+        "registerForm"
+    );
+
 
 if (registerForm) {
 
-    registerForm.addEventListener("submit", async function (event) {
+    registerForm.addEventListener(
+        "submit",
+        async function (event) {
 
-        event.preventDefault();
-
-
-        /* -------------------------------------------------
-           GET FORM VALUES
-        ------------------------------------------------- */
-
-        const firstName =
-            document.getElementById("firstName")
-                .value.trim();
-
-        const lastName =
-            document.getElementById("lastName")
-                .value.trim();
-
-        const email =
-            document.getElementById("email")
-                .value.trim();
-
-        const phone =
-            document.getElementById("phone")
-                .value.trim();
-
-        const gender =
-            document.getElementById("gender")
-                .value;
-
-        const dateOfBirth =
-            document.getElementById("dateOfBirth")
-                .value;
-
-        const address =
-            document.getElementById("address")
-                .value.trim();
-
-        const qualification =
-            document.getElementById("qualification")
-                .value;
-
-        const experience =
-            document.getElementById("experience")
-                .value;
-
-        const passwordValue =
-            password.value;
-
-        const confirmPasswordValue =
-            confirmPassword.value;
+            event.preventDefault();
 
 
-        /* -------------------------------------------------
-           VALIDATION
-        ------------------------------------------------- */
+            /* ==========================================
+               GET FORM VALUES
+            ========================================== */
 
-        if (passwordValue !== confirmPasswordValue) {
-
-            alert("Passwords do not match.");
-
-            return;
-        }
-
-
-        if (passwordValue.length < 8) {
-
-            alert(
-                "Password must be at least 8 characters long."
-            );
-
-            return;
-        }
+            const firstName =
+                document
+                    .getElementById("firstName")
+                    .value
+                    .trim();
 
 
-        if (!email.includes("@")) {
-
-            alert(
-                "Please enter a valid email address."
-            );
-
-            return;
-        }
+            const lastName =
+                document
+                    .getElementById("lastName")
+                    .value
+                    .trim();
 
 
-        /* -------------------------------------------------
-           CREATE FULL NAME
-        ------------------------------------------------- */
-
-        const fullName =
-            firstName + " " + lastName;
-
-
-        /* -------------------------------------------------
-           SEND TO JAVA BACKEND
-        ------------------------------------------------- */
-
-        const registerBtn =
-            document.getElementById("registerBtn");
-
-        registerBtn.disabled = true;
-
-        registerBtn.innerHTML =
-            '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+            const email =
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
 
 
-        try {
+            const phone =
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim();
 
-            const response =
-                await fetch(
-                    API_URL +
-                    "/api/applicants/register",
-                    {
-                        method: "POST",
 
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
+            const gender =
+                document
+                    .getElementById("gender")
+                    .value;
 
-                        body: JSON.stringify({
 
-                            name: fullName,
+            const dateOfBirth =
+                document
+                    .getElementById("dateOfBirth")
+                    .value;
 
-                            email: email,
 
-                            phone: phone,
+            const address =
+                document
+                    .getElementById("address")
+                    .value
+                    .trim();
 
-                            gender: gender,
 
-                            dateOfBirth: dateOfBirth,
+            const qualification =
+                document
+                    .getElementById("qualification")
+                    .value;
 
-                            address: address,
 
-                            qualification: qualification,
+            const experience =
+                document
+                    .getElementById("experience")
+                    .value;
 
-                            experience: experience,
 
-                            password: passwordValue
+            const passwordValue =
+                password.value;
 
-                        })
-                    }
+
+            const confirmPasswordValue =
+                confirmPassword.value;
+
+
+            /* ==========================================
+               VALIDATION
+            ========================================== */
+
+            if (!firstName) {
+
+                alert(
+                    "Please enter your first name."
                 );
 
+                return;
 
-            const data =
-                await response.json();
-
-
-            console.log(
-                "Registration response:",
-                data
-            );
-
-
-            /* -------------------------------------------------
-               BACKEND ERROR
-            ------------------------------------------------- */
-
-            if (!response.ok) {
-
-                throw new Error(
-                    data.message ||
-                    "Registration failed."
-                );
             }
 
 
-            /* -------------------------------------------------
-               REGISTRATION SUCCESS
-            ------------------------------------------------- */
+            if (!lastName) {
 
-            if (data.success === true) {
-
-                /*
-                 * Save only non-sensitive information
-                 * locally for the dashboard.
-                 *
-                 * The password is NOT stored here.
-                 */
-
-                localStorage.setItem(
-                    "applicantName",
-                    fullName
+                alert(
+                    "Please enter your last name."
                 );
 
-                localStorage.setItem(
-                    "applicantEmail",
-                    email
-                );
+                return;
 
-
-                /* Profile image preview only */
-
-                const imageFile =
-                    profileImage.files[0];
-
-
-                if (imageFile) {
-
-                    const reader =
-                        new FileReader();
-
-
-                    reader.onload =
-                        function (event) {
-
-                            localStorage.setItem(
-                                "applicantProfileImage",
-                                event.target.result
-                            );
-
-                            window.location.href =
-                                "Applicant-login.html";
-                        };
-
-
-                    reader.readAsDataURL(
-                        imageFile
-                    );
-
-                } else {
-
-                    window.location.href =
-                        "Applicant-login.html";
-                }
-
-
-            } else {
-
-                throw new Error(
-                    data.message ||
-                    "Registration failed."
-                );
             }
 
 
-        } catch (error) {
+            if (!email) {
 
-            console.error(
-                "Registration error:",
-                error
-            );
+                alert(
+                    "Please enter your email address."
+                );
+
+                return;
+
+            }
 
 
-            let message =
-                error.message ||
-                "Unable to create account.";
+            if (!email.includes("@")) {
+
+                alert(
+                    "Please enter a valid email address."
+                );
+
+                return;
+
+            }
 
 
             if (
-                error instanceof TypeError
+                passwordValue !==
+                confirmPasswordValue
             ) {
 
-                message =
-                    "Cannot connect to the Java server. Make sure Main.java is running on http://localhost:8080.";
+                alert(
+                    "Passwords do not match."
+                );
+
+                return;
+
             }
 
 
-            alert(message);
+            if (
+                passwordValue.length < 8
+            ) {
+
+                alert(
+                    "Password must be at least 8 characters long."
+                );
+
+                return;
+
+            }
 
 
-            registerBtn.disabled = false;
+            /* ==========================================
+               CREATE FULL NAME
+            ========================================== */
 
-            registerBtn.innerHTML =
-                "Create Account";
+            const fullName =
+                firstName +
+                " " +
+                lastName;
+
+
+            /* ==========================================
+               REGISTER BUTTON
+            ========================================== */
+
+            const registerBtn =
+                document.getElementById(
+                    "registerBtn"
+                );
+
+
+            if (registerBtn) {
+
+                registerBtn.disabled =
+                    true;
+
+
+                registerBtn.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+
+            }
+
+
+            /* ==========================================
+               SEND TO DEPLOYED JAVA BACKEND
+            ========================================== */
+
+            try {
+
+                const response =
+                    await fetch(
+
+                        API_BASE_URL +
+                        "/api/applicants/register",
+
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    name:
+                                        fullName,
+
+                                    email:
+                                        email,
+
+                                    phone:
+                                        phone,
+
+                                    gender:
+                                        gender,
+
+                                    dateOfBirth:
+                                        dateOfBirth,
+
+                                    address:
+                                        address,
+
+                                    qualification:
+                                        qualification,
+
+                                    experience:
+                                        experience,
+
+                                    password:
+                                        passwordValue
+
+                                })
+
+                        }
+
+                    );
+
+
+                /* ==========================================
+                   READ RESPONSE
+                ========================================== */
+
+                let data = {};
+
+
+                try {
+
+                    data =
+                        await response.json();
+
+                } catch (jsonError) {
+
+                    console.error(
+                        "Server returned invalid JSON."
+                    );
+
+                }
+
+
+                console.log(
+                    "Registration response:",
+                    data
+                );
+
+
+                /* ==========================================
+                   BACKEND ERROR
+                ========================================== */
+
+                if (!response.ok) {
+
+                    throw new Error(
+
+                        data.message ||
+                        "Registration failed. HTTP " +
+                        response.status
+
+                    );
+
+                }
+
+
+                /* ==========================================
+                   REGISTRATION SUCCESS
+                ========================================== */
+
+                if (
+                    data.success === true
+                ) {
+
+                    /*
+                     * Store only non-sensitive
+                     * information.
+                     *
+                     * NEVER store password.
+                     */
+
+                    localStorage.setItem(
+                        "applicantName",
+                        fullName
+                    );
+
+
+                    localStorage.setItem(
+                        "applicantEmail",
+                        email
+                    );
+
+
+                    /* ======================================
+                       PROFILE IMAGE
+                    ====================================== */
+
+                    if (
+                        profileImage &&
+                        profileImage.files &&
+                        profileImage.files[0]
+                    ) {
+
+                        const imageFile =
+                            profileImage.files[0];
+
+
+                        const reader =
+                            new FileReader();
+
+
+                        reader.onload =
+                            function (event) {
+
+                                localStorage.setItem(
+                                    "applicantProfileImage",
+                                    event.target.result
+                                );
+
+
+                                alert(
+                                    "✅ Account created successfully!"
+                                );
+
+
+                                window.location.href =
+                                    "Applicant-login.html";
+
+                            };
+
+
+                        reader.readAsDataURL(
+                            imageFile
+                        );
+
+
+                    } else {
+
+                        alert(
+                            "✅ Account created successfully!"
+                        );
+
+
+                        window.location.href =
+                            "Applicant-login.html";
+
+                    }
+
+
+                    return;
+
+                }
+
+
+                /* ==========================================
+                   UNKNOWN RESPONSE
+                ========================================== */
+
+                throw new Error(
+
+                    data.message ||
+                    "Registration failed."
+
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "❌ Registration error:",
+                    error
+                );
+
+
+                let message =
+                    error.message ||
+                    "Unable to create account.";
+
+
+                if (
+                    error instanceof TypeError
+                ) {
+
+                    message =
+                        "Unable to connect to the deployed Java backend. Please check your Render service.";
+
+                }
+
+
+                alert(
+                    "❌ " + message
+                );
+
+
+                if (registerBtn) {
+
+                    registerBtn.disabled =
+                        false;
+
+
+                    registerBtn.innerHTML =
+                        "Create Account";
+
+                }
+
+            }
+
         }
+    );
 
-    });
 }

@@ -1,14 +1,21 @@
 /* ==========================================
    MY APPLICATIONS JAVASCRIPT
+   Unicorn Innovation Hill Limited
 ========================================== */
+
+const API_URL =
+    "https://unicorninnovationsjobbackend-1.onrender.com";
 
 
 /* ==========================================
    MOBILE SIDEBAR
 ========================================== */
 
-const menuToggle = document.getElementById("menuToggle");
-const sidebar = document.getElementById("sidebar");
+const menuToggle =
+    document.getElementById("menuToggle");
+
+const sidebar =
+    document.getElementById("sidebar");
 
 if (menuToggle && sidebar) {
 
@@ -16,17 +23,22 @@ if (menuToggle && sidebar) {
 
         sidebar.classList.toggle("active");
 
-        const icon = menuToggle.querySelector("i");
+        const icon =
+            menuToggle.querySelector("i");
 
-        if (sidebar.classList.contains("active")) {
+        if (icon) {
 
-            icon.classList.remove("fa-bars");
-            icon.classList.add("fa-xmark");
+            if (sidebar.classList.contains("active")) {
 
-        } else {
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-xmark");
 
-            icon.classList.remove("fa-xmark");
-            icon.classList.add("fa-bars");
+            } else {
+
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+
+            }
 
         }
 
@@ -39,33 +51,38 @@ if (menuToggle && sidebar) {
    CLOSE SIDEBAR ON LINK CLICK
 ========================================== */
 
-document.querySelectorAll(".sidebar-menu a").forEach(function (link) {
+document
+    .querySelectorAll(".sidebar-menu a")
+    .forEach(function (link) {
 
-    link.addEventListener("click", function () {
+        link.addEventListener("click", function () {
 
-        if (window.innerWidth <= 992 && sidebar) {
+            if (
+                window.innerWidth <= 992 &&
+                sidebar
+            ) {
 
-            sidebar.classList.remove("active");
+                sidebar.classList.remove("active");
 
-            const icon =
-                menuToggle?.querySelector("i");
+                const icon =
+                    menuToggle?.querySelector("i");
 
-            if (icon) {
+                if (icon) {
 
-                icon.classList.remove("fa-xmark");
-                icon.classList.add("fa-bars");
+                    icon.classList.remove("fa-xmark");
+                    icon.classList.add("fa-bars");
+
+                }
 
             }
 
-        }
+        });
 
     });
 
-});
-
 
 /* ==========================================
-   APPLICATIONS
+   APPLICATION ELEMENTS
 ========================================== */
 
 const applicationsBody =
@@ -75,11 +92,141 @@ const statusFilter =
     document.getElementById("statusFilter");
 
 
-function getApplications() {
+/* ==========================================
+   GET LOGGED-IN APPLICANT EMAIL
+========================================== */
 
-    return JSON.parse(
-        localStorage.getItem("applicantApplications")
-    ) || [];
+function getApplicantEmail() {
+
+    return (
+        localStorage.getItem("loggedInEmail") ||
+        localStorage.getItem("applicantEmail") ||
+        ""
+    ).trim();
+
+}
+
+
+/* ==========================================
+   LOAD APPLICATIONS FROM JAVA BACKEND
+========================================== */
+
+async function loadApplications() {
+
+    if (!applicationsBody) {
+        return;
+    }
+
+    applicationsBody.innerHTML = `
+
+        <tr>
+
+            <td colspan="6" class="no-application">
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                <p>Loading your applications...</p>
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "/api/applications"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned " +
+                response.status
+            );
+
+        }
+
+
+        const applications =
+            await response.json();
+
+
+        console.log(
+            "Applications received:",
+            applications
+        );
+
+
+        if (!Array.isArray(applications)) {
+
+            throw new Error(
+                "Invalid applications response."
+            );
+
+        }
+
+
+        /*
+         * Only show applications belonging
+         * to the currently logged-in applicant.
+         */
+
+        const applicantEmail =
+            getApplicantEmail();
+
+
+        const myApplications =
+            applications.filter(function (application) {
+
+                return String(
+                    application.applicantEmail || ""
+                ).toLowerCase() ===
+                applicantEmail.toLowerCase();
+
+            });
+
+
+        displayApplications(
+            myApplications,
+            statusFilter
+                ? statusFilter.value
+                : "all"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading applications:",
+            error
+        );
+
+
+        applicationsBody.innerHTML = `
+
+            <tr>
+
+                <td colspan="6" class="no-application">
+
+                    <i class="fa-solid fa-server"></i>
+
+                    <p>
+                        Unable to load applications.
+                    </p>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
 
 }
 
@@ -88,21 +235,21 @@ function getApplications() {
    DISPLAY APPLICATIONS
 ========================================== */
 
-function displayApplications(filter = "all") {
+function displayApplications(
+    applications,
+    filter = "all"
+) {
 
     if (!applicationsBody) {
         return;
     }
 
 
-    const applications =
-        getApplications();
-
-
     applicationsBody.innerHTML = "";
 
 
-    let displayedApplications = applications;
+    let displayedApplications =
+        applications;
 
 
     if (filter !== "all") {
@@ -110,17 +257,20 @@ function displayApplications(filter = "all") {
         displayedApplications =
             applications.filter(function (application) {
 
-                return application.status.toLowerCase() ===
-                       filter.toLowerCase();
+                return String(
+                    application.status || ""
+                ).toLowerCase() ===
+                filter.toLowerCase();
 
             });
 
     }
 
 
-    /* No applications */
-
-    if (displayedApplications.length === 0) {
+    if (
+        !displayedApplications ||
+        displayedApplications.length === 0
+    ) {
 
         applicationsBody.innerHTML = `
 
@@ -143,62 +293,88 @@ function displayApplications(filter = "all") {
     }
 
 
-    /* Create rows */
+    displayedApplications.forEach(
+        function (application) {
 
-    displayedApplications.forEach(function (application) {
-
-        const row =
-            document.createElement("tr");
-
-
-        row.innerHTML = `
-
-            <td>
-                ${application.id}
-            </td>
-
-            <td>
-                ${application.position}
-            </td>
-
-            <td>
-                ${application.company}
-            </td>
-
-            <td>
-                ${application.dateApplied}
-            </td>
-
-            <td>
-
-                <span class="status ${application.status.toLowerCase()}">
-
-                    ${application.status}
-
-                </span>
-
-            </td>
-
-            <td>
-
-                <button
-                    class="view-btn"
-                    data-id="${application.id}">
-
-                    <i class="fa-solid fa-eye"></i>
-
-                    View
-
-                </button>
-
-            </td>
-
-        `;
+            const row =
+                document.createElement("tr");
 
 
-        applicationsBody.appendChild(row);
+            row.innerHTML = `
 
-    });
+                <td>
+                    ${escapeHTML(
+                        application.applicationId ||
+                        application.id ||
+                        "N/A"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        application.jobTitle ||
+                        "N/A"
+                    )}
+                </td>
+
+                <td>
+                    Unicorn Innovation Hill Limited
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        application.dateApplied ||
+                        "N/A"
+                    )}
+                </td>
+
+                <td>
+
+                    <span class="status ${
+                        String(
+                            application.status ||
+                            "Pending"
+                        ).toLowerCase()
+                    }">
+
+                        ${escapeHTML(
+                            application.status ||
+                            "Pending"
+                        )}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="view-btn"
+                        data-id="${
+                            escapeHTML(
+                                String(
+                                    application.applicationId ||
+                                    application.id ||
+                                    ""
+                                )
+                            )
+                        }">
+
+                        <i class="fa-solid fa-eye"></i>
+
+                        View
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            applicationsBody.appendChild(row);
+
+        }
+    );
 
 
     attachViewButtons();
@@ -212,112 +388,195 @@ function displayApplications(filter = "all") {
 
 function attachViewButtons() {
 
-    document.querySelectorAll(".view-btn").forEach(function (button) {
+    document
+        .querySelectorAll(".view-btn")
+        .forEach(function (button) {
 
-        button.addEventListener("click", function () {
+            button.addEventListener(
+                "click",
+                async function () {
 
-            const applicationId =
-                button.getAttribute("data-id");
-
-
-            const applications =
-                getApplications();
-
-
-            const application =
-                applications.find(function (item) {
-
-                    return item.id === applicationId;
-
-                });
+                    const applicationId =
+                        button.getAttribute(
+                            "data-id"
+                        );
 
 
-            if (!application) {
+                    if (!applicationId) {
 
-                alert("Application not found.");
+                        alert(
+                            "Application ID not found."
+                        );
 
-                return;
+                        return;
 
-            }
+                    }
 
 
-            alert(
+                    try {
 
-                "APPLICATION DETAILS\n\n" +
+                        const response =
+                            await fetch(
+                                API_URL +
+                                "/api/applications/" +
+                                encodeURIComponent(
+                                    applicationId
+                                )
+                            );
 
-                "Application ID: " +
-                application.id +
 
-                "\n\nPosition: " +
-                application.position +
+                        if (!response.ok) {
 
-                "\n\nCompany: " +
-                application.company +
+                            throw new Error(
+                                "Application not found."
+                            );
 
-                "\n\nDate Applied: " +
-                application.dateApplied +
+                        }
 
-                "\n\nStatus: " +
-                application.status
 
+                        const application =
+                            await response.json();
+
+
+                        alert(
+
+                            "APPLICATION DETAILS\n\n" +
+
+                            "Application ID: " +
+                            (
+                                application.applicationId ||
+                                application.id ||
+                                "N/A"
+                            ) +
+
+                            "\n\nPosition: " +
+                            (
+                                application.jobTitle ||
+                                "N/A"
+                            ) +
+
+                            "\n\nApplicant: " +
+                            (
+                                application.applicantName ||
+                                "N/A"
+                            ) +
+
+                            "\n\nEmail: " +
+                            (
+                                application.applicantEmail ||
+                                "N/A"
+                            ) +
+
+                            "\n\nDate Applied: " +
+                            (
+                                application.dateApplied ||
+                                "N/A"
+                            ) +
+
+                            "\n\nStatus: " +
+                            (
+                                application.status ||
+                                "Pending"
+                            ) +
+
+                            "\n\nCV: " +
+                            (
+                                application.cvFileName ||
+                                "N/A"
+                            )
+
+                        );
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "View application error:",
+                            error
+                        );
+
+
+                        alert(
+                            "Unable to load application details."
+                        );
+
+                    }
+
+                }
             );
 
         });
 
-    });
-
 }
 
 
 /* ==========================================
-   FILTER
+   STATUS FILTER
 ========================================== */
 
 if (statusFilter) {
 
-    statusFilter.addEventListener("change", function () {
-
-        displayApplications(this.value);
-
-    });
+    statusFilter.addEventListener(
+        "change",
+        loadApplications
+    );
 
 }
 
 
 /* ==========================================
-   INITIAL DISPLAY
+   HTML SAFETY
 ========================================== */
 
-displayApplications();
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
 
 
 /* ==========================================
-   MOBILE SIDEBAR OUTSIDE CLICK
+   MOBILE OUTSIDE CLICK
 ========================================== */
 
-document.addEventListener("click", function (event) {
+document.addEventListener(
+    "click",
+    function (event) {
 
-    if (
-        window.innerWidth <= 992 &&
-        sidebar &&
-        menuToggle &&
-        sidebar.classList.contains("active") &&
-        !sidebar.contains(event.target) &&
-        !menuToggle.contains(event.target)
-    ) {
+        if (
+            window.innerWidth <= 992 &&
+            sidebar &&
+            menuToggle &&
+            sidebar.classList.contains("active") &&
+            !sidebar.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
 
-        sidebar.classList.remove("active");
+            sidebar.classList.remove("active");
 
-        const icon =
-            menuToggle.querySelector("i");
+            const icon =
+                menuToggle.querySelector("i");
 
-        if (icon) {
+            if (icon) {
 
-            icon.classList.remove("fa-xmark");
-            icon.classList.add("fa-bars");
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+
+            }
 
         }
 
     }
+);
 
-});
+
+/* ==========================================
+   START
+========================================== */
+
+loadApplications();

@@ -1,17 +1,28 @@
 /* =========================================================
    UPLOAD CV JAVASCRIPT
-   Works with:
-   POST http://localhost:8080/api/cv/upload
+   Unicorn Innovation Hill Limited
+
+   Backend:
+   https://unicorninnovationsjobbackend-1.onrender.com
+
+   Endpoint:
+   POST /api/cv/upload
 ========================================================= */
 
-const API_URL = "http://localhost:8080";
+const API_BASE_URL =
+    "https://unicorninnovationsjobbackend-1.onrender.com";
+
 
 /* =========================================================
    MOBILE SIDEBAR
 ========================================================= */
 
-const menuToggle = document.getElementById("menuToggle");
-const sidebar = document.getElementById("sidebar");
+const menuToggle =
+    document.getElementById("menuToggle");
+
+const sidebar =
+    document.getElementById("sidebar");
+
 
 if (menuToggle && sidebar) {
 
@@ -19,14 +30,18 @@ if (menuToggle && sidebar) {
 
         sidebar.classList.toggle("active");
 
-        const icon = menuToggle.querySelector("i");
+        const icon =
+            menuToggle.querySelector("i");
 
         if (icon) {
 
             if (sidebar.classList.contains("active")) {
+
                 icon.classList.remove("fa-bars");
                 icon.classList.add("fa-xmark");
+
             } else {
+
                 icon.classList.remove("fa-xmark");
                 icon.classList.add("fa-bars");
             }
@@ -34,30 +49,44 @@ if (menuToggle && sidebar) {
     });
 }
 
+
 /* =========================================================
    CLOSE SIDEBAR WHEN LINK IS CLICKED
 ========================================================= */
 
-document.querySelectorAll(".sidebar-menu a").forEach(function (link) {
+document
+    .querySelectorAll(".sidebar-menu a")
+    .forEach(function (link) {
 
-    link.addEventListener("click", function () {
+        link.addEventListener("click", function () {
 
-        if (window.innerWidth <= 992 && sidebar) {
+            if (
+                window.innerWidth <= 992 &&
+                sidebar
+            ) {
 
-            sidebar.classList.remove("active");
+                sidebar.classList.remove("active");
 
-            if (menuToggle) {
+                if (menuToggle) {
 
-                const icon = menuToggle.querySelector("i");
+                    const icon =
+                        menuToggle.querySelector("i");
 
-                if (icon) {
-                    icon.classList.remove("fa-xmark");
-                    icon.classList.add("fa-bars");
+                    if (icon) {
+
+                        icon.classList.remove(
+                            "fa-xmark"
+                        );
+
+                        icon.classList.add(
+                            "fa-bars"
+                        );
+                    }
                 }
             }
-        }
+        });
     });
-});
+
 
 /* =========================================================
    CLOSE SIDEBAR WHEN CLICKING OUTSIDE
@@ -76,46 +105,74 @@ document.addEventListener("click", function (event) {
 
         sidebar.classList.remove("active");
 
-        const icon = menuToggle.querySelector("i");
+        const icon =
+            menuToggle.querySelector("i");
 
         if (icon) {
+
             icon.classList.remove("fa-xmark");
             icon.classList.add("fa-bars");
         }
     }
 });
 
+
 /* =========================================================
    APPLICANT NAME
 ========================================================= */
 
-const applicantName = document.getElementById("applicantName");
+const applicantName =
+    document.getElementById("applicantName");
 
 const savedApplicantName =
     localStorage.getItem("applicantName");
 
-if (applicantName && savedApplicantName) {
-    applicantName.textContent = savedApplicantName;
+
+if (
+    applicantName &&
+    savedApplicantName
+) {
+
+    applicantName.textContent =
+        savedApplicantName;
 }
+
 
 /* =========================================================
    CV ELEMENTS
 ========================================================= */
 
-const cvFile = document.getElementById("cvFile");
-const uploadArea = document.getElementById("uploadArea");
-const filePreview = document.getElementById("filePreview");
-const fileName = document.getElementById("fileName");
-const fileSize = document.getElementById("fileSize");
-const removeFile = document.getElementById("removeFile");
-const uploadBtn = document.getElementById("uploadBtn");
-const uploadMessage = document.getElementById("uploadMessage");
+const cvFile =
+    document.getElementById("cvFile");
+
+const uploadArea =
+    document.getElementById("uploadArea");
+
+const filePreview =
+    document.getElementById("filePreview");
+
+const fileName =
+    document.getElementById("fileName");
+
+const fileSize =
+    document.getElementById("fileSize");
+
+const removeFile =
+    document.getElementById("removeFile");
+
+const uploadBtn =
+    document.getElementById("uploadBtn");
+
+const uploadMessage =
+    document.getElementById("uploadMessage");
+
 
 /* =========================================================
    SELECTED FILE
 ========================================================= */
 
 let selectedFile = null;
+
 
 /* =========================================================
    VALIDATE FILE
@@ -131,18 +188,29 @@ function validateFile(file) {
         };
     }
 
+
     const allowedExtensions = [
         ".pdf",
         ".doc",
         ".docx"
     ];
 
-    const lowerName = file.name.toLowerCase();
+
+    const lowerName =
+        file.name.toLowerCase();
+
 
     const validExtension =
-        allowedExtensions.some(function (extension) {
-            return lowerName.endsWith(extension);
-        });
+        allowedExtensions.some(
+            function (extension) {
+
+                return lowerName.endsWith(
+                    extension
+                );
+
+            }
+        );
+
 
     if (!validExtension) {
 
@@ -153,7 +221,10 @@ function validateFile(file) {
         };
     }
 
-    const maximumSize = 5 * 1024 * 1024;
+
+    const maximumSize =
+        5 * 1024 * 1024;
+
 
     if (file.size > maximumSize) {
 
@@ -164,11 +235,13 @@ function validateFile(file) {
         };
     }
 
+
     return {
         valid: true,
         message: ""
     };
 }
+
 
 /* =========================================================
    FORMAT FILE SIZE
@@ -176,39 +249,61 @@ function validateFile(file) {
 
 function formatFileSize(bytes) {
 
-    if (!bytes || bytes < 1024) {
-        return (bytes || 0) + " Bytes";
+    if (
+        !bytes ||
+        bytes < 1024
+    ) {
+
+        return (
+            bytes || 0
+        ) + " Bytes";
     }
 
-    if (bytes < 1024 * 1024) {
+
+    if (
+        bytes <
+        1024 * 1024
+    ) {
 
         return (
             bytes / 1024
         ).toFixed(1) + " KB";
     }
 
+
     return (
-        bytes / (1024 * 1024)
+        bytes /
+        (1024 * 1024)
     ).toFixed(2) + " MB";
 }
+
 
 /* =========================================================
    SHOW MESSAGE
 ========================================================= */
 
-function showMessage(message, type) {
+function showMessage(
+    message,
+    type
+) {
 
     if (!uploadMessage) {
         return;
     }
 
-    uploadMessage.textContent = message;
+
+    uploadMessage.textContent =
+        message;
+
 
     uploadMessage.className =
         "upload-message " + type;
 
-    uploadMessage.style.display = "block";
+
+    uploadMessage.style.display =
+        "block";
 }
+
 
 /* =========================================================
    DISPLAY SELECTED FILE
@@ -216,19 +311,35 @@ function showMessage(message, type) {
 
 function displayFile(file) {
 
-    if (!filePreview || !fileName || !fileSize) {
+    if (
+        !filePreview ||
+        !fileName ||
+        !fileSize
+    ) {
+
         return;
     }
 
-    fileName.textContent = file.name;
+
+    fileName.textContent =
+        file.name;
+
 
     fileSize.textContent =
-        formatFileSize(file.size);
+        formatFileSize(
+            file.size
+        );
 
-    filePreview.style.display = "flex";
+
+    filePreview.style.display =
+        "flex";
+
 
     const icon =
-        filePreview.querySelector(".file-icon i");
+        filePreview.querySelector(
+            ".file-icon i"
+        );
+
 
     if (icon) {
 
@@ -249,6 +360,7 @@ function displayFile(file) {
     }
 }
 
+
 /* =========================================================
    HANDLE FILE
 ========================================================= */
@@ -258,30 +370,43 @@ function handleFile(file) {
     const validation =
         validateFile(file);
 
+
     if (!validation.valid) {
 
         selectedFile = null;
 
+
         if (filePreview) {
-            filePreview.style.display = "none";
+
+            filePreview.style.display =
+                "none";
         }
+
 
         showMessage(
             validation.message,
             "error"
         );
 
+
         return;
     }
 
-    selectedFile = file;
+
+    selectedFile =
+        file;
+
 
     displayFile(file);
 
+
     if (uploadMessage) {
-        uploadMessage.style.display = "none";
+
+        uploadMessage.style.display =
+            "none";
     }
 }
+
 
 /* =========================================================
    CHOOSE CV
@@ -289,15 +414,22 @@ function handleFile(file) {
 
 if (cvFile) {
 
-    cvFile.addEventListener("change", function () {
+    cvFile.addEventListener(
+        "change",
+        function () {
 
-        const file = this.files[0];
+            const file =
+                this.files[0];
 
-        if (file) {
-            handleFile(file);
+
+            if (file) {
+
+                handleFile(file);
+            }
         }
-    });
+    );
 }
+
 
 /* =========================================================
    DRAG AND DROP
@@ -305,32 +437,54 @@ if (cvFile) {
 
 if (uploadArea) {
 
-    uploadArea.addEventListener("dragover", function (event) {
+    uploadArea.addEventListener(
+        "dragover",
+        function (event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        uploadArea.classList.add("dragover");
-    });
-
-    uploadArea.addEventListener("dragleave", function () {
-
-        uploadArea.classList.remove("dragover");
-    });
-
-    uploadArea.addEventListener("drop", function (event) {
-
-        event.preventDefault();
-
-        uploadArea.classList.remove("dragover");
-
-        const file =
-            event.dataTransfer.files[0];
-
-        if (file) {
-            handleFile(file);
+            uploadArea.classList.add(
+                "dragover"
+            );
         }
-    });
+    );
+
+
+    uploadArea.addEventListener(
+        "dragleave",
+        function () {
+
+            uploadArea.classList.remove(
+                "dragover"
+            );
+        }
+    );
+
+
+    uploadArea.addEventListener(
+        "drop",
+        function (event) {
+
+            event.preventDefault();
+
+
+            uploadArea.classList.remove(
+                "dragover"
+            );
+
+
+            const file =
+                event.dataTransfer.files[0];
+
+
+            if (file) {
+
+                handleFile(file);
+            }
+        }
+    );
 }
+
 
 /* =========================================================
    REMOVE CV
@@ -338,40 +492,70 @@ if (uploadArea) {
 
 if (removeFile) {
 
-    removeFile.addEventListener("click", function () {
+    removeFile.addEventListener(
+        "click",
+        function () {
 
-        selectedFile = null;
+            selectedFile = null;
 
-        if (cvFile) {
-            cvFile.value = "";
+
+            if (cvFile) {
+
+                cvFile.value = "";
+            }
+
+
+            if (filePreview) {
+
+                filePreview.style.display =
+                    "none";
+            }
+
+
+            localStorage.removeItem(
+                "cvUploaded"
+            );
+
+            localStorage.removeItem(
+                "applicantCVName"
+            );
+
+            localStorage.removeItem(
+                "applicantCVSize"
+            );
+
+            localStorage.removeItem(
+                "applicantCVSavedName"
+            );
+
+
+            if (uploadBtn) {
+
+                uploadBtn.disabled =
+                    false;
+
+
+                uploadBtn.innerHTML =
+                    '<i class="fa-solid fa-upload"></i> Upload CV';
+
+
+                uploadBtn.style.background =
+                    "";
+
+
+                uploadBtn.style.cursor =
+                    "pointer";
+            }
+
+
+            showMessage(
+                "CV removed.",
+                "success"
+            );
         }
-
-        if (filePreview) {
-            filePreview.style.display = "none";
-        }
-
-        localStorage.removeItem("cvUploaded");
-        localStorage.removeItem("applicantCVName");
-        localStorage.removeItem("applicantCVSize");
-        localStorage.removeItem("applicantCVSavedName");
-
-        if (uploadBtn) {
-
-            uploadBtn.disabled = false;
-
-            uploadBtn.innerHTML =
-                '<i class="fa-solid fa-upload"></i> Upload CV';
-
-            uploadBtn.style.background = "";
-            uploadBtn.style.cursor = "pointer";
-        }
-
-        showMessage(
-            "CV removed.",
-            "success"
-        );
-    });
+    );
 }
+
 
 /* =========================================================
    UPLOAD CV
@@ -379,279 +563,334 @@ if (removeFile) {
 
 if (uploadBtn) {
 
-    uploadBtn.addEventListener("click", async function () {
+    uploadBtn.addEventListener(
+        "click",
+        async function () {
 
-        /* -----------------------------------------------
-           CHECK FILE
-        ------------------------------------------------ */
 
-        if (!selectedFile) {
+            /* ---------------------------------------------
+               CHECK FILE
+            --------------------------------------------- */
+
+            if (!selectedFile) {
+
+                showMessage(
+                    "⚠️ Please choose your CV before uploading.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            /* ---------------------------------------------
+               VALIDATE FILE
+            --------------------------------------------- */
+
+            const validation =
+                validateFile(
+                    selectedFile
+                );
+
+
+            if (!validation.valid) {
+
+                showMessage(
+                    validation.message,
+                    "error"
+                );
+
+                return;
+            }
+
+
+            /* ---------------------------------------------
+               DISABLE BUTTON
+            --------------------------------------------- */
+
+            uploadBtn.disabled =
+                true;
+
+
+            uploadBtn.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i> Uploading...';
+
 
             showMessage(
-                "⚠️ Please choose your CV before uploading.",
-                "error"
+                "Uploading your CV...",
+                "info"
             );
 
-            return;
-        }
-
-        /* -----------------------------------------------
-           VALIDATE FILE
-        ------------------------------------------------ */
-
-        const validation =
-            validateFile(selectedFile);
-
-        if (!validation.valid) {
-
-            showMessage(
-                validation.message,
-                "error"
-            );
-
-            return;
-        }
-
-        /* -----------------------------------------------
-           DISABLE BUTTON
-        ------------------------------------------------ */
-
-        uploadBtn.disabled = true;
-
-        uploadBtn.innerHTML =
-            '<i class="fa-solid fa-spinner fa-spin"></i> Uploading...';
-
-        showMessage(
-            "Uploading your CV...",
-            "info"
-        );
-
-        try {
-
-            /* ===========================================
-               CREATE MULTIPART FORM DATA
-            =========================================== */
-
-            const formData = new FormData();
-
-            /*
-             * VERY IMPORTANT
-             *
-             * CvApi.java searches for:
-             *
-             * filename=
-             *
-             * and the multipart field is:
-             *
-             * file
-             */
-
-            formData.append(
-                "file",
-                selectedFile,
-                selectedFile.name
-            );
-
-            console.log(
-                "Sending CV:",
-                selectedFile.name
-            );
-
-            console.log(
-                "CV size:",
-                selectedFile.size,
-                "bytes"
-            );
-
-            /* ===========================================
-               SEND REQUEST
-            =========================================== */
-
-            const response = await fetch(
-                API_URL + "/api/cv/upload",
-                {
-                    method: "POST",
-                    body: formData
-                }
-            );
-
-            console.log(
-                "Java HTTP status:",
-                response.status
-            );
-
-            /* ===========================================
-               GET RESPONSE TEXT
-            =========================================== */
-
-            const responseText =
-                await response.text();
-
-            console.log(
-                "Java response:",
-                responseText
-            );
-
-            /* ===========================================
-               PARSE JSON
-            =========================================== */
-
-            let data;
 
             try {
 
-                data =
-                    JSON.parse(responseText);
 
-            } catch (jsonError) {
+                /* =========================================
+                   CREATE MULTIPART FORM DATA
+                ========================================= */
 
-                console.error(
-                    "JSON parsing error:",
-                    jsonError
+                const formData =
+                    new FormData();
+
+
+                /*
+                 * CvApi.java expects:
+                 *
+                 * field name = file
+                 *
+                 * because it searches for:
+                 *
+                 * filename=
+                 */
+
+                formData.append(
+                    "file",
+                    selectedFile,
+                    selectedFile.name
                 );
 
-                throw new Error(
-                    "Java server returned an invalid response."
+
+                console.log(
+                    "Sending CV:",
+                    selectedFile.name
                 );
-            }
 
-            console.log(
-                "Parsed Java response:",
-                data
-            );
 
-            /* ===========================================
-               CHECK SERVER RESPONSE
-            =========================================== */
-
-            if (!response.ok) {
-
-                throw new Error(
-                    data.message ||
-                    "The Java server rejected the CV upload."
+                console.log(
+                    "CV size:",
+                    selectedFile.size,
+                    "bytes"
                 );
-            }
 
-            if (data.success !== true) {
 
-                throw new Error(
-                    data.message ||
-                    "CV upload failed."
+                /* =========================================
+                   SEND TO RENDER JAVA BACKEND
+                ========================================= */
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/api/cv/upload",
+                        {
+
+                            method: "POST",
+
+                            body: formData
+                        }
+                    );
+
+
+                console.log(
+                    "Java HTTP status:",
+                    response.status
                 );
-            }
 
-            /* ===========================================
-               SAVE SUCCESS INFORMATION
-            =========================================== */
 
-            localStorage.setItem(
-                "cvUploaded",
-                "true"
-            );
+                /* =========================================
+                   GET RESPONSE
+                ========================================= */
 
-            localStorage.setItem(
-                "applicantCVName",
-                data.fileName ||
-                selectedFile.name
-            );
+                const responseText =
+                    await response.text();
 
-            localStorage.setItem(
-                "applicantCVSize",
-                String(
-                    data.size ||
-                    selectedFile.size
-                )
-            );
 
-            /*
-             * Save the name generated by Java.
-             */
+                console.log(
+                    "Java response:",
+                    responseText
+                );
 
-            if (data.savedFileName) {
+
+                /* =========================================
+                   PARSE JSON
+                ========================================= */
+
+                let data;
+
+
+                try {
+
+                    data =
+                        JSON.parse(
+                            responseText
+                        );
+
+                } catch (jsonError) {
+
+                    console.error(
+                        "JSON parsing error:",
+                        jsonError
+                    );
+
+
+                    throw new Error(
+                        "Java server returned an invalid response."
+                    );
+                }
+
+
+                console.log(
+                    "Parsed Java response:",
+                    data
+                );
+
+
+                /* =========================================
+                   CHECK SERVER RESPONSE
+                ========================================= */
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "The Java server rejected the CV upload."
+                    );
+                }
+
+
+                if (
+                    data.success !== true
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                        "CV upload failed."
+                    );
+                }
+
+
+                /* =========================================
+                   SAVE SUCCESS INFORMATION
+                ========================================= */
 
                 localStorage.setItem(
-                    "applicantCVSavedName",
+                    "cvUploaded",
+                    "true"
+                );
+
+
+                localStorage.setItem(
+                    "applicantCVName",
+                    data.fileName ||
+                    selectedFile.name
+                );
+
+
+                localStorage.setItem(
+                    "applicantCVSize",
+                    String(
+                        data.size ||
+                        selectedFile.size
+                    )
+                );
+
+
+                /*
+                 * Save the unique filename
+                 * generated by Java.
+                 */
+
+                if (
                     data.savedFileName
+                ) {
+
+                    localStorage.setItem(
+                        "applicantCVSavedName",
+                        data.savedFileName
+                    );
+                }
+
+
+                /* =========================================
+                   SHOW SUCCESS
+                ========================================= */
+
+                showMessage(
+                    "✅ Your CV has been uploaded successfully!",
+                    "success"
+                );
+
+
+                /* =========================================
+                   UPDATE BUTTON
+                ========================================= */
+
+                uploadBtn.innerHTML =
+                    '<i class="fa-solid fa-check"></i> CV Uploaded';
+
+
+                uploadBtn.style.background =
+                    "#198754";
+
+
+                uploadBtn.disabled =
+                    true;
+
+
+                uploadBtn.style.cursor =
+                    "not-allowed";
+
+
+                console.log(
+                    "✅ CV upload completed successfully."
+                );
+
+
+            } catch (error) {
+
+
+                console.error(
+                    "❌ CV upload error:",
+                    error
+                );
+
+
+                /* =========================================
+                   RESTORE BUTTON
+                ========================================= */
+
+                uploadBtn.disabled =
+                    false;
+
+
+                uploadBtn.innerHTML =
+                    '<i class="fa-solid fa-upload"></i> Upload CV';
+
+
+                uploadBtn.style.background =
+                    "";
+
+
+                uploadBtn.style.cursor =
+                    "pointer";
+
+
+                /* =========================================
+                   SHOW ERROR
+                ========================================= */
+
+                let message =
+                    error.message ||
+                    "Unable to upload CV.";
+
+
+                if (
+                    error instanceof TypeError
+                ) {
+
+                    message =
+                        "❌ Cannot connect to the Java backend. Please check your Render server.";
+                }
+
+
+                showMessage(
+                    message,
+                    "error"
                 );
             }
-
-            /* ===========================================
-               SHOW SUCCESS
-            =========================================== */
-
-            showMessage(
-                "✅ Your CV has been uploaded successfully!",
-                "success"
-            );
-
-            /* ===========================================
-               UPDATE BUTTON
-            =========================================== */
-
-            uploadBtn.innerHTML =
-                '<i class="fa-solid fa-check"></i> CV Uploaded';
-
-            uploadBtn.style.background =
-                "#198754";
-
-            uploadBtn.disabled = true;
-
-            uploadBtn.style.cursor =
-                "not-allowed";
-
-            console.log(
-                "✅ CV upload completed successfully."
-            );
-
-        } catch (error) {
-
-            console.error(
-                "❌ CV upload error:",
-                error
-            );
-
-            /* ===========================================
-               RESTORE BUTTON
-            =========================================== */
-
-            uploadBtn.disabled = false;
-
-            uploadBtn.innerHTML =
-                '<i class="fa-solid fa-upload"></i> Upload CV';
-
-            uploadBtn.style.background = "";
-
-            uploadBtn.style.cursor = "pointer";
-
-            /* ===========================================
-               SHOW CORRECT ERROR
-            =========================================== */
-
-            let message =
-                error.message ||
-                "Unable to upload CV.";
-
-            /*
-             * If the browser cannot connect to Java.
-             */
-
-            if (
-                error instanceof TypeError &&
-                error.message.toLowerCase()
-                    .includes("fetch")
-            ) {
-
-                message =
-                    "❌ Cannot connect to the Java server. Make sure Main.java is running on http://localhost:8080.";
-            }
-
-            showMessage(
-                message,
-                "error"
-            );
         }
-    });
+    );
 }
+
 
 /* =========================================================
    RESTORE SAVED CV
@@ -664,15 +903,18 @@ function restoreSavedCV() {
             "applicantCVName"
         );
 
+
     const savedSize =
         localStorage.getItem(
             "applicantCVSize"
         );
 
+
     const uploaded =
         localStorage.getItem(
             "cvUploaded"
         );
+
 
     if (
         savedName &&
@@ -680,11 +922,13 @@ function restoreSavedCV() {
         uploaded === "true"
     ) {
 
+
         if (fileName) {
 
             fileName.textContent =
                 savedName;
         }
+
 
         if (fileSize) {
 
@@ -694,28 +938,34 @@ function restoreSavedCV() {
                 );
         }
 
+
         if (filePreview) {
 
             filePreview.style.display =
                 "flex";
         }
 
+
         if (uploadBtn) {
 
             uploadBtn.innerHTML =
                 '<i class="fa-solid fa-check"></i> CV Uploaded';
 
+
             uploadBtn.style.background =
                 "#198754";
 
+
             uploadBtn.disabled =
                 true;
+
 
             uploadBtn.style.cursor =
                 "not-allowed";
         }
     }
 }
+
 
 /* =========================================================
    START
