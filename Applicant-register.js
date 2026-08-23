@@ -1,7 +1,8 @@
+
 /* =========================================================
    APPLICANT REGISTER
    Unicorn Innovation Hill Limited
-   PRODUCTION / RENDER VERSION
+   PRODUCTION / VERCEL + RENDER VERSION
 ========================================================= */
 
 
@@ -101,7 +102,6 @@ if (profileImage && profilePreview) {
             const file =
                 this.files[0];
 
-
             if (file) {
 
                 profilePreview.src =
@@ -146,10 +146,8 @@ if (
                 password.type =
                     "text";
 
-
                 togglePassword.classList
                     .remove("fa-eye");
-
 
                 togglePassword.classList
                     .add("fa-eye-slash");
@@ -159,12 +157,8 @@ if (
                 password.type =
                     "password";
 
-
                 togglePassword.classList
-                    .remove(
-                        "fa-eye-slash"
-                    );
-
+                    .remove("fa-eye-slash");
 
                 togglePassword.classList
                     .add("fa-eye");
@@ -210,10 +204,8 @@ if (
                 confirmPassword.type =
                     "text";
 
-
                 toggleConfirm.classList
                     .remove("fa-eye");
-
 
                 toggleConfirm.classList
                     .add("fa-eye-slash");
@@ -223,12 +215,10 @@ if (
                 confirmPassword.type =
                     "password";
 
-
                 toggleConfirm.classList
                     .remove(
                         "fa-eye-slash"
                     );
-
 
                 toggleConfirm.classList
                     .add("fa-eye");
@@ -262,7 +252,6 @@ if (
 
             const value =
                 password.value;
-
 
             let strength = 0;
 
@@ -354,6 +343,9 @@ if (
                     strengthBar.style.width =
                         "0";
 
+                    strengthBar.style.background =
+                        "";
+
             }
 
         }
@@ -403,7 +395,8 @@ if (registerForm) {
                 document
                     .getElementById("email")
                     .value
-                    .trim();
+                    .trim()
+                    .toLowerCase();
 
 
             const phone =
@@ -489,10 +482,24 @@ if (registerForm) {
             }
 
 
-            if (!email.includes("@")) {
+            if (
+                !email.includes("@") ||
+                !email.includes(".")
+            ) {
 
                 alert(
                     "Please enter a valid email address."
+                );
+
+                return;
+
+            }
+
+
+            if (!passwordValue) {
+
+                alert(
+                    "Please enter a password."
                 );
 
                 return;
@@ -552,7 +559,6 @@ if (registerForm) {
                 registerBtn.disabled =
                     true;
 
-
                 registerBtn.innerHTML =
                     '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
 
@@ -565,21 +571,26 @@ if (registerForm) {
 
             try {
 
+                const registerURL =
+                    API_BASE_URL +
+                    "/api/applicants/register";
+
+
+                console.log(
+                    "Registration API:",
+                    registerURL
+                );
+
+
                 const response =
                     await fetch(
-
-                        API_BASE_URL +
-                        "/api/applicants/register",
-
+                        registerURL,
                         {
-
                             method: "POST",
 
                             headers: {
-
                                 "Content-Type":
                                     "application/json"
-
                             },
 
                             body:
@@ -613,9 +624,7 @@ if (registerForm) {
                                         passwordValue
 
                                 })
-
                         }
-
                     );
 
 
@@ -626,24 +635,43 @@ if (registerForm) {
                 let data = {};
 
 
-                try {
+                const responseText =
+                    await response.text();
 
-                    data =
-                        await response.json();
 
-                } catch (jsonError) {
-
-                    console.error(
-                        "Server returned invalid JSON."
-                    );
-
-                }
+                console.log(
+                    "Registration HTTP status:",
+                    response.status
+                );
 
 
                 console.log(
                     "Registration response:",
-                    data
+                    responseText
                 );
+
+
+                try {
+
+                    data =
+                        responseText
+                            ? JSON.parse(
+                                responseText
+                            )
+                            : {};
+
+                } catch (jsonError) {
+
+                    console.error(
+                        "Server returned invalid JSON:",
+                        jsonError
+                    );
+
+                    throw new Error(
+                        "The server returned an invalid response."
+                    );
+
+                }
 
 
                 /* ==========================================
@@ -671,12 +699,9 @@ if (registerForm) {
                     data.success === true
                 ) {
 
-                    /*
-                     * Store only non-sensitive
-                     * information.
-                     *
-                     * NEVER store password.
-                     */
+                    /* ======================================
+                       STORE NON-SENSITIVE INFORMATION
+                    ====================================== */
 
                     localStorage.setItem(
                         "applicantName",
@@ -718,12 +743,17 @@ if (registerForm) {
 
 
                                 alert(
-                                    "✅ Account created successfully!"
+                                    "✅ Account created successfully! You can now log in."
                                 );
 
 
+                                /*
+                                 * IMPORTANT:
+                                 * Absolute path for Vercel.
+                                 */
+
                                 window.location.href =
-                                    "Applicant-login.html";
+                                    "/Applicant-Login.html";
 
                             };
 
@@ -736,12 +766,17 @@ if (registerForm) {
                     } else {
 
                         alert(
-                            "✅ Account created successfully!"
+                            "✅ Account created successfully! You can now log in."
                         );
 
 
+                        /*
+                         * IMPORTANT:
+                         * Absolute path for Vercel.
+                         */
+
                         window.location.href =
-                            "Applicant-login.html";
+                            "/Applicant-login.html";
 
                     }
 
@@ -776,12 +811,16 @@ if (registerForm) {
                     "Unable to create account.";
 
 
+                /*
+                 * Network / CORS / Render connection error
+                 */
+
                 if (
                     error instanceof TypeError
                 ) {
 
                     message =
-                        "Unable to connect to the deployed Java backend. Please check your Render service.";
+                        "Unable to connect to the Java backend. Please check that your Render backend is running.";
 
                 }
 
@@ -791,6 +830,10 @@ if (registerForm) {
                 );
 
 
+                /* ==========================================
+                   RESTORE REGISTER BUTTON
+                ========================================== */
+
                 if (registerBtn) {
 
                     registerBtn.disabled =
@@ -798,7 +841,7 @@ if (registerForm) {
 
 
                     registerBtn.innerHTML =
-                        "Create Account";
+                        '<i class="fa-solid fa-user-plus"></i> Create Account';
 
                 }
 
