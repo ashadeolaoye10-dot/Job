@@ -1,22 +1,27 @@
-
-/* =========================================================
+/*
+=========================================================
    APPLICANT REGISTER
    Unicorn Innovation Hill Limited
    PRODUCTION / VERCEL + RENDER VERSION
-========================================================= */
+=========================================================
+*/
 
 
-/* =========================================================
+/*
+=========================================================
    JAVA BACKEND API
-========================================================= */
+=========================================================
+*/
 
 const API_BASE_URL =
     "https://unicorninnovationsjobbackend-1.onrender.com";
 
 
-/* =========================================================
+/*
+=========================================================
    NAVBAR
-========================================================= */
+=========================================================
+*/
 
 const hamburger =
     document.querySelector(".hamburger");
@@ -82,9 +87,11 @@ if (hamburger && navLinks) {
 }
 
 
-/* =========================================================
+/*
+=========================================================
    PROFILE IMAGE PREVIEW
-========================================================= */
+=========================================================
+*/
 
 const profileImage =
     document.getElementById("profileImage");
@@ -115,13 +122,14 @@ if (profileImage && profilePreview) {
 }
 
 
-/* =========================================================
+/*
+=========================================================
    PASSWORD
-========================================================= */
+=========================================================
+*/
 
 const password =
     document.getElementById("password");
-
 
 const togglePassword =
     document.querySelector(
@@ -139,12 +147,10 @@ if (
         () => {
 
             if (
-                password.type ===
-                "password"
+                password.type === "password"
             ) {
 
-                password.type =
-                    "text";
+                password.type = "text";
 
                 togglePassword.classList
                     .remove("fa-eye");
@@ -154,8 +160,7 @@ if (
 
             } else {
 
-                password.type =
-                    "password";
+                password.type = "password";
 
                 togglePassword.classList
                     .remove("fa-eye-slash");
@@ -171,15 +176,16 @@ if (
 }
 
 
-/* =========================================================
+/*
+=========================================================
    CONFIRM PASSWORD
-========================================================= */
+=========================================================
+*/
 
 const confirmPassword =
     document.getElementById(
         "confirmPassword"
     );
-
 
 const toggleConfirm =
     document.querySelector(
@@ -197,12 +203,10 @@ if (
         () => {
 
             if (
-                confirmPassword.type ===
-                "password"
+                confirmPassword.type === "password"
             ) {
 
-                confirmPassword.type =
-                    "text";
+                confirmPassword.type = "text";
 
                 toggleConfirm.classList
                     .remove("fa-eye");
@@ -212,13 +216,10 @@ if (
 
             } else {
 
-                confirmPassword.type =
-                    "password";
+                confirmPassword.type = "password";
 
                 toggleConfirm.classList
-                    .remove(
-                        "fa-eye-slash"
-                    );
+                    .remove("fa-eye-slash");
 
                 toggleConfirm.classList
                     .add("fa-eye");
@@ -231,9 +232,11 @@ if (
 }
 
 
-/* =========================================================
+/*
+=========================================================
    PASSWORD STRENGTH
-========================================================= */
+=========================================================
+*/
 
 const strengthBar =
     document.querySelector(
@@ -256,36 +259,28 @@ if (
             let strength = 0;
 
 
-            if (
-                value.length >= 8
-            ) {
+            if (value.length >= 8) {
 
                 strength++;
 
             }
 
 
-            if (
-                /[A-Z]/.test(value)
-            ) {
+            if (/[A-Z]/.test(value)) {
 
                 strength++;
 
             }
 
 
-            if (
-                /[0-9]/.test(value)
-            ) {
+            if (/[0-9]/.test(value)) {
 
                 strength++;
 
             }
 
 
-            if (
-                /[^A-Za-z0-9]/.test(value)
-            ) {
+            if (/[^A-Za-z0-9]/.test(value)) {
 
                 strength++;
 
@@ -354,9 +349,11 @@ if (
 }
 
 
-/* =========================================================
+/*
+=========================================================
    APPLICANT REGISTRATION
-========================================================= */
+=========================================================
+*/
 
 const registerForm =
     document.getElementById(
@@ -373,81 +370,116 @@ if (registerForm) {
             event.preventDefault();
 
 
-            /* ==========================================
+            /*
+            ================================================
                GET FORM VALUES
-            ========================================== */
+            ================================================
+            */
+
+            const firstNameElement =
+                document.getElementById("firstName");
+
+            const lastNameElement =
+                document.getElementById("lastName");
+
+            const emailElement =
+                document.getElementById("email");
+
+            const phoneElement =
+                document.getElementById("phone");
+
+            const genderElement =
+                document.getElementById("gender");
+
+            const dateOfBirthElement =
+                document.getElementById("dateOfBirth");
+
+            const addressElement =
+                document.getElementById("address");
+
+            const qualificationElement =
+                document.getElementById("qualification");
+
+            const experienceElement =
+                document.getElementById("experience");
+
+
+            /*
+            ================================================
+               CHECK REQUIRED ELEMENTS
+            ================================================
+            */
+
+            if (
+                !firstNameElement ||
+                !lastNameElement ||
+                !emailElement ||
+                !phoneElement ||
+                !genderElement ||
+                !dateOfBirthElement ||
+                !addressElement ||
+                !qualificationElement ||
+                !experienceElement ||
+                !password ||
+                !confirmPassword
+            ) {
+
+                alert(
+                    "Registration form is missing required fields. Please check your HTML IDs."
+                );
+
+                return;
+
+            }
+
+
+            /*
+            ================================================
+               GET VALUES
+            ================================================
+            */
 
             const firstName =
-                document
-                    .getElementById("firstName")
-                    .value
-                    .trim();
-
+                firstNameElement.value.trim();
 
             const lastName =
-                document
-                    .getElementById("lastName")
-                    .value
-                    .trim();
-
+                lastNameElement.value.trim();
 
             const email =
-                document
-                    .getElementById("email")
-                    .value
+                emailElement.value
                     .trim()
                     .toLowerCase();
 
-
             const phone =
-                document
-                    .getElementById("phone")
-                    .value
-                    .trim();
-
+                phoneElement.value.trim();
 
             const gender =
-                document
-                    .getElementById("gender")
-                    .value;
-
+                genderElement.value.trim();
 
             const dateOfBirth =
-                document
-                    .getElementById("dateOfBirth")
-                    .value;
-
+                dateOfBirthElement.value.trim();
 
             const address =
-                document
-                    .getElementById("address")
-                    .value
-                    .trim();
-
+                addressElement.value.trim();
 
             const qualification =
-                document
-                    .getElementById("qualification")
-                    .value;
-
+                qualificationElement.value.trim();
 
             const experience =
-                document
-                    .getElementById("experience")
-                    .value;
-
+                experienceElement.value.trim();
 
             const passwordValue =
                 password.value;
-
 
             const confirmPasswordValue =
                 confirmPassword.value;
 
 
-            /* ==========================================
+            /*
+            ================================================
                VALIDATION
-            ========================================== */
+            ================================================
+            */
 
             if (!firstName) {
 
@@ -483,8 +515,8 @@ if (registerForm) {
 
 
             if (
-                !email.includes("@") ||
-                !email.includes(".")
+                !/^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/
+                    .test(email)
             ) {
 
                 alert(
@@ -508,6 +540,19 @@ if (registerForm) {
 
 
             if (
+                passwordValue.length < 8
+            ) {
+
+                alert(
+                    "Password must be at least 8 characters long."
+                );
+
+                return;
+
+            }
+
+
+            if (
                 passwordValue !==
                 confirmPasswordValue
             ) {
@@ -521,22 +566,11 @@ if (registerForm) {
             }
 
 
-            if (
-                passwordValue.length < 8
-            ) {
-
-                alert(
-                    "Password must be at least 8 characters long."
-                );
-
-                return;
-
-            }
-
-
-            /* ==========================================
+            /*
+            ================================================
                CREATE FULL NAME
-            ========================================== */
+            ================================================
+            */
 
             const fullName =
                 firstName +
@@ -544,9 +578,11 @@ if (registerForm) {
                 lastName;
 
 
-            /* ==========================================
+            /*
+            ================================================
                REGISTER BUTTON
-            ========================================== */
+            ================================================
+            */
 
             const registerBtn =
                 document.getElementById(
@@ -565,9 +601,11 @@ if (registerForm) {
             }
 
 
-            /* ==========================================
-               SEND TO DEPLOYED JAVA BACKEND
-            ========================================== */
+            /*
+            ================================================
+               SEND TO JAVA BACKEND
+            ================================================
+            */
 
             try {
 
@@ -586,11 +624,14 @@ if (registerForm) {
                     await fetch(
                         registerURL,
                         {
+
                             method: "POST",
 
                             headers: {
+
                                 "Content-Type":
                                     "application/json"
+
                             },
 
                             body:
@@ -624,16 +665,16 @@ if (registerForm) {
                                         passwordValue
 
                                 })
+
                         }
                     );
 
 
-                /* ==========================================
-                   READ RESPONSE
-                ========================================== */
-
-                let data = {};
-
+                /*
+                ================================================
+                   READ SERVER RESPONSE
+                ================================================
+                */
 
                 const responseText =
                     await response.text();
@@ -651,19 +692,20 @@ if (registerForm) {
                 );
 
 
+                let data = {};
+
+
                 try {
 
                     data =
                         responseText
-                            ? JSON.parse(
-                                responseText
-                            )
+                            ? JSON.parse(responseText)
                             : {};
 
                 } catch (jsonError) {
 
                     console.error(
-                        "Server returned invalid JSON:",
+                        "Invalid JSON from server:",
                         jsonError
                     );
 
@@ -674,9 +716,11 @@ if (registerForm) {
                 }
 
 
-                /* ==========================================
+                /*
+                ================================================
                    BACKEND ERROR
-                ========================================== */
+                ================================================
+                */
 
                 if (!response.ok) {
 
@@ -691,17 +735,21 @@ if (registerForm) {
                 }
 
 
-                /* ==========================================
+                /*
+                ================================================
                    REGISTRATION SUCCESS
-                ========================================== */
+                ================================================
+                */
 
                 if (
                     data.success === true
                 ) {
 
-                    /* ======================================
+                    /*
+                    ============================================
                        STORE NON-SENSITIVE INFORMATION
-                    ====================================== */
+                    ============================================
+                    */
 
                     localStorage.setItem(
                         "applicantName",
@@ -715,14 +763,22 @@ if (registerForm) {
                     );
 
 
-                    /* ======================================
+                    localStorage.setItem(
+                        "verificationPending",
+                        "true"
+                    );
+
+
+                    /*
+                    ============================================
                        PROFILE IMAGE
-                    ====================================== */
+                    ============================================
+                    */
 
                     if (
                         profileImage &&
                         profileImage.files &&
-                        profileImage.files[0]
+                        profileImage.files.length > 0
                     ) {
 
                         const imageFile =
@@ -736,24 +792,44 @@ if (registerForm) {
                         reader.onload =
                             function (event) {
 
-                                localStorage.setItem(
-                                    "applicantProfileImage",
-                                    event.target.result
-                                );
+                                try {
+
+                                    localStorage.setItem(
+                                        "applicantProfileImage",
+                                        event.target.result
+                                    );
+
+                                } catch (storageError) {
+
+                                    console.warn(
+                                        "Profile image could not be saved:",
+                                        storageError
+                                    );
+
+                                }
 
 
                                 alert(
-                                    "✅ Account created successfully! You can now log in."
+                                    "✅ Account created successfully! A verification code has been sent to your email."
                                 );
 
 
-                                /*
-                                 * IMPORTANT:
-                                 * Absolute path for Vercel.
-                                 */
+                                window.location.href =
+                                    "/Applicant-Verify.html";
+
+                            };
+
+
+                        reader.onerror =
+                            function () {
+
+                                alert(
+                                    "✅ Account created successfully! A verification code has been sent to your email."
+                                );
+
 
                                 window.location.href =
-                                    "/Applicant-Login.html";
+                                    "/Applicant-Verify.html";
 
                             };
 
@@ -766,17 +842,12 @@ if (registerForm) {
                     } else {
 
                         alert(
-                            "✅ Account created successfully! You can now log in."
+                            "✅ Account created successfully! A verification code has been sent to your email."
                         );
 
 
-                        /*
-                         * IMPORTANT:
-                         * Absolute path for Vercel.
-                         */
-
                         window.location.href =
-                            "/Applicant-login.html";
+                            "/Applicant-Verify.html";
 
                     }
 
@@ -786,9 +857,11 @@ if (registerForm) {
                 }
 
 
-                /* ==========================================
+                /*
+                ================================================
                    UNKNOWN RESPONSE
-                ========================================== */
+                ================================================
+                */
 
                 throw new Error(
 
@@ -811,16 +884,12 @@ if (registerForm) {
                     "Unable to create account.";
 
 
-                /*
-                 * Network / CORS / Render connection error
-                 */
-
                 if (
                     error instanceof TypeError
                 ) {
 
                     message =
-                        "Unable to connect to the Java backend. Please check that your Render backend is running.";
+                        "Unable to connect to the Java backend. Please check that your Render backend is running and that CORS is configured correctly.";
 
                 }
 
@@ -830,15 +899,16 @@ if (registerForm) {
                 );
 
 
-                /* ==========================================
-                   RESTORE REGISTER BUTTON
-                ========================================== */
+                /*
+                ================================================
+                   RESTORE BUTTON
+                ================================================
+                */
 
                 if (registerBtn) {
 
                     registerBtn.disabled =
                         false;
-
 
                     registerBtn.innerHTML =
                         '<i class="fa-solid fa-user-plus"></i> Create Account';

@@ -1,0 +1,1204 @@
+/* =========================================================
+   APPLICANT VERIFICATION
+   Unicorn Innovation Hill Limited
+   PRODUCTION / VERCEL + RENDER
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #f5f5f5;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #242424 0%,
+            #0b0b0b 35%,
+            #020202 70%,
+            #000000 100%
+        );
+
+    overflow-x: hidden;
+
+}
+
+
+
+/* =========================================================
+   PAGE LOADER
+========================================================= */
+
+.page-loader {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 18px;
+
+    background: #030303;
+
+    transition:
+        opacity 0.5s ease,
+        visibility 0.5s ease;
+
+}
+
+
+.page-loader.hidden {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+}
+
+
+.loader-logo {
+
+    width: 72px;
+
+    height: 72px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 2px solid #d4af37;
+
+    border-radius: 50%;
+
+    color: #d4af37;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    box-shadow:
+        0 0 25px rgba(212, 175, 55, 0.25);
+
+}
+
+
+.loader-spinner {
+
+    width: 30px;
+
+    height: 30px;
+
+    border: 3px solid rgba(255,255,255,0.15);
+
+    border-top-color: #d4af37;
+
+    border-radius: 50%;
+
+    animation:
+        spin 0.8s linear infinite;
+
+}
+
+
+@keyframes spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+
+    position: relative;
+
+    z-index: 100;
+
+    width: 100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #111111,
+            #050505
+        );
+
+    border-bottom:
+        1px solid rgba(
+            212,
+            175,
+            55,
+            0.35
+        );
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.45);
+
+}
+
+
+.nav-container {
+
+    width: min(
+        1200px,
+        94%
+    );
+
+    min-height: 76px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+}
+
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    text-decoration: none;
+
+    color: #ffffff;
+
+    min-width: 0;
+
+}
+
+
+.logo-circle {
+
+    width: 46px;
+
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 2px solid #d4af37;
+
+    border-radius: 50%;
+
+    color: #d4af37;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+}
+
+
+.logo-text {
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+
+}
+
+
+.nav-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 28px;
+
+}
+
+
+.nav-links a {
+
+    position: relative;
+
+    color: #eeeeee;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        color 0.25s ease;
+
+}
+
+
+.nav-links a:hover {
+
+    color: #d4af37;
+
+}
+
+
+.nav-links a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: -8px;
+
+    width: 0;
+
+    height: 2px;
+
+    background: #d4af37;
+
+    transition:
+        width 0.25s ease;
+
+}
+
+
+.nav-links a:hover::after {
+
+    width: 100%;
+
+}
+
+
+.login-nav {
+
+    padding: 10px 16px;
+
+    border:
+        1px solid rgba(
+            212,
+            175,
+            55,
+            0.65
+        );
+
+    border-radius: 7px;
+
+}
+
+
+.login-nav::after {
+
+    display: none;
+
+}
+
+
+.login-nav:hover {
+
+    background: #d4af37;
+
+    color: #050505 !important;
+
+}
+
+
+.hamburger {
+
+    display: none;
+
+    width: 42px;
+
+    height: 42px;
+
+    border: 1px solid #555;
+
+    border-radius: 7px;
+
+    background: #111;
+
+    cursor: pointer;
+
+    padding: 8px;
+
+}
+
+
+.hamburger span {
+
+    display: block;
+
+    height: 2px;
+
+    margin: 5px 0;
+
+    background: #d4af37;
+
+    transition:
+        0.3s ease;
+
+}
+
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.verify-page {
+
+    position: relative;
+
+    min-height:
+        calc(100vh - 140px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        70px 20px;
+
+    overflow: hidden;
+
+}
+
+
+
+/* =========================================================
+   BACKGROUND GLOWS
+========================================================= */
+
+.background-glow {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(80px);
+
+    opacity: 0.22;
+
+}
+
+
+.glow-one {
+
+    width: 300px;
+
+    height: 300px;
+
+    top: -80px;
+
+    left: -80px;
+
+    background: #d4af37;
+
+}
+
+
+.glow-two {
+
+    width: 260px;
+
+    height: 260px;
+
+    right: -80px;
+
+    bottom: -70px;
+
+    background: #777777;
+
+}
+
+
+
+/* =========================================================
+   VERIFICATION CARD
+========================================================= */
+
+.verification-card {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: min(
+        100%,
+        500px
+    );
+
+    padding:
+        45px 40px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30,30,30,0.98),
+            rgba(7,7,7,0.98)
+        );
+
+    border:
+        1px solid rgba(
+            212,
+            175,
+            55,
+            0.35
+        );
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.65),
+        inset 0 1px 0
+        rgba(255,255,255,0.05);
+
+    text-align: center;
+
+}
+
+
+
+/* =========================================================
+   VERIFICATION ICON
+========================================================= */
+
+.verification-icon {
+
+    width: 78px;
+
+    height: 78px;
+
+    margin:
+        0 auto 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(
+            212,
+            175,
+            55,
+            0.65
+        );
+
+    background:
+        rgba(
+            212,
+            175,
+            55,
+            0.08
+        );
+
+    color: #d4af37;
+
+    font-size: 31px;
+
+    box-shadow:
+        0 0 35px
+        rgba(
+            212,
+            175,
+            55,
+            0.12
+        );
+
+}
+
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.verification-card h1 {
+
+    margin-bottom: 12px;
+
+    color: #ffffff;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+
+}
+
+
+.verification-description {
+
+    color: #a9a9a9;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+}
+
+
+.applicant-email {
+
+    margin:
+        8px auto 30px;
+
+    color: #d4af37;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    word-break: break-word;
+
+}
+
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-group {
+
+    text-align: left;
+
+    margin-bottom: 20px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #eeeeee;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+.code-input-wrapper {
+
+    position: relative;
+
+}
+
+
+.code-input-wrapper i {
+
+    position: absolute;
+
+    left: 16px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: #d4af37;
+
+    pointer-events: none;
+
+}
+
+
+.code-input-wrapper input {
+
+    width: 100%;
+
+    height: 56px;
+
+    padding:
+        0 18px 0 48px;
+
+    border:
+        1px solid #3d3d3d;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #101010;
+
+    color: #ffffff;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    letter-spacing: 8px;
+
+    text-align: center;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+.code-input-wrapper input::placeholder {
+
+    color: #666666;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+
+    font-weight: 400;
+
+}
+
+
+.code-input-wrapper input:focus {
+
+    border-color: #d4af37;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            212,
+            175,
+            55,
+            0.1
+        );
+
+}
+
+
+
+/* =========================================================
+   VERIFY BUTTON
+========================================================= */
+
+.verify-btn {
+
+    width: 100%;
+
+    height: 54px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e2c15c,
+            #b8941f
+        );
+
+    color: #050505;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+
+}
+
+
+.verify-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(
+            212,
+            175,
+            55,
+            0.22
+        );
+
+}
+
+
+.verify-btn:disabled {
+
+    cursor: not-allowed;
+
+    opacity: 0.6;
+
+    transform: none;
+
+}
+
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.verification-message {
+
+    min-height: 22px;
+
+    margin-top: 18px;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+}
+
+
+.verification-message.success {
+
+    color: #45d483;
+
+}
+
+
+.verification-message.error {
+
+    color: #ff6b6b;
+
+}
+
+
+
+/* =========================================================
+   RESEND
+========================================================= */
+
+.resend-section {
+
+    margin-top: 30px;
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid #282828;
+
+}
+
+
+.resend-section p {
+
+    color: #999999;
+
+    font-size: 13px;
+
+}
+
+
+.resend-btn {
+
+    margin-top: 10px;
+
+    padding: 10px 16px;
+
+    border:
+        1px solid
+        rgba(
+            212,
+            175,
+            55,
+            0.5
+        );
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: #d4af37;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.resend-btn:hover {
+
+    background:
+        rgba(
+            212,
+            175,
+            55,
+            0.1
+        );
+
+}
+
+
+.resend-btn:disabled {
+
+    cursor: not-allowed;
+
+    opacity: 0.5;
+
+}
+
+
+.resend-message {
+
+    margin-top: 10px;
+
+    min-height: 18px;
+
+}
+
+
+.resend-message.success {
+
+    color: #45d483;
+
+}
+
+
+.resend-message.error {
+
+    color: #ff6b6b;
+
+}
+
+
+
+/* =========================================================
+   LOGIN LINK
+========================================================= */
+
+.login-link {
+
+    margin-top: 28px;
+
+    color: #888888;
+
+    font-size: 13px;
+
+}
+
+
+.login-link a {
+
+    color: #d4af37;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+}
+
+
+.login-link a:hover {
+
+    text-decoration: underline;
+
+}
+
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+    min-height: 64px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 15px 20px;
+
+    border-top:
+        1px solid #222222;
+
+    background: #050505;
+
+    color: #777777;
+
+    text-align: center;
+
+    font-size: 12px;
+
+}
+
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
+@media (max-width: 992px) {
+
+    .nav-container {
+
+        min-height: 68px;
+
+    }
+
+
+    .hamburger {
+
+        display: block;
+
+    }
+
+
+    .nav-links {
+
+        position: absolute;
+
+        top: 68px;
+
+        left: 0;
+
+        width: 100%;
+
+        display: none;
+
+        flex-direction: row;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 12px;
+
+        padding: 14px;
+
+        background: #080808;
+
+        border-bottom:
+            1px solid
+            rgba(
+                212,
+                175,
+                55,
+                0.3
+            );
+
+    }
+
+
+    .nav-links.active {
+
+        display: flex;
+
+    }
+
+
+    .nav-links a {
+
+        padding: 8px 10px;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .logo-text {
+
+        max-width: 190px;
+
+        font-size: 12px;
+
+    }
+
+
+    .logo-circle {
+
+        width: 40px;
+
+        height: 40px;
+
+        font-size: 15px;
+
+    }
+
+
+    .verify-page {
+
+        min-height:
+            calc(100vh - 132px);
+
+        padding:
+            40px 14px;
+
+    }
+
+
+    .verification-card {
+
+        padding:
+            35px 20px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .verification-card h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .verification-icon {
+
+        width: 68px;
+
+        height: 68px;
+
+        font-size: 27px;
+
+    }
+
+
+    .code-input-wrapper input {
+
+        font-size: 20px;
+
+        letter-spacing: 6px;
+
+    }
+
+
+    .nav-links {
+
+        gap: 4px;
+
+    }
+
+
+    .nav-links a {
+
+        font-size: 12px;
+
+        padding: 7px;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .logo-text {
+
+        max-width: 145px;
+
+        font-size: 10px;
+
+    }
+
+
+    .verification-card {
+
+        padding:
+            30px 15px;
+
+    }
+
+
+    .code-input-wrapper input {
+
+        letter-spacing: 4px;
+
+    }
+
+}

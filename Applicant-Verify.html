@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Verify your applicant account with Unicorn Innovation Hill Limited."
+    >
+
+    <title>Verify Account | Unicorn Innovation Hill Limited</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Verification CSS -->
+    <link
+        rel="stylesheet"
+        href="Applicant-Verify.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     PAGE LOADER
+========================================================= -->
+
+<div
+    class="page-loader"
+    id="pageLoader"
+>
+
+    <div class="loader-logo">
+        UI
+    </div>
+
+    <div class="loader-spinner"></div>
+
+</div>
+
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+
+            <span class="logo-circle">
+                UI
+            </span>
+
+            <span class="logo-text">
+                Unicorn Innovation Hill Limited
+            </span>
+
+        </a>
+
+
+
+        <!-- HAMBURGER -->
+
+        <button
+            class="hamburger"
+            id="hamburger"
+            type="button"
+            aria-label="Open navigation"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav
+            class="nav-links"
+            id="navLinks"
+        >
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="About.html">
+                About Us
+            </a>
+
+            <a href="Applicant-Login.html">
+                Jobs
+            </a>
+
+            <a href="Contact.html">
+                Contact
+            </a>
+
+            <a
+                href="Applicant-login.html"
+                class="login-nav"
+            >
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Login
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="verify-page">
+
+
+    <!-- BACKGROUND EFFECT -->
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+
+
+    <!-- VERIFICATION CARD -->
+
+    <section class="verification-card">
+
+
+        <!-- ICON -->
+
+        <div class="verification-icon">
+
+            <i class="fa-solid fa-envelope-circle-check"></i>
+
+        </div>
+
+
+
+        <!-- TITLE -->
+
+        <h1>
+            Verify Your Email
+        </h1>
+
+
+
+        <!-- DESCRIPTION -->
+
+        <p class="verification-description">
+
+            We've sent a 6-digit verification code to:
+
+        </p>
+
+
+        <p
+            class="applicant-email"
+            id="applicantEmail"
+        >
+            Loading email...
+        </p>
+
+
+
+        <!-- FORM -->
+
+        <form
+            id="verifyForm"
+            novalidate
+        >
+
+
+            <!-- CODE -->
+
+            <div class="form-group">
+
+                <label for="verificationCode">
+                    Verification Code
+                </label>
+
+                <div class="code-input-wrapper">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <input
+                        type="text"
+                        id="verificationCode"
+                        name="verificationCode"
+                        placeholder="Enter 6-digit code"
+                        maxlength="6"
+                        inputmode="numeric"
+                        autocomplete="one-time-code"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- VERIFY BUTTON -->
+
+            <button
+                type="submit"
+                id="verifyBtn"
+                class="verify-btn"
+            >
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                Verify Email
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- MESSAGE -->
+
+        <div
+            id="verificationMessage"
+            class="verification-message"
+            role="alert"
+        ></div>
+
+
+
+        <!-- RESEND SECTION -->
+
+        <div class="resend-section">
+
+            <p>
+                Didn't receive the code?
+            </p>
+
+            <button
+                type="button"
+                id="resendBtn"
+                class="resend-btn"
+            >
+
+                <i class="fa-solid fa-rotate-right"></i>
+
+                Resend Verification Code
+
+            </button>
+
+            <p
+                id="resendMessage"
+                class="resend-message"
+            ></p>
+
+        </div>
+
+
+
+        <!-- LOGIN -->
+
+        <div class="login-link">
+
+            Already verified?
+
+            <a href="Applicant-login.html">
+                Login here
+            </a>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <p>
+        &copy;
+        <span id="currentYear"></span>
+        Unicorn Innovation Hill Limited.
+        All Rights Reserved.
+    </p>
+
+</footer>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="Applicant-Verify.js"></script>
+
+</body>
+
+</html>
