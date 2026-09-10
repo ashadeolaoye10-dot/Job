@@ -219,7 +219,6 @@ if (verifyForm) {
 
             event.preventDefault();
 
-
             showVerificationMessage("", "");
 
 
@@ -288,7 +287,7 @@ if (verifyForm) {
 
 
             /* =================================================
-               SEND REQUEST
+               SEND VERIFICATION REQUEST
             ================================================= */
 
             try {
@@ -390,7 +389,7 @@ if (verifyForm) {
                 ) {
 
                     showVerificationMessage(
-                        "✅ Email verified successfully! Redirecting to login...",
+                        "Email verified successfully! Redirecting to login...",
                         "success"
                     );
 
@@ -398,6 +397,13 @@ if (verifyForm) {
                     if (verificationCode) {
 
                         verificationCode.disabled =
+                            true;
+                    }
+
+
+                    if (resendBtn) {
+
+                        resendBtn.disabled =
                             true;
                     }
 
@@ -432,7 +438,7 @@ if (verifyForm) {
             } catch (error) {
 
                 console.error(
-                    "❌ Verification error:",
+                    "Verification error:",
                     error
                 );
 
@@ -452,7 +458,7 @@ if (verifyForm) {
 
 
                 showVerificationMessage(
-                    "❌ " + message,
+                    message,
                     "error"
                 );
 
@@ -512,7 +518,7 @@ if (resendBtn) {
 
 
             /* =================================================
-               SEND REQUEST
+               SEND RESEND REQUEST
             ================================================= */
 
             try {
@@ -610,7 +616,7 @@ if (resendBtn) {
                 if (data.success === true) {
 
                     showResendMessage(
-                        "✅ A new verification code has been sent to your email.",
+                        "A new verification code has been sent to your email.",
                         "success"
                     );
 
@@ -627,7 +633,7 @@ if (resendBtn) {
             } catch (error) {
 
                 console.error(
-                    "❌ Resend error:",
+                    "Resend error:",
                     error
                 );
 
@@ -647,7 +653,7 @@ if (resendBtn) {
 
 
                 showResendMessage(
-                    "❌ " + message,
+                    message,
                     "error"
                 );
 

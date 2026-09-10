@@ -192,6 +192,122 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 </section>
 
 <!-- ==========================================
+     UI AI ASSISTANT
+========================================== -->
+
+<!-- Floating AI Button -->
+<button id="uiAiButton" class="ui-ai-button" aria-label="Open UI AI Assistant">
+
+    <span class="ui-ai-icon">
+        <i class="fa-solid fa-robot"></i>
+    </span>
+
+    <span class="ui-ai-label">
+        Ask UI
+    </span>
+
+</button>
+
+
+<!-- AI Chat Window -->
+<div id="uiAiChat" class="ui-ai-chat">
+
+    <!-- Chat Header -->
+    <div class="ui-ai-header">
+
+        <div class="ui-ai-header-info">
+
+            <div class="ui-ai-avatar">
+                UI
+            </div>
+
+            <div>
+                <h3>UI Assistant</h3>
+
+                <span>
+                    <i class="fa-solid fa-circle"></i>
+                    Online
+                </span>
+            </div>
+
+        </div>
+
+        <button
+            id="uiAiClose"
+            class="ui-ai-close"
+            aria-label="Close UI Assistant">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+
+    <!-- Chat Messages -->
+    <div id="uiAiMessages" class="ui-ai-messages">
+
+        <!-- Welcome Message -->
+        <div class="ui-message ui-message-ai">
+
+            <div class="ui-message-avatar">
+                UI
+            </div>
+
+            <div class="ui-message-content">
+
+                <p>
+                    Hello! I'm <strong>UI</strong>, the Unicorn Innovation Hill Limited AI Assistant.
+                </p>
+
+                <p>
+                    I can help you find information about jobs, applications,
+                    recruitment and our company.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Typing Indicator -->
+    <div id="uiAiTyping" class="ui-ai-typing">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+        <small>UI is typing...</small>
+
+    </div>
+
+
+    <!-- Chat Input -->
+    <form id="uiAiForm" class="ui-ai-input-area">
+
+        <textarea
+            id="uiAiInput"
+            placeholder="Ask UI something..."
+            rows="1"
+            maxlength="5000"
+            autocomplete="off"></textarea>
+
+        <button
+            type="submit"
+            id="uiAiSend"
+            aria-label="Send message">
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+        </button>
+
+    </form>
+
+</div>
+
+<!-- ==========================================
      COMPANY STATISTICS
 ========================================== -->
 
